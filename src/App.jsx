@@ -8,6 +8,7 @@ import { SinglePostPage } from './pages/singlePostPage/singlePostPage';
 import { Navbar } from './components/navbar/navbar';
 import { BookmarkPage } from './pages/bookmarks/bookmarks';
 import { People } from './components/people/people';
+import { RequiresAuth } from './requiresAuth/requiresAuth';
 // import Mockman from 'mockman-js'
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
       <Navbar />
       <People />
       <Routes>
-        <Route path='/' element={<HomePage />} />
+        <Route path='/' element={<RequiresAuth><HomePage /></RequiresAuth>} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/signup' element={<SignupPage />} />
         <Route path='/explore' element={<AllPosts />} />
