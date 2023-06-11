@@ -12,6 +12,8 @@ import { IoIosCloseCircleOutline } from 'react-icons/io'
 export const Navbar = () => {
     const navigate = useNavigate()
 
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
     const [isPostModalOpen, setIsPostModalOpen] = useState(false)
     const [postInput, setPostInput] = useState({
         content: "",
@@ -104,11 +106,11 @@ export const Navbar = () => {
                 </div>
                 <div className="profile" onClick={() => navigate('profile')}>
                     <div className="profile-pic-container">
-                        <img src="https://picsum.photos/200" alt="profile" className="profile-pic" />
+                        <img src={userData?.profile_pic} alt="profile" className="profile-pic" />
                     </div>
                     <div className="content">
-                        <p className="profile-name">Profile Name</p>
-                        <p className="profile-username">Profile Username</p>
+                        <p className="profile-name">{`${userData?.firstName} ${userData?.lastName}`}</p>
+                        <p className="profile-username">{userData?.username}</p>
                     </div>
                 </div>
             </div>
@@ -118,7 +120,7 @@ export const Navbar = () => {
                         <button className="close-btn" onClick={() => closePostModal()}><TfiClose /></button>
                         <div className="img-and-text">
                             <div className="profile-pic-container">
-                                <img src="https://picsum.photos/200" alt="profile" className="profile-pic" />
+                                <img src={userData?.profile_pic} alt="profile" className="profile-pic" />
                             </div>
                             <textarea name="" id="" cols="30" rows="7"
                                 className='post-textarea'
