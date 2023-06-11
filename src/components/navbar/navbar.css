@@ -1,0 +1,460 @@
+@media only screen and (max-width: 900px) {
+    .navbar .nav-head {
+        justify-content: center;
+    }
+
+    .navbar .nav-head .nav-text {
+        display: none;
+    }
+
+    .navbar .nav-link {
+        justify-content: center;
+    }
+
+    .navbar .nav-link .nav-text {
+        display: none;
+    }
+
+    .navbar .btn-container .post-btn {
+        border: 0 !important;
+    }
+
+    .navbar .btn-container .post-btn:hover {
+        background-color: transparent !important;
+        box-shadow: rgba(0, 0, 0, 0) 0 0 0 !important;
+        color: #000 !important;
+    }
+
+    .navbar .btn-container .post-btn .text {
+        display: none;
+    }
+
+    .navbar .profile .content {
+        display: none !important;
+    }
+
+    .post-modal-container .post-modal {
+        width: 80% !important;
+    }
+    
+    .post-modal-container .post-modal .img-and-text .post-textarea, .post-modal-container .post-modal .post-modal-fileinput-container .fileinput-label, .post-modal-container .post-modal .btn-container button  {
+        font-size: 1rem !important;
+    }
+
+    .post-modal-container .post-modal .post-modal-fileinput-container .fileinput-label .text {
+        display: none;
+    }
+
+    .post-modal-container .post-modal .btn-container .btn:hover {
+        color: #fff !important;
+        background-color: #000 !important;
+    }
+
+    .post-modal-confirmation-dialog-container .post-modal-confirmation-dialog {
+        width: 75% !important;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .navbar {
+        display: flex;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        height: 10vh !important;
+        margin-top: 90vh;
+        padding: 0 !important;
+        background-color: #fff;
+        box-shadow: rgba(0, 0, 0, 0.5) 0 0 8px;
+        padding: 0.25rem !important;
+    }
+    
+    .navbar * {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .navbar .nav-upper-section {
+        display: flex;
+        justify-content: space-between;
+        width: 70%;
+    }
+    
+    .navbar .nav-upper-section .nav-links {
+        display: flex;
+        justify-content: space-between;
+        width: 35%;
+    }
+    .navbar .btn-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.navbar {
+    position: fixed;
+    width: 25%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0.25rem 2% 0.75rem 2%;
+    overflow: auto;
+}
+
+.navbar::-webkit-scrollbar {
+    width: 3px;
+}
+
+.navbar::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+}
+
+.navbar::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.navbar .nav-head {
+    display: flex;
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem;
+    transition: 0.5s;
+}
+
+.navbar .nav-head:hover {
+    cursor: pointer;
+    transform: scale(1.015);
+}
+
+.navbar .nav-head:active {
+    transform: scale(1);
+}
+
+.navbar .nav-head .nav-img-container {
+    width: 2rem;
+    margin-right: 0.5rem;
+}
+
+.navbar .nav-links {
+    margin-top: 30%;
+}
+
+.navbar .nav-links .nav-link {
+    text-decoration: none;
+    margin: 1rem 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #000;
+    transition: 0.5s;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .nav-links .nav-link:hover {
+    text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+}
+
+.navbar .nav-links .nav-link .nav-img {
+    margin-right: 1rem;
+}
+
+.navbar .btn-container .post-btn {
+    width: 100%;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: 0.25px dashed rgba(0, 0, 0, 0.5);
+    border-radius: 0.5rem;
+    transition: 0.5s ease;
+    margin: 2rem 0;
+}
+
+.navbar .btn-container .post-btn:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0 0 4px;
+    background-color: #000;
+    color: #fff;
+}
+
+.navbar .btn-container .post-btn .btn-img {
+    margin-right: 0.75rem;
+}
+
+.navbar .btn-container .post-btn:hover {
+    cursor: pointer;
+}
+
+.navbar .profile {
+    display: flex;
+    cursor: pointer;
+}
+
+.navbar .profile .profile-pic-container {
+    width: 3rem;
+    border-radius: 500px;
+    margin-right: 0.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.navbar .profile .profile-pic-container img {
+    transition: 0.5s;
+}
+
+.navbar .profile .profile-pic-container img:hover {
+    transform: scale(1.2);
+}
+
+.navbar .profile .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.navbar .profile .content .profile-name {
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.navbar .profile .content .profile-username {
+    font-size: 0.8rem;
+    font-weight: 300;
+    font-style: italic;
+}
+
+.navbar .profile .content .profile-username::before {
+    content: '@';
+}
+
+
+.post-modal-container {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.post-modal-container .post-modal {
+    background-color: #fff;
+    border-radius: 0.35rem;
+    width: 30%;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+    border: 0.2px solid rgba(0, 0, 0, 0.2);
+}
+
+.post-modal-container .post-modal .close-btn {
+    border: 0;
+    padding: 0.5rem;
+    border-radius: 100px;
+    font-size: 1.15rem;
+    background-color: transparent;
+    cursor: pointer;
+    margin: -0.5rem 0 0.5rem -0.5rem;
+    z-index: 1;
+}
+
+.post-modal-container .post-modal .close-btn:active {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.post-modal-container .post-modal .img-and-text {
+    display: flex;
+}
+
+.post-modal-container .post-modal .img-and-text .profile-pic-container {
+    width: 5rem;
+    margin-right: 1rem;
+    display: flex;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+.post-modal-container .post-modal .img-and-text .profile-pic-container img {
+    border-radius: 500px;
+}
+
+.post-modal-container .post-modal .img-and-text .post-textarea {
+    /*removes default styles of a textarea*/
+    border: none;
+    overflow: auto;
+    outline: none;
+    resize: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background-color: transparent;
+
+    font-size: 1.25rem;
+    font-family: 'Montserrat', sans-serif;
+    padding: 0 1rem 0 0;
+    margin: 0;
+}
+
+.post-modal-container .post-modal .img-and-text .post-textarea::-webkit-scrollbar {
+    width: 3px;
+}
+
+.post-modal-container .post-modal .img-and-text .post-textarea::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+}
+
+.post-modal-container .post-modal .img-and-text .post-textarea::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.post-modal-container .post-modal .input-img-container {
+    width: 10rem;
+    height: fit-content;
+    margin: auto;
+    position: relative;
+    margin-top: 1rem;
+}
+
+.post-modal-container .post-modal .input-img-container .remove-img {
+    position :fixed;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 2rem;
+    color: #fc0101;
+}
+
+.post-modal-container .post-modal .post-modal-hr {
+    margin: 1rem 0;
+}
+
+.post-modal-container .post-modal .post-modal-foot {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-modal-container .post-modal .post-modal-fileinput-container .post-modal-fileinput {
+    display: none;
+}
+
+.post-modal-container .post-modal .post-modal-fileinput-container .fileinput-label {
+    font-size: 1.25rem;
+    font-weight: 500;
+    background-color: #000;
+    color: #fff;
+    padding: 0.35rem;
+    display: flex;
+    border-radius: 0.35rem;
+    cursor: pointer;
+}
+
+.post-modal-container .post-modal .post-modal-fileinput-container .fileinput-label .img {
+    display: flex;
+    align-items: center;
+    margin-right: 0.35rem;
+}
+
+.post-modal-container .post-modal .btn-container button {
+    font-size: 1.25rem;
+    font-weight: 500;
+    background-color: #000;
+    color: #fff;
+    padding: 0.35rem;
+    border: 0.25px solid black;
+    border-radius: 0.5rem;
+    transition: 0.5s;
+}
+
+.post-modal-container .post-modal .btn-container .disabled-btn {
+    opacity: 0.5;
+}
+
+.post-modal-container .post-modal .btn-container .disabled-btn:active {
+    transform: scale(1);
+}
+
+.post-modal-container .post-modal .btn-container .btn:hover {
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+}
+
+.post-modal-container .post-modal .btn-container .btn:active {
+    background-color: #000;
+    color: #fff;
+}
+
+.post-modal-container .post-modal .btn-container .cancel {
+    margin-left: 0.5rem;
+}
+
+.post-modal-confirmation-dialog-container {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+
+.post-modal-confirmation-dialog-container .post-modal-confirmation-dialog {
+    background-color: #fff;
+    border-radius: 0.35rem;
+    width: 20%;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+    border: 0.2px solid rgba(0, 0, 0, 0.2);
+}
+
+.post-modal-confirmation-dialog-container .post-modal-confirmation-dialog .confirmation-text {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.post-modal-confirmation-dialog-container .post-modal-confirmation-dialog .btn-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-modal-confirmation-dialog-container .post-modal-confirmation-dialog .btn-container button {
+    width: 48%;
+    font-size: 1.15rem;
+    transition: 0.5s;
+    padding: 0.25rem;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+.post-modal-confirmation-dialog-container .post-modal-confirmation-dialog .btn-container button:active {
+    border-radius: 20px;
+}
+
+.post-modal-confirmation-dialog-container .post-modal-confirmation-dialog .btn-container .save {
+    color: #2e7d32;
+}
+
+.post-modal-confirmation-dialog-container .post-modal-confirmation-dialog .btn-container .save:active {
+    color: #1b5e20;
+    background-color: #B4FE98;
+}
+
+.post-modal-confirmation-dialog-container .post-modal-confirmation-dialog .btn-container .discard {
+    color: #e57373
+}
+
+.post-modal-confirmation-dialog-container .post-modal-confirmation-dialog .btn-container .discard:active {
+    color: #ff1744;
+    background-color: #ffcdd2;
+}

@@ -1,0 +1,8 @@
+.people {
+    position: fixed;
+    width: 25%;
+    height: 100vh;
+    right: 0;
+    padding: 0.25rem 2% 0.75rem 2%;
+    z-index: 0;
+}
