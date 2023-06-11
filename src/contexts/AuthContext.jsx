@@ -23,8 +23,7 @@ export const AuthenticationHandler = ({ children }) => {
             const data = await response.json();
             console.log(data)
             localStorage.setItem('encodedToken', data?.encodedToken);
-            localStorage.setItem('userName', `${data?.foundUser?.firstName} ${data?.foundUser?.lastName}`)
-            localStorage.setItem('userEmail', data?.foundUser?.email)
+            localStorage.setItem('userData', `${JSON.stringify(data?.foundUser)}`)
             setIsLoggedIn(true)
         } catch (error) {
             console.error(error);

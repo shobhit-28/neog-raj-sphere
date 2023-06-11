@@ -4,17 +4,6 @@ import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 import { AuthContext } from '../../contexts/AuthContext';
-// import { AuthContext } from '../../contexts/authContext';
-
-
-// export const LoginPage = () => {
-//     return (
-//         <div className="login-page page">
-//             <p className="heading">Login</p>
-//         </div>
-//     )
-// }
-
 
 export const LoginPage = () => {
     const { testLogin } = useContext(AuthContext);
