@@ -57,7 +57,21 @@ export const ProfilePage = () => {
                                 <p>You don't follow anyone</p>
                             </div>
                             :
-                            <div className="following-or-followers"></div>}
+                            <div className="following-or-followers">
+                            {userData?.following?.map((following) => (
+                                    <div className="follower-div">
+                                        <div className="left-section" onClick={() => navigate(`/user/${following?._id}`)}>
+                                            <div className="follower-img-container">
+                                                <img src={following?.profile_pic} alt="" />
+                                            </div>
+                                            <div className="details">
+                                                <p className="follower-name">{`${following?.firstName} ${following?.lastName}`}</p>
+                                                <p className="follower-username">{`@${following?.username}`}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}    
+                            </div>}
                     </div>
                 </div>
             }
