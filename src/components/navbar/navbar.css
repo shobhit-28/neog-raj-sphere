@@ -213,7 +213,7 @@
 .navbar .profile .content {
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     flex-direction: column;
 }
 
@@ -374,6 +374,7 @@
 
 .post-modal-container .post-modal .btn-container .disabled-btn {
     opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .post-modal-container .post-modal .btn-container .disabled-btn:active {

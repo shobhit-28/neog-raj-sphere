@@ -24,7 +24,7 @@ export const users = [
         firstName: "Rahul",
         lastName: "Mallick",
         username: "mallick",
-        profile_pic: "https://static.wikia.nocookie.net/animated/images/7/76/Yahiko.png/revision/latest?cb=20130805025820",
+        profile_pic: "https://staticg.sportskeeda.com/editor/2022/07/c2ed4-16587439752781.png",
       },
       {
         _id: "3",
@@ -47,7 +47,7 @@ export const users = [
     password: "1234abcd",
     createdAt: formatDate(),
     updatedAt: formatDate(),
-    profile_pic: "https://static.wikia.nocookie.net/animated/images/7/76/Yahiko.png/revision/latest?cb=20130805025820",
+    profile_pic: "https://staticg.sportskeeda.com/editor/2022/07/c2ed4-16587439752781.png",
     cover_pic: "",
     link: "https://mallickrahul.netlify.app",
     bio: "Singer",
@@ -173,7 +173,7 @@ export const users = [
         firstName: "Rahul",
         lastName: "Mallick",
         username: "mallick",
-        profile_pic: "https://static.wikia.nocookie.net/animated/images/7/76/Yahiko.png/revision/latest?cb=20130805025820",
+        profile_pic: "https://staticg.sportskeeda.com/editor/2022/07/c2ed4-16587439752781.png",
       },
       {
         _id: "3",
@@ -189,7 +189,7 @@ export const users = [
         firstName: "Rahul",
         lastName: "Mallick",
         username: "mallick",
-        pic: "https://static.wikia.nocookie.net/animated/images/7/76/Yahiko.png/revision/latest?cb=20130805025820"
+        pic: "https://staticg.sportskeeda.com/editor/2022/07/c2ed4-16587439752781.png"
       },
       {
         _id: "3",

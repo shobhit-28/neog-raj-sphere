@@ -1,18 +1,19 @@
 import './navbar.css'
 
 import { NavLink, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { MdOutlineExplore, MdBookmarks } from 'react-icons/md'
 import { BsPlusSquare } from 'react-icons/bs'
 import { TfiClose } from 'react-icons/tfi'
 import { RiImageAddLine } from 'react-icons/ri'
 import { IoIosCloseCircleOutline } from 'react-icons/io'
+import { AuthContext } from '../../contexts/AuthContext'
 
 export const Navbar = () => {
     const navigate = useNavigate()
 
-    const userData = JSON.parse(localStorage.getItem('userData'));
+    const {userData} = useContext(AuthContext);
 
     const [isPostModalOpen, setIsPostModalOpen] = useState(false)
     const [postInput, setPostInput] = useState({

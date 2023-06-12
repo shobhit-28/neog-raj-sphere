@@ -6,14 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 
 export const LoginPage = () => {
-    const { testLogin } = useContext(AuthContext);
+    const { testLogin, login } = useContext(AuthContext);
 
     const navigate = useNavigate()
 
-    const [loginInputData, setLoginInputData] = useState({ email: '', password: '' })
+    const [loginInputData, setLoginInputData] = useState({ username: '', password: '' })
 
-    const emailChangeHandler = (event) => {
-        setLoginInputData({ ...loginInputData, email: event.target.value })
+    const userNameChangeHandler = (event) => {
+        setLoginInputData({ ...loginInputData, username: event.target.value })
     }
 
     const passwordChangeHandler = (event) => {
@@ -32,9 +32,9 @@ export const LoginPage = () => {
                 </p>
                 <form action="" className="login">
                     <div className="input-field-container">
-                        <label className="email">
-                            <span className="input-title">Email: </span>
-                            <input type="email" name="" id="email" onChange={emailChangeHandler} />
+                        <label className="username">
+                            <span className="input-title">Username: </span>
+                            <input type="text" name="" id="username" onChange={userNameChangeHandler} />
                         </label>
                     </div>
                     <div className="input-field-container">
@@ -46,7 +46,7 @@ export const LoginPage = () => {
                 </form>
                 <div className='buttons'>
                     <button className="login login-btn"
-                    //  onClick={() => login(loginInputData)} 
+                     onClick={() => login(loginInputData)} 
                     >Login</button>
                     <button className="test-login login-btn" onClick={testLogin}>Test Login</button>
                     <button className="signup" onClick={signUpClickHandler}>{`Create an Account >`}</button>

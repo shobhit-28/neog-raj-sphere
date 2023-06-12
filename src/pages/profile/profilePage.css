@@ -1,0 +1,184 @@
+@media only screen and (max-width: 900px) {
+    .profile-page .profile-btn-container button {
+        font-size: 1rem !important;
+        margin: 0 0.25rem !important;
+    }
+    .profile-page .img-container .profile-pic-container {
+        width: 5rem !important;
+        margin-left: 0.5rem !important;
+    }
+    .profile-page .img-container .profile-pic-container img:hover {
+        transform: scale(1) !important;
+    }
+    .profile-page .followers-btn-container button {
+        margin-right: 0.5rem !important;
+    }
+}
+
+
+/* .profile-page {
+    position: fixed;
+} */
+.profile-page .img-container {
+    position: relative;
+}
+
+.profile-page .img-container .cover-pic-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    cursor: pointer;
+}
+
+.profile-page .img-container .profile-pic-container {
+    overflow: hidden;
+    width: 18%;
+    border-radius: 100px;
+    display: flex;
+    position: absolute;
+    top: 70%;
+    margin-left: 1rem;
+    border: 2px solid #fff;
+    cursor: pointer;
+}
+
+.profile-page .img-container .profile-pic-container img {
+    transition: 0.5s;
+}
+
+.profile-page .img-container .profile-pic-container img:hover {
+    transform: scale(1.05);
+}
+
+.profile-page .profile-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem 1rem;
+}
+
+.profile-page .profile-btn-container .edit {
+    font-size: 1.1rem;
+    margin: 0 0.5rem;
+    padding: 0.35rem;
+    background-color: #000;
+    color: #fff;
+    transition: 0.5s;
+    border-radius: 0.35rem;
+    width: 8rem;
+    border-width: 0.25px;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-page .profile-btn-container .edit .text {
+    margin-left: 0.25rem;
+}
+
+.profile-page .profile-btn-container .edit:hover {
+    cursor: pointer;
+    color: #000;
+    background-color: #fff;
+}
+
+.profile-page .profile-btn-container .edit:active {
+    background-color: #000;
+    color: #fff;
+}
+
+.profile-page .profile-btn-container .logout {
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+    background-color: transparent;
+    transition: 0.5s;
+    border: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    padding: 0 0.25rem;
+}
+
+.profile-page .profile-btn-container .logout:active {
+    transform: scale(1);
+    background-color: rgba(0, 0, 0, .3);
+}
+
+.profile-page .content {
+    margin: 1rem;
+}
+
+.profile-page .content .name-username .user-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.profile-page .content .name-username .user-username {
+    font-size: 0.85rem;
+    color: rgba(0, 0, 0, .7);
+    font-style: italic;
+    margin-bottom: 0.5rem;
+}
+
+.profile-page .content .user-email::before {
+    content: "Email: ";
+}
+
+.profile-page .content .user-email {
+    margin-bottom: 0.5rem;
+}
+
+.profile-page .content .user-bio {
+    margin-bottom: 0.5rem;
+}
+
+.profile-page .content .link {
+    color: #000;
+}
+
+.profile-page .followers-btn-container {
+    margin: 1rem;
+}
+
+.profile-page .followers-btn-container button {
+    margin-right: 1rem;
+    font-size: 1rem;
+    padding: 0.25rem 1rem;
+    border-width: 0.25px;
+    border-radius: 0.35rem;
+    transition: 0.5s;
+    background-color: black;
+    color: #fff;
+}
+
+.profile-page .followers-btn-container button:hover {
+    cursor: pointer;
+    color: black;
+    background-color: #fff;
+}
+
+.profile-page .followers-btn-container button:active {
+    background-color: black;
+    color: #fff;
+}
+
+.follower-following-modal-container {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.follower-following-modal-container .following-modal {
+    background-color: #fff;
+    border-radius: 0.35rem;
+    width: 30%;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+    border: 0.2px solid rgba(0, 0, 0, 0.2);
+}
+
