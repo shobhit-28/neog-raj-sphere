@@ -194,7 +194,8 @@
 
 .navbar .profile .profile-pic-container {
     width: 3rem;
-    border-radius: 500px;
+    height: 3rem;
+    border-radius: 100%;
     margin-right: 0.25rem;
     display: flex;
     justify-content: center;
@@ -204,6 +205,8 @@
 
 .navbar .profile .profile-pic-container img {
     transition: 0.5s;
+    height: 100%;
+    width: auto;
 }
 
 .navbar .profile .profile-pic-container img:hover {
@@ -273,15 +276,20 @@
 }
 
 .post-modal-container .post-modal .img-and-text .profile-pic-container {
-    width: 5rem;
+    width: 6rem;
+    height: 5rem;
+    border-radius: 100%;
     margin-right: 1rem;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
 }
 
 .post-modal-container .post-modal .img-and-text .profile-pic-container img {
-    border-radius: 500px;
+    /* border-radius: 500px; */
+    height: 100%;
+    width: auto;
 }
 
 .post-modal-container .post-modal .img-and-text .post-textarea {

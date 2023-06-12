@@ -3,15 +3,50 @@
         font-size: 1rem !important;
         margin: 0 0.25rem !important;
     }
-    .profile-page .img-container .profile-pic-container {
-        width: 5rem !important;
-        margin-left: 0.5rem !important;
+
+    .profile-page .img-container .cover-pic-container {
+        height: 200px !important;
     }
+
+    .profile-page .img-container .profile-pic-container {
+        width: 8rem !important;
+        height: 8rem !important;
+        margin-left: 0.5rem !important;
+        top: 130px !important;
+    }
+
     .profile-page .img-container .profile-pic-container img:hover {
         transform: scale(1) !important;
     }
+
     .profile-page .followers-btn-container button {
         margin-right: 0.5rem !important;
+    }
+
+    .follower-following-modal-container .modal {
+        width: 70% !important;
+    }
+
+    .profile-pic-zoom-modal-container .profile-pic-zoom-modal {
+        width: 10rem !important;
+        height: 10rem !important;
+    }
+    .cover-pic-zoom-modal-container .cover-pic-zoom-modal {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .follower-following-modal-container .modal {
+        width: 100% !important;
+    }
+    .profile-page .img-container .profile-pic-container {
+        width: 5.5rem !important;
+        height: 5.5rem !important;
+        top: 90px !important;
+    }
+    .profile-page .img-container .cover-pic-container {
+        height: 125px !important;
     }
 }
 
@@ -26,23 +61,30 @@
 .profile-page .img-container .cover-pic-container {
     position: relative;
     width: 100%;
+    height: 255px;
     display: flex;
     cursor: pointer;
 }
 
 .profile-page .img-container .profile-pic-container {
     overflow: hidden;
-    width: 18%;
-    border-radius: 100px;
+    width: 8.75rem;
+    height: 8.75rem;
+    border-radius: 100%;
     display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
-    top: 70%;
+    top: 11.25rem;
+    /* top: 70%; */
     margin-left: 1rem;
     border: 2px solid #fff;
     cursor: pointer;
 }
 
 .profile-page .img-container .profile-pic-container img {
+    width: auto;
+    height: 100%;
     transition: 0.5s;
 }
 
@@ -173,7 +215,7 @@
     z-index: 1;
 }
 
-.follower-following-modal-container .following-modal {
+.follower-following-modal-container .modal {
     background-color: #fff;
     border-radius: 0.35rem;
     width: 30%;
@@ -182,3 +224,168 @@
     border: 0.2px solid rgba(0, 0, 0, 0.2);
 }
 
+.follower-following-modal-container .modal .close-btn {
+    border: 0;
+    padding: 0.5rem;
+    border-radius: 100px;
+    font-size: 1.15rem;
+    background-color: transparent;
+    cursor: pointer;
+    margin: -0.5rem 0 0.5rem -0.5rem;
+}
+
+.follower-following-modal-container .modal .close-btn:active {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.follower-following-modal-container .modal .none {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10rem;
+    /* width: 25rem; */
+    font-size: 1.5rem;
+}
+
+.follower-following-modal-container .modal .following-or-followers {
+    max-height: 28rem;
+    overflow: auto;
+}
+
+.follower-following-modal-container .modal .following-or-followers::-webkit-scrollbar {
+    width: 3px;
+}
+
+.follower-following-modal-container .modal .following-or-followers::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+}
+
+.follower-following-modal-container .modal .following-or-followers::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.follower-following-modal-container .modal .following-or-followers .follower-div {
+    cursor: pointer;
+}
+
+.follower-following-modal-container .modal .following-or-followers .follower-div:not(.follower-following-modal-container .modal .following-or-followers .follower-div:last-of-type) {
+    margin-bottom: 1rem;
+}
+
+.follower-following-modal-container .modal .following-or-followers .follower-div .follower-img-container {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.follower-following-modal-container .modal .following-or-followers .follower-div .follower-img-container img {
+    /* display: inline; */
+    /* margin: 0 auto; */
+    height: 100%;
+    width: auto;
+}
+
+.follower-following-modal-container .modal .following-or-followers .follower-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.follower-following-modal-container .modal .following-or-followers .follower-div .left-section {
+    display: flex;
+    align-items: center;
+}
+
+.follower-following-modal-container .modal .following-or-followers .follower-div .left-section .details {
+    margin-left: 0.5rem;
+}
+
+.follower-following-modal-container .modal .following-or-followers .follower-div .left-section .details .follower-name {
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.follower-following-modal-container .modal .following-or-followers .follower-div .left-section .details .follower-username {
+    font-size: 0.85rem;
+    color: rgba(0, 0, 0, 0.8);
+    font-style: italic;
+}
+
+.follower-following-modal-container .modal .following-or-followers .follower-div .unfollow {
+    font-size: 1rem;
+    padding: 0.25rem 0.5rem;
+    transition: 0.5s;
+    border-radius: 0.35rem;
+    background-color: #000;
+    color: #fff;
+}
+
+.follower-following-modal-container .modal .following-or-followers .follower-div .unfollow:hover {
+    cursor: pointer;
+    color: #000;
+    background-color: #fff;
+}
+
+.follower-following-modal-container .modal .following-or-followers .follower-div .unfollow:active {
+    background-color: #000;
+    color: #fff;
+}
+
+.profile-pic-zoom-modal-container {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-pic-zoom-modal-container .profile-pic-zoom-modal {
+    background-color: #fff;
+    border-radius: 100%;
+    overflow: hidden;
+    width: 18rem;
+    height: 18rem;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-pic-zoom-modal-container .profile-pic-zoom-modal img {
+    height: 100%;
+    width: auto;
+}
+
+.cover-pic-zoom-modal-container {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cover-pic-zoom-modal-container .cover-pic-zoom-modal {
+    background-color: #fff;
+    overflow: hidden;
+    width: 80%;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+    display: flex;
+    align-items: center;
+}
