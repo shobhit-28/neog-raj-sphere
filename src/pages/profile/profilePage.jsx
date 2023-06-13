@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import './profilePage.css'
 import { AuthContext } from '../../contexts/AuthContext'
+import { randomCoverPic, randomProfilePic } from '../../resources/randomImages/randomImages'
 
 import { TfiClose } from 'react-icons/tfi'
 import { LuLogOut } from 'react-icons/lu'
@@ -23,10 +24,10 @@ export const ProfilePage = () => {
             <div className="profile-page page">
                 <div className="img-container">
                     <div className="cover-pic-container" onClick={() => setIsCoverPicModalOpen(true)}>
-                        <img src={userData?.cover_pic?.length > 0 ? userData?.cover_pic : 'https://picsum.photos/1500/500'} alt="" className="cover-pic" />
+                        <img src={userData?.cover_pic?.length > 0 ? userData?.cover_pic : randomCoverPic} alt="" className="cover-pic" />
                     </div>
                     <div className="profile-pic-container" onClick={() => setIsProfilePicModalOpen(true)}>
-                        <img src={userData?.profile_pic} alt="" className="profile-pic" />
+                        <img src={userData?.profile_pic?.length > 0 ? userData?.profile_pic : randomProfilePic} alt="" className="profile-pic" />
                     </div>
                 </div>
                 <div className="profile-btn-container">
@@ -58,11 +59,11 @@ export const ProfilePage = () => {
                             </div>
                             :
                             <div className="following-or-followers">
-                            {userData?.following?.map((following) => (
+                                {userData?.following?.map((following) => (
                                     <div className="follower-div">
                                         <div className="left-section" onClick={() => navigate(`/user/${following?._id}`)}>
                                             <div className="follower-img-container">
-                                                <img src={following?.profile_pic} alt="" />
+                                                <img src={following?.profile_pic?.length > 0 ? following?.profile_pic : 'https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg'} alt="" />
                                             </div>
                                             <div className="details">
                                                 <p className="follower-name">{`${following?.firstName} ${following?.lastName}`}</p>
@@ -70,7 +71,7 @@ export const ProfilePage = () => {
                                             </div>
                                         </div>
                                     </div>
-                                ))}    
+                                ))}
                             </div>}
                     </div>
                 </div>
@@ -90,7 +91,7 @@ export const ProfilePage = () => {
                                     <div className="follower-div">
                                         <div className="left-section" onClick={() => navigate(`/user/${follower?._id}`)}>
                                             <div className="follower-img-container">
-                                                <img src={follower?.profile_pic} alt="" />
+                                                <img src={follower?.profile_pic?.length > 0 ? follower?.profile_pic : 'https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg'} alt="" />
                                             </div>
                                             <div className="details">
                                                 <p className="follower-name">{`${follower?.firstName} ${follower?.lastName}`}</p>
@@ -110,14 +111,14 @@ export const ProfilePage = () => {
             {isProfilePicModalOpen &&
                 <div className="profile-pic-zoom-modal-container" onClick={() => setIsProfilePicModalOpen(false)}>
                     <div className="profile-pic-zoom-modal" onClick={(event) => event.stopPropagation()}>
-                        <img src={userData?.profile_pic} alt="" className="profile-pic" />
+                        <img src={userData?.profile_pic?.length > 0 ? userData?.profile_pic : randomProfilePic} alt="" className="profile-pic" />
                     </div>
                 </div>
             }
             {isCoverPicModalOpen &&
                 <div className="cover-pic-zoom-modal-container" onClick={() => setIsCoverPicModalOpen(false)}>
                     <div className="cover-pic-zoom-modal" onClick={(event) => event.stopPropagation()}>
-                        <img src={userData?.cover_pic} alt="" className="cover-pic" />
+                        <img src={userData?.cover_pic?.length > 0 ? userData?.cover_pic : randomCoverPic} alt="" className="cover-pic" />
                     </div>
                 </div>
             }

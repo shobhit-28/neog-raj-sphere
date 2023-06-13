@@ -9,6 +9,7 @@ import { TfiClose } from 'react-icons/tfi'
 import { RiImageAddLine } from 'react-icons/ri'
 import { IoIosCloseCircleOutline } from 'react-icons/io'
 import { AuthContext } from '../../contexts/AuthContext'
+import { randomProfilePic } from '../../resources/randomImages/randomImages'
 
 export const Navbar = () => {
     const navigate = useNavigate()
@@ -107,7 +108,7 @@ export const Navbar = () => {
                 </div>
                 <div className="profile" onClick={() => navigate('profile')}>
                     <div className="profile-pic-container">
-                        <img src={userData?.profile_pic} alt="profile" className="profile-pic" />
+                        <img src={userData?.profile_pic?.length > 0 ? userData?.profile_pic : randomProfilePic} alt="profile" className="profile-pic" />
                     </div>
                     <div className="content">
                         <p className="profile-name">{`${userData?.firstName} ${userData?.lastName}`}</p>
@@ -121,7 +122,7 @@ export const Navbar = () => {
                         <button className="close-btn" onClick={() => closePostModal()}><TfiClose /></button>
                         <div className="img-and-text">
                             <div className="profile-pic-container">
-                                <img src={userData?.profile_pic} alt="profile" className="profile-pic" />
+                                <img src={userData?.profile_pic?.length > 0 ? userData?.profile_pic : randomProfilePic} alt="profile" className="profile-pic" />
                             </div>
                             <textarea name="" id="" cols="30" rows="7"
                                 className='post-textarea'
