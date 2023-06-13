@@ -8,8 +8,12 @@ import { randomCoverPic, randomProfilePic } from '../../resources/randomImages/r
 import { TfiClose } from 'react-icons/tfi'
 import { LuLogOut } from 'react-icons/lu'
 import { FiEdit } from 'react-icons/fi'
+import { MdOutlineAddPhotoAlternate } from 'react-icons/md'
+import { toast } from 'react-toastify'
 
 export const ProfilePage = () => {
+    const encodedToken = localStorage.getItem('encodedToken');
+
     const navigate = useNavigate()
 
     const { userData, logOut } = useContext(AuthContext)
@@ -18,6 +22,119 @@ export const ProfilePage = () => {
     const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false)
     const [isProfilePicModalOpen, setIsProfilePicModalOpen] = useState(false)
     const [isCoverPicModalOpen, setIsCoverPicModalOpen] = useState(false)
+    const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false)
+    // const [isEditProfileModalConfirmationDialogOpen, setIsEditProfileModalConfirmationDialogOpen] = useState(false);
+
+    // const [editedCoverPic, setEditedCoverPic] = useState('');
+    // const [editedProfilePic, setEditedProfilePic] = useState('');
+    // const [editedName, setEditedName] = useState('');
+    // const [editedUserName, setEditedUserName] = useState('');
+    // const [editedEmail, setEditedEmail] = useState('');
+    // const [editedBio, setEditedBio] = useState('');
+    // const [editedLink, setEditedLink] = useState('');
+
+    const [editedUserData, setEditedUserData] = useState({
+        cover_pic: '',
+        profile_pic: '',
+        firstName: '',
+        lastName: '',
+        user_email: '',
+        bio: '',
+        link: ''
+    })
+
+    const handleCoverPicChange = async (e) => {
+        const file = e.target.files[0];
+
+        const base64Promise = (file) =>
+            new Promise((resolve, reject) => {
+                const fileReader = new FileReader();
+                fileReader.readAsDataURL(file);
+                fileReader.onload = () => resolve(fileReader.result);
+                fileReader.onerror = (err) => reject(err);
+            });
+        let base64File = await base64Promise(file);
+        setEditedUserData({ ...editedUserData, cover_pic: base64File })
+    };
+
+    const handleProfilePicChange = async (e) => {
+        const file = e.target.files[0];
+
+        const base64Promise = (file) =>
+            new Promise((resolve, reject) => {
+                const fileReader = new FileReader();
+                fileReader.readAsDataURL(file);
+                fileReader.onload = () => resolve(fileReader.result);
+                fileReader.onerror = (err) => reject(err);
+            });
+        let base64File = await base64Promise(file);
+        setEditedUserData({ ...editedUserData, profile_pic: base64File })
+    };
+
+    const firstNameChangeHandler = (event) => {
+        setEditedUserData({ ...editedUserData, firstName: event.target.value })
+    }
+    
+    const lastNameChangeHandler = (event) => {
+        setEditedUserData({ ...editedUserData, lastName: event.target.value })
+    }
+
+    const emailChangeHandler = (event) => {
+        setEditedUserData({ ...editedUserData, user_email: event.target.value })
+    }
+
+    const bioChangeHandler = (event) => {
+        setEditedUserData({ ...editedUserData, bio: event.target.value })
+    }
+
+    const linkChangeHandler = (event) => {
+        setEditedUserData({ ...editedUserData, link: event.target.value })
+    }
+
+    const editUserData = async (inputData) => {
+        console.log('inputData', inputData)
+        try {
+            const response = await fetch('/api/users/edit', {
+                method: 'POST',
+                headers: { authorization: encodedToken },
+                body: JSON.stringify(inputData)
+            });
+
+            const data = await response.json();
+            console.log(data)
+            // if (data?.encodedToken) {
+            //     localStorage.setItem('encodedToken', data?.encodedToken);
+            //     localStorage.setItem('userData', `${JSON.stringify(data?.foundUser)}`)
+            //     toast.success(`Successfully edited`, {
+            //         position: "top-center",
+            //         autoClose: 1500,
+            //         hideProgressBar: false,
+            //         closeOnClick: true,
+            //         pauseOnHover: true,
+            //         draggable: true,
+            //         progress: undefined,
+            //         theme: "dark",
+            //         });
+            // } else {
+            //     toast.error(`Error ${response?.status}: ${data?.errors[0]}`, {
+            //         position: "top-center",
+            //         autoClose: 1500,
+            //         hideProgressBar: false,
+            //         closeOnClick: true,
+            //         pauseOnHover: true,
+            //         draggable: true,
+            //         progress: undefined,
+            //         theme: "dark",
+            //     });
+            // }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const editUserDataClickHandler = () => {
+        editUserData({ userData: editedUserData })
+    }
 
     return (
         <>
@@ -31,7 +148,7 @@ export const ProfilePage = () => {
                     </div>
                 </div>
                 <div className="profile-btn-container">
-                    <button className="edit"><FiEdit /><span className="text">Profile</span></button>
+                    <button className="edit" onClick={() => setIsEditProfileModalOpen(true)}><FiEdit /><span className="text">Profile</span></button>
                     <button className="logout" onClick={() => logOut()}><LuLogOut /></button>
                 </div>
                 <div className="content">
@@ -122,6 +239,86 @@ export const ProfilePage = () => {
                     </div>
                 </div>
             }
+            {isEditProfileModalOpen &&
+                <div className="profile-edit-modal-container" onClick={() => setIsEditProfileModalOpen(false)}>
+                    <div className="profile-edit-modal" onClick={(event) => event.stopPropagation()}>
+                        <div className="edit-modal-header">
+                            <button className="close-btn" onClick={() => setIsFollowersModalOpen(false)}><TfiClose /></button>
+                            <p className="heading">Edit Profile</p>
+                            <button className="save" onClick={() => editUserDataClickHandler()}>Save</button>
+                        </div>
+                        <form className="edit-user-data">
+                            <div className="img-container">
+                                <div className="cover-pic-container">
+                                    <img src={editedUserData?.cover_pic !== ""
+                                        ?
+                                        editedUserData?.cover_pic
+                                        :
+                                        userData?.cover_pic?.length > 0
+                                            ? userData?.cover_pic
+                                            : randomCoverPic}
+                                        alt="" className="cover-pic" />
+                                    <div className="edit-user-fileinput-container">
+                                        <label htmlFor='imgInput' className="fileinput-label"
+                                            title={`${editedUserData?.cover_pic !== "" ? editedUserData?.cover_pic : "No file chosen"}`}
+                                        >
+                                            <span className="img"><MdOutlineAddPhotoAlternate /></span>
+                                        </label>
+                                        <input type="file" name="" id="imgInput" className='edit-user-fileinput'
+                                            accept='image/x-png,image/gif,image/jpeg'
+                                            onChange={handleCoverPicChange}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="profile-pic-container">
+                                    <img src={editedUserData?.profile_pic !== ""
+                                        ?
+                                        editedUserData?.profile_pic
+                                        :
+                                        userData?.profile_pic?.length > 0
+                                            ? userData?.profile_pic
+                                            : randomProfilePic}
+                                        alt="" className="profile-pic" />
+                                    <div className="edit-user-fileinput-container">
+                                        <label htmlFor='imgInput' className="fileinput-label"
+                                            title={`${editedUserData?.profile_pic !== "" ? editedUserData?.profile_pic : "No file chosen"}`}
+                                        >
+                                            <span className="img"><MdOutlineAddPhotoAlternate /></span>
+                                        </label>
+                                        <input type="file" name="" id="imgInput" className='edit-user-fileinput'
+                                            accept='image/*'
+                                            onChange={handleProfilePicChange}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="profile-content-container">
+                                <label htmlFor="" className="edit-user-first-name">
+                                    <span className="text">First Name:</span>
+                                    <input onChange={(event) => firstNameChangeHandler(event)} type="text" name="" id="" className="edit-first-name" defaultValue={`${userData?.firstName}`} placeholder='First Name' />
+                                </label>
+                                <label htmlFor="" className="edit-user-last-name">
+                                    <span className="text">Last Name:</span>
+                                    <input onChange={(event) => lastNameChangeHandler(event)} type="text" name="" id="" className="edit-last-name" defaultValue={`${userData?.lastName}`} placeholder='Last Name' />
+                                </label>
+                                <label htmlFor="" className="edit-user-email" onChange={(event) => emailChangeHandler(event)}>
+                                    <span className="text">Email:</span>
+                                    <input type="email" name="" id="" className="edit-email" defaultValue={`${userData?.user_email}`} placeholder='email' />
+                                </label>
+                                <label htmlFor="" className="edit-user-bio" onChange={(event) => bioChangeHandler(event)}>
+                                    <span className="text">Bio:</span>
+                                    <input type="text" name="" id="" className="edit-bio" defaultValue={userData?.bio} placeholder='Bio' />
+                                </label>
+                                <label htmlFor="" className="edit-user-link" onChange={(event) => linkChangeHandler(event)}>
+                                    <span className="text">Website</span>
+                                    <input type="text" name="" id="" className="edit-link" defaultValue={userData?.link} placeholder='Website' />
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
+            { }
         </>
     )
 }
