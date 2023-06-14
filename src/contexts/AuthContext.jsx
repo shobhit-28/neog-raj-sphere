@@ -81,7 +81,7 @@ export const AuthenticationHandler = ({ children }) => {
     const logOut = () => {
         localStorage.clear();
         setIsLoggedIn(false);
-        toast.warn(`${userData?.firstName} ${userData?.lastName} Logged Out`, {
+        toast.warn(`Logged Out`, {
             position: "top-center",
             autoClose: 1500,
             hideProgressBar: false,

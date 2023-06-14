@@ -10,11 +10,13 @@ import { RiImageAddLine } from 'react-icons/ri'
 import { IoIosCloseCircleOutline } from 'react-icons/io'
 import { AuthContext } from '../../contexts/AuthContext'
 import { randomProfilePic } from '../../resources/randomImages/randomImages'
+import { DataContext } from '../../contexts/dataContext'
 
 export const Navbar = () => {
     const navigate = useNavigate()
 
-    const {userData} = useContext(AuthContext);
+    const { userData } = useContext(AuthContext);
+    const { editedData } = useContext(DataContext)
 
     const [isPostModalOpen, setIsPostModalOpen] = useState(false)
     const [postInput, setPostInput] = useState({
@@ -69,7 +71,7 @@ export const Navbar = () => {
         setIsClosePostModalConfirmationOpen(false)
         setIsPostModalOpen(false)
     }
-    
+
     const cancelConfirmationHandler = () => {
         setIsClosePostModalConfirmationOpen(false)
         setIsPostModalOpen(false)
@@ -108,10 +110,16 @@ export const Navbar = () => {
                 </div>
                 <div className="profile" onClick={() => navigate('profile')}>
                     <div className="profile-pic-container">
-                        <img src={userData?.profile_pic?.length > 0 ? userData?.profile_pic : randomProfilePic} alt="profile" className="profile-pic" />
+                        <img src={editedData?.profile_pic
+                            ?
+                            editedData?.profile_pic
+                            :
+                            userData?.profile_pic?.length > 0
+                                ? userData?.profile_pic
+                                : randomProfilePic} alt="profile" className="profile-pic" />
                     </div>
                     <div className="content">
-                        <p className="profile-name">{`${userData?.firstName} ${userData?.lastName}`}</p>
+                        <p className="profile-name">{`${editedData?.firstName ? editedData?.firstName : userData?.firstName} ${editedData?.lastName ? editedData?.lastName : userData?.lastName}`}</p>
                         <p className="profile-username">{userData?.username}</p>
                     </div>
                 </div>
@@ -122,7 +130,13 @@ export const Navbar = () => {
                         <button className="close-btn" onClick={() => closePostModal()}><TfiClose /></button>
                         <div className="img-and-text">
                             <div className="profile-pic-container">
-                                <img src={userData?.profile_pic?.length > 0 ? userData?.profile_pic : randomProfilePic} alt="profile" className="profile-pic" />
+                                <img src={editedData?.profile_pic
+                                    ?
+                                    editedData?.profile_pic
+                                    :
+                                    userData?.profile_pic?.length > 0
+                                        ? userData?.profile_pic
+                                        : randomProfilePic} alt="profile" className="profile-pic" />
                             </div>
                             <textarea name="" id="" cols="30" rows="7"
                                 className='post-textarea'

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import './profilePage.css'
@@ -10,14 +10,19 @@ import { LuLogOut } from 'react-icons/lu'
 import { FiEdit } from 'react-icons/fi'
 import { MdOutlineAddPhotoAlternate } from 'react-icons/md'
 import { toast } from 'react-toastify'
+import { Loader } from '../../components/loader/loader'
+import { DataContext } from '../../contexts/dataContext'
 
 export const ProfilePage = () => {
-    const encodedToken = localStorage.getItem('encodedToken');
+    // const encodedToken = localStorage.getItem('encodedToken');
+    const userId = JSON.parse(localStorage.getItem('userData'))?._id;
 
     const navigate = useNavigate()
 
-    const { userData, logOut } = useContext(AuthContext)
+    const { logOut } = useContext(AuthContext)
+    const { editUserData, setEditedData, } = useContext(DataContext)
 
+    const [userData, setUserData] = useState(false)
     const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false)
     const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false)
     const [isProfilePicModalOpen, setIsProfilePicModalOpen] = useState(false)
@@ -25,146 +30,212 @@ export const ProfilePage = () => {
     const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false)
     // const [isEditProfileModalConfirmationDialogOpen, setIsEditProfileModalConfirmationDialogOpen] = useState(false);
 
-    // const [editedCoverPic, setEditedCoverPic] = useState('');
-    // const [editedProfilePic, setEditedProfilePic] = useState('');
-    // const [editedName, setEditedName] = useState('');
-    // const [editedUserName, setEditedUserName] = useState('');
-    // const [editedEmail, setEditedEmail] = useState('');
-    // const [editedBio, setEditedBio] = useState('');
-    // const [editedLink, setEditedLink] = useState('');
-
     const [editedUserData, setEditedUserData] = useState({
-        cover_pic: '',
-        profile_pic: '',
-        firstName: '',
-        lastName: '',
-        user_email: '',
-        bio: '',
-        link: ''
+        cover_pic: userData?.cover_pic,
+        profile_pic: userData?.profile_pic,
+        firstName: userData?.firstName,
+        lastName: userData?.lastName,
+        user_email: userData?.user_email,
+        bio: userData?.bio,
+        link: userData?.link
     })
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch(`/api/users/${userId}`)
+            const data = (await response.json())
+            setUserData(data?.user)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const isEmail = (email) => email ? /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,3}$/i.test(email) : true;
+
+    const isURLValid = (url) => url ? /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/.test(url) : true
 
     const handleCoverPicChange = async (e) => {
         const file = e.target.files[0];
-
-        const base64Promise = (file) =>
-            new Promise((resolve, reject) => {
-                const fileReader = new FileReader();
-                fileReader.readAsDataURL(file);
-                fileReader.onload = () => resolve(fileReader.result);
-                fileReader.onerror = (err) => reject(err);
+        if (file?.size / 1000000 > 1) {
+            toast.error(`Image size cannot exceed 1mb`, {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
             });
-        let base64File = await base64Promise(file);
-        setEditedUserData({ ...editedUserData, cover_pic: base64File })
+        } else {
+            const base64Promise = (file) =>
+                new Promise((resolve, reject) => {
+                    const fileReader = new FileReader();
+                    fileReader.readAsDataURL(file);
+                    fileReader.onload = () => resolve(fileReader.result);
+                    fileReader.onerror = (err) => reject(err);
+                });
+            let base64File = await base64Promise(file);
+            setEditedUserData({ ...editedUserData, cover_pic: base64File })
+            // setEditedData({ ...editedUserData, cover_pic: base64File })
+        }
     };
 
     const handleProfilePicChange = async (e) => {
         const file = e.target.files[0];
-
-        const base64Promise = (file) =>
-            new Promise((resolve, reject) => {
-                const fileReader = new FileReader();
-                fileReader.readAsDataURL(file);
-                fileReader.onload = () => resolve(fileReader.result);
-                fileReader.onerror = (err) => reject(err);
+        if (file?.size / 1000000 > 1) {
+            toast.error(`Image size cannot exceed 1mb`, {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
             });
-        let base64File = await base64Promise(file);
-        setEditedUserData({ ...editedUserData, profile_pic: base64File })
+        } else {
+            const base64Promise = (file) =>
+                new Promise((resolve, reject) => {
+                    const fileReader = new FileReader();
+                    fileReader.readAsDataURL(file);
+                    fileReader.onload = () => resolve(fileReader.result);
+                    fileReader.onerror = (err) => reject(err);
+                });
+            let base64File = await base64Promise(file);
+            setEditedUserData({ ...editedUserData, profile_pic: base64File })
+            // setEditedData({ ...editedUserData, profile_pic: base64File })
+        }
     };
 
     const firstNameChangeHandler = (event) => {
         setEditedUserData({ ...editedUserData, firstName: event.target.value })
+        // setEditedData({ ...editedUserData, firstName: event.target.value })
     }
-    
+
     const lastNameChangeHandler = (event) => {
         setEditedUserData({ ...editedUserData, lastName: event.target.value })
+        // setEditedData({ ...editedUserData, lastName: event.target.value })
     }
 
     const emailChangeHandler = (event) => {
         setEditedUserData({ ...editedUserData, user_email: event.target.value })
+        // setEditedData({ ...editedUserData, user_email: event.target.value })
     }
 
     const bioChangeHandler = (event) => {
         setEditedUserData({ ...editedUserData, bio: event.target.value })
+        // setEditedData({ ...editedUserData, bio: event.target.value })
     }
 
     const linkChangeHandler = (event) => {
         setEditedUserData({ ...editedUserData, link: event.target.value })
-    }
-
-    const editUserData = async (inputData) => {
-        console.log('inputData', inputData)
-        try {
-            const response = await fetch('/api/users/edit', {
-                method: 'POST',
-                headers: { authorization: encodedToken },
-                body: JSON.stringify(inputData)
-            });
-
-            const data = await response.json();
-            console.log(data)
-            // if (data?.encodedToken) {
-            //     localStorage.setItem('encodedToken', data?.encodedToken);
-            //     localStorage.setItem('userData', `${JSON.stringify(data?.foundUser)}`)
-            //     toast.success(`Successfully edited`, {
-            //         position: "top-center",
-            //         autoClose: 1500,
-            //         hideProgressBar: false,
-            //         closeOnClick: true,
-            //         pauseOnHover: true,
-            //         draggable: true,
-            //         progress: undefined,
-            //         theme: "dark",
-            //         });
-            // } else {
-            //     toast.error(`Error ${response?.status}: ${data?.errors[0]}`, {
-            //         position: "top-center",
-            //         autoClose: 1500,
-            //         hideProgressBar: false,
-            //         closeOnClick: true,
-            //         pauseOnHover: true,
-            //         draggable: true,
-            //         progress: undefined,
-            //         theme: "dark",
-            //     });
-            // }
-        } catch (error) {
-            console.error(error);
-        }
+        // setEditedData({ ...editedUserData, link: event.target.value })
     }
 
     const editUserDataClickHandler = () => {
-        editUserData({ userData: editedUserData })
+        if (editedUserData?.firstName !== '') {
+            if (editedUserData?.user_email !== '') {
+                if (isEmail(editedUserData?.user_email)) {
+                    if (isURLValid(editedUserData?.link)) {
+                        editUserData({ userData: editedUserData })
+                        setEditedData(editedUserData)
+                        setUserData({
+                            ...userData,
+                            cover_pic: editedUserData?.cover_pic ? editedUserData?.cover_pic : userData?.cover_pic,
+                            profile_pic: editedUserData?.profile_pic ? editedUserData?.profile_pic : userData?.profile_pic,
+                            firstName: editedUserData?.firstName ? editedUserData?.firstName : userData?.firstName,
+                            lastName: editedUserData?.lastName ? editedUserData?.lastName : userData?.lastName,
+                            user_email: editedUserData?.user_email ? editedUserData?.user_email : userData?.user_email,
+                            bio: editedUserData?.bio ? editedUserData?.bio : userData?.bio,
+                            link: editedUserData?.link ? editedUserData?.link : userData?.link
+                        })
+                        setIsEditProfileModalOpen(false)
+                    } else {
+                        toast.error(`Account update failed: Url is not valid.`, {
+                            position: "top-center",
+                            autoClose: 1000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "dark",
+                        });
+                    }
+                } else {
+                    toast.error(`Account update failed: Mail is not valid.`, {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                    });
+                }
+            } else {
+                toast.error(`Account update failed: Mail cannot be empty.`, {
+                    position: "top-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
+        } else {
+            toast.error(`Account update failed: Name cannot be empty.`, {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
     }
+
+    useEffect(() => {
+        fetchData()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <>
-            <div className="profile-page page">
-                <div className="img-container">
-                    <div className="cover-pic-container" onClick={() => setIsCoverPicModalOpen(true)}>
-                        <img src={userData?.cover_pic?.length > 0 ? userData?.cover_pic : randomCoverPic} alt="" className="cover-pic" />
+            {!userData ? <Loader /> :
+                <div className="profile-page page">
+                    <div className="img-container">
+                        <div className="cover-pic-container" onClick={() => setIsCoverPicModalOpen(true)}>
+                            <img src={userData?.cover_pic?.length > 0 ? userData?.cover_pic : randomCoverPic} alt="" className="cover-pic" />
+                        </div>
+                        <div className="profile-pic-container" onClick={() => setIsProfilePicModalOpen(true)}>
+                            <img src={userData?.profile_pic?.length > 0 ? userData?.profile_pic : randomProfilePic} alt="" className="profile-pic" />
+                        </div>
                     </div>
-                    <div className="profile-pic-container" onClick={() => setIsProfilePicModalOpen(true)}>
-                        <img src={userData?.profile_pic?.length > 0 ? userData?.profile_pic : randomProfilePic} alt="" className="profile-pic" />
+                    <div className="profile-btn-container">
+                        <button className="edit" onClick={() => setIsEditProfileModalOpen(true)}><FiEdit /><span className="text">Profile</span></button>
+                        <button className="logout" onClick={() => logOut()}><LuLogOut /></button>
                     </div>
-                </div>
-                <div className="profile-btn-container">
-                    <button className="edit" onClick={() => setIsEditProfileModalOpen(true)}><FiEdit /><span className="text">Profile</span></button>
-                    <button className="logout" onClick={() => logOut()}><LuLogOut /></button>
-                </div>
-                <div className="content">
-                    <div className="name-username">
-                        <p className="user-name">{`${userData?.firstName} ${userData?.lastName}`}</p>
-                        <p className="user-username">{`@${userData?.username}`}</p>
+                    <div className="content">
+                        <div className="name-username">
+                            <p className="user-name">{`${userData?.firstName} ${userData?.lastName}`}</p>
+                            <p className="user-username">{`@${userData?.username}`}</p>
+                        </div>
+                        <p className="user-email">{userData?.user_email}</p>
+                        {userData?.bio && <p className="user-bio">{userData?.bio}</p>}
+                        {userData?.link && <a href={userData?.link} className="link" target='_'>{userData?.link}</a>}
                     </div>
-                    <p className="user-email">{userData?.user_email}</p>
-                    {userData?.bio && <p className="user-bio">{userData?.bio}</p>}
-                    {userData?.link && <a href={userData?.link} className="link" target='_'>{userData?.link}</a>}
-                </div>
-                <div className="followers-btn-container">
-                    <button className="following" onClick={() => setIsFollowingModalOpen(!isFollowingModalOpen)}>{`${userData?.following?.length} Following`}</button>
-                    <button className="followers" onClick={() => setIsFollowersModalOpen(!isFollowersModalOpen)}>{`${userData?.followers?.length} Followers`}</button>
-                </div>
-            </div>
+                    <div className="followers-btn-container">
+                        <button className="following" onClick={() => setIsFollowingModalOpen(!isFollowingModalOpen)}>{`${userData?.following?.length} Following`}</button>
+                        <button className="followers" onClick={() => setIsFollowersModalOpen(!isFollowersModalOpen)}>{`${userData?.followers?.length} Followers`}</button>
+                    </div>
+                </div>}
             {isFollowingModalOpen &&
                 <div className="follower-following-modal-container" onClick={() => setIsFollowingModalOpen(false)}>
                     <div className="following-modal modal" onClick={(event) => event.stopPropagation()}>
@@ -250,7 +321,7 @@ export const ProfilePage = () => {
                         <form className="edit-user-data">
                             <div className="img-container">
                                 <div className="cover-pic-container">
-                                    <img src={editedUserData?.cover_pic !== ""
+                                    <img src={editedUserData?.cover_pic
                                         ?
                                         editedUserData?.cover_pic
                                         :
@@ -271,7 +342,7 @@ export const ProfilePage = () => {
                                     </div>
                                 </div>
                                 <div className="profile-pic-container">
-                                    <img src={editedUserData?.profile_pic !== ""
+                                    <img src={editedUserData?.profile_pic
                                         ?
                                         editedUserData?.profile_pic
                                         :
