@@ -10,13 +10,13 @@ import { RiImageAddLine } from 'react-icons/ri'
 import { IoIosCloseCircleOutline } from 'react-icons/io'
 import { AuthContext } from '../../contexts/AuthContext'
 import { randomProfilePic } from '../../resources/randomImages/randomImages'
-import { DataContext } from '../../contexts/dataContext'
+import { UserDataContext } from '../../contexts/userDataContext'
 
 export const Navbar = () => {
     const navigate = useNavigate()
 
     const { userData } = useContext(AuthContext);
-    const { editedData } = useContext(DataContext)
+    const { editedData } = useContext(UserDataContext)
 
     const [isPostModalOpen, setIsPostModalOpen] = useState(false)
     const [postInput, setPostInput] = useState({

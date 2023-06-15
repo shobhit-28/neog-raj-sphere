@@ -11,7 +11,7 @@ import { FiEdit } from 'react-icons/fi'
 import { MdOutlineAddPhotoAlternate } from 'react-icons/md'
 import { toast } from 'react-toastify'
 import { Loader } from '../../components/loader/loader'
-import { DataContext } from '../../contexts/dataContext'
+import { UserDataContext } from '../../contexts/userDataContext'
 
 export const ProfilePage = () => {
     // const encodedToken = localStorage.getItem('encodedToken');
@@ -20,7 +20,7 @@ export const ProfilePage = () => {
     const navigate = useNavigate()
 
     const { logOut } = useContext(AuthContext)
-    const { editUserData, setEditedData, } = useContext(DataContext)
+    const { editUserData, setEditedData, unfollow, follow } = useContext(UserDataContext)
 
     const [userData, setUserData] = useState(false)
     const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false)
@@ -203,8 +203,27 @@ export const ProfilePage = () => {
 
     useEffect(() => {
         fetchData()
+        setEditedData(editedUserData)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+    
+    const followCheck = (userId) => userData?.following?.find((user) => user?._id === userId )
+
+    const unfollowHandler = (userID) => {
+        unfollow(userID)
+        setUserData({
+            ...userData,
+            following: userData?.following?.filter((user) => user?._id !== userID )
+        })
+    }
+    
+    const followHandler = (user) => {
+        follow(user?._id)
+        setUserData({
+            ...userData,
+            following: [...userData?.following, user]
+        })
+    }
 
     return (
         <>
@@ -248,7 +267,7 @@ export const ProfilePage = () => {
                             :
                             <div className="following-or-followers">
                                 {userData?.following?.map((following) => (
-                                    <div className="follower-div">
+                                    <div className="follower-div" key={following?._id}>
                                         <div className="left-section" onClick={() => navigate(`/user/${following?._id}`)}>
                                             <div className="follower-img-container">
                                                 <img src={following?.profile_pic?.length > 0 ? following?.profile_pic : 'https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg'} alt="" />
@@ -257,6 +276,11 @@ export const ProfilePage = () => {
                                                 <p className="follower-name">{`${following?.firstName} ${following?.lastName}`}</p>
                                                 <p className="follower-username">{`@${following?.username}`}</p>
                                             </div>
+                                        </div>
+                                        <div className="right-section">
+                                            <button className="unfollow"
+                                                onClick={() => unfollowHandler(following?._id)}
+                                            >Unfollow</button>
                                         </div>
                                     </div>
                                 ))}
@@ -276,7 +300,7 @@ export const ProfilePage = () => {
                             :
                             <div className="following-or-followers">
                                 {userData?.followers?.map((follower) => (
-                                    <div className="follower-div">
+                                    <div className="follower-div" key={follower?._id}>
                                         <div className="left-section" onClick={() => navigate(`/user/${follower?._id}`)}>
                                             <div className="follower-img-container">
                                                 <img src={follower?.profile_pic?.length > 0 ? follower?.profile_pic : 'https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg'} alt="" />
@@ -287,7 +311,14 @@ export const ProfilePage = () => {
                                             </div>
                                         </div>
                                         <div className="right-section">
-                                            <button className="unfollow">Unfollow</button>
+                                            {followCheck(follower?._id) ?
+                                            <button className="unfollow"
+                                                onClick={() => unfollowHandler(follower?._id)}
+                                            >Unfollow</button> : 
+                                            <button className="unfollow"
+                                                onClick={() => followHandler(follower)}
+                                            >Follow Back</button>
+                                            }
                                         </div>
                                     </div>
                                 ))}
