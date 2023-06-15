@@ -112,14 +112,14 @@ export const Navbar = () => {
                     <div className="profile-pic-container">
                         <img src={editedData?.profile_pic
                             ?
-                            editedData?.profile_pic
+                            editedData?.profile_pic  !== undefined 
                             :
                             userData?.profile_pic?.length > 0
                                 ? userData?.profile_pic
                                 : randomProfilePic} alt="profile" className="profile-pic" />
                     </div>
                     <div className="content">
-                        <p className="profile-name">{`${editedData?.firstName ? editedData?.firstName : userData?.firstName} ${editedData?.lastName ? editedData?.lastName : userData?.lastName}`}</p>
+                        <p className="profile-name">{`${editedData?.firstName  !== undefined  ? editedData?.firstName : userData?.firstName} ${editedData?.lastName  !== undefined  ? editedData?.lastName : userData?.lastName}`}</p>
                         <p className="profile-username">{userData?.username}</p>
                     </div>
                 </div>
@@ -132,7 +132,7 @@ export const Navbar = () => {
                             <div className="profile-pic-container">
                                 <img src={editedData?.profile_pic
                                     ?
-                                    editedData?.profile_pic
+                                    editedData?.profile_pic !== undefined 
                                     :
                                     userData?.profile_pic?.length > 0
                                         ? userData?.profile_pic

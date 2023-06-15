@@ -141,13 +141,13 @@ export const ProfilePage = () => {
                         setEditedData(editedUserData)
                         setUserData({
                             ...userData,
-                            cover_pic: editedUserData?.cover_pic ? editedUserData?.cover_pic : userData?.cover_pic,
-                            profile_pic: editedUserData?.profile_pic ? editedUserData?.profile_pic : userData?.profile_pic,
+                            cover_pic: editedUserData?.cover_pic !== undefined  ? editedUserData?.cover_pic : userData?.cover_pic,
+                            profile_pic: editedUserData?.profile_pic !== undefined  ? editedUserData?.profile_pic : userData?.profile_pic,
                             firstName: editedUserData?.firstName ? editedUserData?.firstName : userData?.firstName,
-                            lastName: editedUserData?.lastName ? editedUserData?.lastName : userData?.lastName,
+                            lastName: editedUserData?.lastName !== undefined ? editedUserData?.lastName : userData?.lastName,
                             user_email: editedUserData?.user_email ? editedUserData?.user_email : userData?.user_email,
-                            bio: editedUserData?.bio ? editedUserData?.bio : userData?.bio,
-                            link: editedUserData?.link ? editedUserData?.link : userData?.link
+                            bio: editedUserData?.bio !== undefined ? editedUserData?.bio : userData?.bio,
+                            link: editedUserData?.link !== undefined ? editedUserData?.link : userData?.link
                         })
                         setIsEditProfileModalOpen(false)
                     } else {
