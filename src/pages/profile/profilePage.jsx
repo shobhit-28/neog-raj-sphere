@@ -28,7 +28,6 @@ export const ProfilePage = () => {
     const [isProfilePicModalOpen, setIsProfilePicModalOpen] = useState(false)
     const [isCoverPicModalOpen, setIsCoverPicModalOpen] = useState(false)
     const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false)
-    // const [isEditProfileModalConfirmationDialogOpen, setIsEditProfileModalConfirmationDialogOpen] = useState(false);
 
     const [editedUserData, setEditedUserData] = useState({
         cover_pic: userData?.cover_pic,
@@ -206,22 +205,35 @@ export const ProfilePage = () => {
         setEditedData(editedUserData)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    
-    const followCheck = (userId) => userData?.following?.find((user) => user?._id === userId )
+
+    const followCheck = (userId) => userData?.following?.find((user) => user?._id === userId)
 
     const unfollowHandler = (userID) => {
         unfollow(userID)
         setUserData({
             ...userData,
-            following: userData?.following?.filter((user) => user?._id !== userID )
+            following: userData?.following?.filter((user) => user?._id !== userID)
         })
     }
-    
+
     const followHandler = (user) => {
         follow(user?._id)
         setUserData({
             ...userData,
             following: [...userData?.following, user]
+        })
+    }
+
+    const closeEditProfileModal = () => {
+        setIsEditProfileModalOpen(false)
+        setEditedUserData({
+            cover_pic: userData?.cover_pic,
+            profile_pic: userData?.profile_pic,
+            firstName: userData?.firstName,
+            lastName: userData?.lastName,
+            user_email: userData?.user_email,
+            bio: userData?.bio,
+            link: userData?.link
         })
     }
 
@@ -312,12 +324,12 @@ export const ProfilePage = () => {
                                         </div>
                                         <div className="right-section">
                                             {followCheck(follower?._id) ?
-                                            <button className="unfollow"
-                                                onClick={() => unfollowHandler(follower?._id)}
-                                            >Unfollow</button> : 
-                                            <button className="unfollow"
-                                                onClick={() => followHandler(follower)}
-                                            >Follow Back</button>
+                                                <button className="unfollow"
+                                                    onClick={() => unfollowHandler(follower?._id)}
+                                                >Unfollow</button> :
+                                                <button className="unfollow"
+                                                    onClick={() => followHandler(follower)}
+                                                >Follow Back</button>
                                             }
                                         </div>
                                     </div>
@@ -342,12 +354,16 @@ export const ProfilePage = () => {
                 </div>
             }
             {isEditProfileModalOpen &&
-                <div className="profile-edit-modal-container" onClick={() => setIsEditProfileModalOpen(false)}>
+                <div className="profile-edit-modal-container" onClick={() => closeEditProfileModal()}>
                     <div className="profile-edit-modal" onClick={(event) => event.stopPropagation()}>
                         <div className="edit-modal-header">
-                            <button className="close-btn" onClick={() => setIsFollowersModalOpen(false)}><TfiClose /></button>
-                            <p className="heading">Edit Profile</p>
-                            <button className="save" onClick={() => editUserDataClickHandler()}>Save</button>
+                            <div className="left-section">
+                                <button className="close-btn" onClick={() => closeEditProfileModal()}><TfiClose /></button>
+                                <p className="heading">Edit Profile</p>
+                            </div>
+                            <div className="save-btn-container">
+                                <button className="save" onClick={() => editUserDataClickHandler()}>Save</button>
+                            </div>
                         </div>
                         <form className="edit-user-data">
                             <div className="img-container">
@@ -373,14 +389,16 @@ export const ProfilePage = () => {
                                     </div>
                                 </div>
                                 <div className="profile-pic-container">
-                                    <img src={editedUserData?.profile_pic
-                                        ?
-                                        editedUserData?.profile_pic
-                                        :
-                                        userData?.profile_pic?.length > 0
-                                            ? userData?.profile_pic
-                                            : randomProfilePic}
-                                        alt="" className="profile-pic" />
+                                    <div className="container">
+                                        <img src={editedUserData?.profile_pic
+                                            ?
+                                            editedUserData?.profile_pic
+                                            :
+                                            userData?.profile_pic?.length > 0
+                                                ? userData?.profile_pic
+                                                : randomProfilePic}
+                                            alt="" className="profile-pic" />
+                                    </div>
                                     <div className="edit-user-fileinput-container">
                                         <label htmlFor='imgInput' className="fileinput-label"
                                             title={`${editedUserData?.profile_pic !== "" ? editedUserData?.profile_pic : "No file chosen"}`}
@@ -412,7 +430,7 @@ export const ProfilePage = () => {
                                     <input type="text" name="" id="" className="edit-bio" defaultValue={userData?.bio} placeholder='Bio' />
                                 </label>
                                 <label htmlFor="" className="edit-user-link" onChange={(event) => linkChangeHandler(event)}>
-                                    <span className="text">Website</span>
+                                    <span className="text">Website:</span>
                                     <input type="text" name="" id="" className="edit-link" defaultValue={userData?.link} placeholder='Website' />
                                 </label>
                             </div>
@@ -420,7 +438,6 @@ export const ProfilePage = () => {
                     </div>
                 </div>
             }
-            { }
         </>
     )
 }
