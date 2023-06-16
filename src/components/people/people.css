@@ -44,9 +44,20 @@
 
 .people-mobile-view-modal {
     background-color: #fff;
+    min-height: 20vh;
+    width: 95%;
+    max-height: 50vh;
+    overflow: auto;
 }
 
 .toggle-people-mobile-view {
     display: none;
-    padding: 1rem;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.25rem;
+    border-radius: 100%;
+    border: 0;
+    background-color: #000;
+    color: #fff;
+    transition: 0.5s;
 }

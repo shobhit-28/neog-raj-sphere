@@ -26,12 +26,12 @@ export const ProfilePage = () => {
         unfollow,
         follow,
         setFollowingData,
-        followedIds,
-        setFollowedIds,
-        userData,
-        setUserData
+        followed,
+        setFollowed,
+        // allUsersData
     } = useContext(UserDataContext)
 
+    const [userData, setUserData] = useState(false)
     const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false)
     const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false)
     const [isProfilePicModalOpen, setIsProfilePicModalOpen] = useState(false)
@@ -53,6 +53,7 @@ export const ProfilePage = () => {
             const response = await fetch(`/api/users/${userId}`)
             const data = (await response.json())
             setUserData(data?.user)
+            setFollowed(data?.user?.following)
         } catch (error) {
             console.error(error)
         }
@@ -209,6 +210,8 @@ export const ProfilePage = () => {
         }
     }
 
+    // console.log(userData)
+
     useEffect(() => {
         fetchData()
         setEditedData(editedUserData)
@@ -228,15 +231,20 @@ export const ProfilePage = () => {
             ...userData,
             following: userData?.following?.filter((user) => user?._id !== userID)
         })
-        setFollowedIds(followedIds?.filter((id) => id !== userID))
+        setFollowed(followed?.filter((user) => user?._id !== userID))
     }
 
     const followHandler = (user) => {
         follow(user)
+        setUserData({
+            ...userData,
+            following: [...userData?.following, user]
+        })
         setFollowingData({
             ...userData,
             following: [...userData?.following, user]
         })
+        setFollowed([...followed, user])
     }
 
     const closeEditProfileModal = () => {
@@ -275,10 +283,10 @@ export const ProfilePage = () => {
                         </div>
                         <p className="user-email">{userData?.user_email}</p>
                         {userData?.bio && <p className="user-bio">{userData?.bio}</p>}
-                        {userData?.link && <a href={userData?.link} className="link" target='_'>{userData?.link}</a>}
+                        {userData?.link && <a href={userData?.link} className="link" target='_'>{userData?.link?.slice(8)}</a>}
                     </div>
                     <div className="followers-btn-container">
-                        <button className="following" onClick={() => setIsFollowingModalOpen(!isFollowingModalOpen)}>{`${userData?.following?.length} Following`}</button>
+                        <button className="following" onClick={() => setIsFollowingModalOpen(!isFollowingModalOpen)}>{`${followed?.length} Following`}</button>
                         <button className="followers" onClick={() => setIsFollowersModalOpen(!isFollowersModalOpen)}>{`${userData?.followers?.length} Followers`}</button>
                     </div>
                 </div>}
@@ -286,14 +294,14 @@ export const ProfilePage = () => {
                 <div className="follower-following-modal-container" onClick={() => setIsFollowingModalOpen(false)}>
                     <div className="following-modal modal" onClick={(event) => event.stopPropagation()}>
                         <button className="close-btn" onClick={() => setIsFollowingModalOpen(false)}><TfiClose /></button>
-                        {userData?.following?.length === 0
+                        {followed?.length === 0
                             ?
                             <div className="none">
                                 <p>You don't follow anyone</p>
                             </div>
                             :
                             <div className="following-or-followers">
-                                {userData?.following?.map((following) => (
+                                {followed?.map((following) => (
                                     <div className="follower-div" key={following?._id}>
                                         <div className="left-section" onClick={() => navigate(`/user/${following?._id}`)}>
                                             <div className="follower-img-container">

@@ -1,33 +1,100 @@
-.people-component {
-    border: 1px solid;
-    /* width: 100%; */
+@media only screen and (max-width: 1000px) {
+    .people-component .user-data .user {
+        flex-direction: column;
+    } 
 }
 
+@media only screen and (max-width: 900px) {
+    .people-component .user-data .user {
+        flex-direction: row;
+    } 
+}
 
+@media only screen and (max-width: 675px) {
+    .people-component .user-data .user {
+        flex-direction: column;
+    } 
+}
 
+@media only screen and (max-width: 450px) {
+    .people-component .user-data .user {
+        flex-direction: row;
+    } 
+}
 
+.people-component .head {
+    text-align: center;
+    margin: 0.5rem auto 1rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
 
+.people-component .user-data .no-one {
+    text-align: center;
+}
 
+.people-component .user-data .user {
+    padding: 0.25rem;
+    margin: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 0 2px;
+    transition: 0.5s;
+}
 
+.people-component .user-data .user:hover {
+    box-shadow: rgba(0, 0, 0, 0.4) 0 0 2px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.people-component .user-data .user .left-section {
+    display: flex;
+    align-items: center;
+}
 
 .people-component .user-data .user .profile-pic-container {
-    width: 30%;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.people-component .user-data .user .profile-pic-container img {
+    width: auto;
+    height: 100%;
+}
+
+.people-component .user-data .user .name-username {
+    margin-left: 0.5rem;
+}
+
+.people-component .user-data .user .name-username .name {
+    font-size: 0.95rem;
+}
+
+.people-component .user-data .user .name-username .username {
+    font-size: 0.75rem;
+    color: rgba(0, 0, 0, 0.6);
+    font-style: oblique;
+}
+
+.people-component .user-data .user .right-section .follow {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+    border-radius: 0.35rem;
+    border-width: .1px;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.people-component .user-data .user .right-section .follow:active {
+    color: #000;
+    background-color: #fff;
+    
 }

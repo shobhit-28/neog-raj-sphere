@@ -73,6 +73,10 @@
         margin-top: 3.75rem !important;
         padding-bottom: 3.5rem !important;
     }
+    .follower-following-modal-container .modal .following-or-followers .follower-div .follower-img-container {
+        width: 3rem !important;
+        height: 3rem !important;
+    }
 }
 
 

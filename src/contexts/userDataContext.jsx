@@ -5,14 +5,14 @@ export const UserDataContext = createContext();
 
 export const UserDataHandler = ({ children }) => {
     const encodedToken = localStorage.getItem('encodedToken');
+    // const userId = JSON.parse(localStorage.getItem('userData'))?._id;
 
     const [editedData, setEditedData] = useState({})
     const [allUsersData, setAllUsersData] = useState([])
     const [isMobileViewOpen, setIsMobileViewOpen] = useState(false)
     const [isPostModalOpen, setIsPostModalOpen] = useState(false)
     const [followingData, setFollowingData] = useState(false)
-    const [followedIds, setFollowedIds] = useState([])
-    const [userData, setUserData] = useState(false)
+    const [followed, setFollowed] = useState([])
 
     const fetchAllUsers = async () => {
         try {
@@ -75,10 +75,6 @@ export const UserDataHandler = ({ children }) => {
                 method: 'POST',
                 headers: { authorization: encodedToken },
             })
-            setUserData({
-                ...userData,
-                following: [...userData?.following, user]
-            })
             const responseData = await response.json();
             toast.success(`You followed @${responseData?.followUser?.username}`, {
                 position: "top-center",
@@ -113,10 +109,8 @@ export const UserDataHandler = ({ children }) => {
             setIsPostModalOpen,
             followingData,
             setFollowingData,
-            followedIds,
-            setFollowedIds,
-            userData,
-            setUserData
+            followed,
+            setFollowed,
         }}>
             {children}
         </UserDataContext.Provider>

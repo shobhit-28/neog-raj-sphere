@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 
 import { IoPersonAdd } from 'react-icons/io5'
+import { TfiClose } from 'react-icons/tfi'
 
 import './people.css'
 import { UserDataContext } from '../../contexts/userDataContext'
@@ -40,7 +41,9 @@ export const People = () => {
                             </div>
                         }
                     </>
-                    <button className="toggle-people-mobile-view" onClick={() => toggleMobileViewClickHandler()}><IoPersonAdd /></button>
+                    <button className="toggle-people-mobile-view" onClick={() => toggleMobileViewClickHandler()}>
+                        {!isMobileViewOpen ? <IoPersonAdd /> : <TfiClose />}
+                    </button>
                 </>
             }
         </>
