@@ -1,4 +1,8 @@
 @media only screen and (max-width: 900px) {
+    .navbar {
+        width: 15% !important;
+    }
+
     .navbar .nav-head {
         justify-content: center;
     }

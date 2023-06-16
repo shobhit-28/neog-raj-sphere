@@ -1,8 +1,52 @@
-.people {
+@media only screen and (max-width: 900px) {
+    .people-desktop-view {
+        width: 35% !important;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .people-desktop-view {
+        display: none;
+    }
+    .people-mobile-view {
+        position: fixed;
+        top: 0;
+        height: 90vh;
+        width: 100vw;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 1;
+    }
+    
+    .toggle-people-mobile-view {
+        display: block !important;
+        position: fixed;
+        bottom: 12vh;
+        right: 2vh;
+        z-index: 1;
+    }
+}
+
+.people-desktop-view {
     position: fixed;
     width: 25%;
     height: 100vh;
     right: 0;
     padding: 0.25rem 2% 0.75rem 2%;
     z-index: 0;
+}
+
+.people-mobile-view {
+    display: none;
+}
+
+.people-mobile-view-modal {
+    background-color: #fff;
+}
+
+.toggle-people-mobile-view {
+    display: none;
+    padding: 1rem;
 }

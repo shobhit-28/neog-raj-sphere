@@ -1,0 +1,33 @@
+.people-component {
+    border: 1px solid;
+    /* width: 100%; */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.people-component .user-data .user .profile-pic-container {
+    width: 30%;
+}

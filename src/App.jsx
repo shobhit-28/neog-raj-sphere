@@ -38,6 +38,7 @@ function App() {
         theme="dark"
       />
       <Navbar />
+      {/* <RequiresAuth><People /></RequiresAuth> */}
       <People />
       <Routes>
         <Route path='/' element={<RequiresAuth><HomePage /></RequiresAuth>} />

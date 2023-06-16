@@ -20,9 +20,18 @@ export const ProfilePage = () => {
     const navigate = useNavigate()
 
     const { logOut } = useContext(AuthContext)
-    const { editUserData, setEditedData, unfollow, follow } = useContext(UserDataContext)
+    const {
+        editUserData,
+        setEditedData,
+        unfollow,
+        follow,
+        setFollowingData,
+        followedIds,
+        setFollowedIds,
+        userData,
+        setUserData
+    } = useContext(UserDataContext)
 
-    const [userData, setUserData] = useState(false)
     const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false)
     const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false)
     const [isProfilePicModalOpen, setIsProfilePicModalOpen] = useState(false)
@@ -141,8 +150,8 @@ export const ProfilePage = () => {
                         setEditedData(editedUserData)
                         setUserData({
                             ...userData,
-                            cover_pic: editedUserData?.cover_pic !== undefined  ? editedUserData?.cover_pic : userData?.cover_pic,
-                            profile_pic: editedUserData?.profile_pic !== undefined  ? editedUserData?.profile_pic : userData?.profile_pic,
+                            cover_pic: editedUserData?.cover_pic !== undefined ? editedUserData?.cover_pic : userData?.cover_pic,
+                            profile_pic: editedUserData?.profile_pic !== undefined ? editedUserData?.profile_pic : userData?.profile_pic,
                             firstName: editedUserData?.firstName ? editedUserData?.firstName : userData?.firstName,
                             lastName: editedUserData?.lastName !== undefined ? editedUserData?.lastName : userData?.lastName,
                             user_email: editedUserData?.user_email ? editedUserData?.user_email : userData?.user_email,
@@ -203,6 +212,7 @@ export const ProfilePage = () => {
     useEffect(() => {
         fetchData()
         setEditedData(editedUserData)
+        setFollowingData(userData)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -214,11 +224,16 @@ export const ProfilePage = () => {
             ...userData,
             following: userData?.following?.filter((user) => user?._id !== userID)
         })
+        setFollowingData({
+            ...userData,
+            following: userData?.following?.filter((user) => user?._id !== userID)
+        })
+        setFollowedIds(followedIds?.filter((id) => id !== userID))
     }
 
     const followHandler = (user) => {
-        follow(user?._id)
-        setUserData({
+        follow(user)
+        setFollowingData({
             ...userData,
             following: [...userData?.following, user]
         })
@@ -400,12 +415,12 @@ export const ProfilePage = () => {
                                             alt="" className="profile-pic" />
                                     </div>
                                     <div className="edit-user-fileinput-container">
-                                        <label htmlFor='imgInput' className="fileinput-label"
+                                        <label htmlFor='profileImgInput' className="fileinput-label"
                                             title={`${editedUserData?.profile_pic !== "" ? editedUserData?.profile_pic : "No file chosen"}`}
                                         >
                                             <span className="img"><MdOutlineAddPhotoAlternate /></span>
                                         </label>
-                                        <input type="file" name="" id="imgInput" className='edit-user-fileinput'
+                                        <input type="file" name="" id="profileImgInput" className='edit-user-fileinput'
                                             accept='image/*'
                                             onChange={handleProfilePicChange}
                                         />

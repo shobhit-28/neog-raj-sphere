@@ -16,9 +16,7 @@ export const Navbar = () => {
     const navigate = useNavigate()
 
     const { userData } = useContext(AuthContext);
-    const { editedData } = useContext(UserDataContext)
-
-    const [isPostModalOpen, setIsPostModalOpen] = useState(false)
+    const { editedData, setIsMobileViewOpen, isPostModalOpen, setIsPostModalOpen } = useContext(UserDataContext)
     const [postInput, setPostInput] = useState({
         content: "",
         pic: "",
@@ -82,11 +80,26 @@ export const Navbar = () => {
         })
     }
 
+    const navHeadClickHandler = () => {
+        navigate('/')
+        setIsMobileViewOpen(false)
+    }
+
+    const postBtnClickHandler = () => {
+        setIsPostModalOpen(true)
+        setIsMobileViewOpen(false)
+    }
+
+    const profileNavHandler = () => {
+        navigate('profile')
+        setIsMobileViewOpen(false)
+    }
+
     return (
         <>
             <div className="navbar">
                 <div className="nav-upper-section">
-                    <div className="nav-head" onClick={() => navigate('/')}>
+                    <div className="nav-head" onClick={() => navHeadClickHandler()}>
                         <div className="nav-img-container">
                             <img src={require('../../resources/images/raj-sphere.png')} alt="" className="nav-img" />
                         </div>
@@ -95,24 +108,24 @@ export const Navbar = () => {
                         </p>
                     </div>
                     <div className="nav-links">
-                        <NavLink to={'/explore'} className={'nav-link'}>
+                        <NavLink to={'/explore'} className={'nav-link'} onClick={() => setIsMobileViewOpen(false)}>
                             <MdOutlineExplore className='nav-img' /> <span className="nav-text">Explore</span>
                         </NavLink>
-                        <NavLink to={'/bookmarks'} className={'nav-link'}>
+                        <NavLink to={'/bookmarks'} className={'nav-link'} onClick={() => setIsMobileViewOpen(false)}>
                             <MdBookmarks className='nav-img' /> <span className="nav-text">Bookmarks</span>
                         </NavLink>
                     </div>
                     <div className="btn-container">
-                        <button className="post-btn" onClick={() => setIsPostModalOpen(true)}><BsPlusSquare className='btn-img' />
+                        <button className="post-btn" onClick={() => postBtnClickHandler()}><BsPlusSquare className='btn-img' />
                             <span className="text">Post</span>
                         </button>
                     </div>
                 </div>
-                <div className="profile" onClick={() => navigate('profile')}>
+                <div className="profile" onClick={() => profileNavHandler()}>
                     <div className="profile-pic-container">
                         <img src={editedData?.profile_pic
                             ?
-                            editedData?.profile_pic  !== undefined 
+                            editedData?.profile_pic
                             :
                             userData?.profile_pic?.length > 0
                                 ? userData?.profile_pic
@@ -132,7 +145,7 @@ export const Navbar = () => {
                             <div className="profile-pic-container">
                                 <img src={editedData?.profile_pic
                                     ?
-                                    editedData?.profile_pic !== undefined 
+                                    editedData?.profile_pic
                                     :
                                     userData?.profile_pic?.length > 0
                                         ? userData?.profile_pic

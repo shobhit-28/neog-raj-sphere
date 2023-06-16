@@ -6,8 +6,8 @@ export const Loader = () => {
             <CirclesWithBar
                 color={'#27374D'}
                 className='loading'
-                height="200"
-                width="200"
+                height="150"
+                width="150"
                 radius="20" />
         </div>
     );
