@@ -10,9 +10,10 @@ export const PeopleComponent = () => {
 
     const userId = JSON.parse(localStorage.getItem('userData'))?._id;
 
-    const { allUsersData, followingData, follow, followed, setFollowed } = useContext(UserDataContext)
+    const { allUsersData, followingData, follow, followed, setFollowed, setIsMobileViewOpen } = useContext(UserDataContext)
 
     const [currUserData, setCurrUserData] = useState(false)
+    const [searchResults, setSearchResults] = useState(false)
 
     const userData = followingData ? followingData : currUserData
     const filteredArr = allUsersData
@@ -42,18 +43,71 @@ export const PeopleComponent = () => {
         event.stopPropagation()
     }
 
+    const searchBarChangeHandler = (event) => {
+        if (event?.target?.value?.length === 0) {
+            setSearchResults([])
+        } else {
+            setSearchResults(
+                [
+                    ...allUsersData?.filter((user) => user?.firstName?.slice(0, event?.target?.value.length).toLowerCase() === event?.target?.value.toLowerCase()),
+                    ...allUsersData?.filter((user) => user?.firstName?.slice(0, event?.target?.value.length).toLowerCase() !== event?.target?.value.toLowerCase())
+                        ?.filter((user) => user?.firstName.concat(user?.lastName).toLowerCase()?.includes(event?.target?.value?.toLowerCase()))
+                ]
+            )
+        }
+    }
+
+    const searchNavHandler = (id) => {
+        setTimeout(() => {
+            navigate(`/`)
+        }, 0)
+        setTimeout(() => {
+            navigate(`/user/${id}`)
+            setSearchResults([])
+            setIsMobileViewOpen(false)
+        }, 1)
+    }
+
+    const navHandler = (id) => {
+        setTimeout(() => {
+            navigate(`/`)
+        }, 0)
+        setTimeout(() => {
+            navigate(`/user/${id}`)
+            setIsMobileViewOpen(false)
+        }, 1)
+    }
+
     return (
         <div className="people-component">
             {!userData ? <SmallLoader /> :
                 <>
                     <p className="head">Who to follow</p>
+                    <input type="text" name="" id="" className="search-bar" onChange={(event) => searchBarChangeHandler(event)} placeholder="Search Users" />
+                    {searchResults?.length > 0 &&
+                        <div className="search-results-container">
+                            <div className="search-results">
+                                {searchResults.map((user) => (
+                                    <div className="user" title={user?.username} key={user?._id} onClick={() => searchNavHandler(user?._id)}>
+                                        <div className="img-container">
+                                            <img src={user?.profile_pic} alt="" />
+                                        </div>
+                                        <div className="username-name">
+                                            <p className="name">{`${user?.firstName} ${user?.lastName}`}</p>
+                                            <p className="username">{`@${user?.username}`}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    }
                     <div className="user-data">
                         {filteredArr?.length === 0
                             ?
                             <p className="no-one">There's no one here</p>
                             :
                             filteredArr?.map((user) => (
-                                <div className="user" key={user?._id} onClick={() => navigate(`/user/${user._id}`)}>
+                                <div className="user" key={user?._id} onClick={() => navHandler(user._id)}>
                                     <div className="left-section">
                                         <div className="profile-pic-container">
                                             <img src={user?.profile_pic} alt="" />

@@ -36,6 +36,7 @@
 .people-component .user-data .user {
     padding: 0.25rem;
     margin: 0.5rem;
+    /* width: 90%; */
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -97,4 +98,57 @@
     color: #000;
     background-color: #fff;
     
+}
+
+.people-component .search-bar {
+    display: block;
+    margin: 1rem auto;
+    outline: 0;
+    border: 0.15px solid rgba(0, 0, 0, 0.4);
+    padding: 0.5rem;
+    border-radius: 0.35rem;
+    width: 90%;
+}
+
+.people-component .search-results {
+    position: absolute;
+    width: 16rem;
+    max-height: 10rem;
+    overflow: auto;
+    background-color: #fff;
+    margin-left: 1.5rem;
+    box-shadow: rgba(0, 0, 0, 0.5) 0 0 8px;
+}
+
+.people-component .search-results .user {
+    display: flex;
+    margin: 0.75rem;
+    align-items: center;
+    cursor: pointer;
+}
+
+.people-component .search-results .img-container {
+    height: 3rem;
+    width: 3rem;
+    overflow: hidden;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.5rem;
+}
+
+.people-component .search-results .img-container img {
+    height: 100%;
+    width: auto;
+}
+
+.people-component .search-results .username-name .name{
+    font-size: 0.95rem;
+}
+
+.people-component .search-results .username-name .username{
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.6);
+    font-style: italic;
 }
