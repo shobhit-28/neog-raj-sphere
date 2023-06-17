@@ -93,6 +93,10 @@
         align-items: center;
         justify-content: center;
     }
+
+    .post-modal-container .post-modal {
+        width: 100% !important;
+    }
 }
 
 .navbar {
