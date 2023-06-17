@@ -93,37 +93,37 @@ export const AuthenticationHandler = ({ children }) => {
         });
     }
 
-    // const signUp = async (signupInputData, isValid) => {
-    //     if (isValid?.isEmail && isValid?.isPassword && isValid?.isPassAndConfirmPassEqual && isValid?.isName) {
-    //         try {
-    //             const response = await fetch('/api/auth/signup', {
-    //                 method: 'POST',
-    //                 body: JSON.stringify(signupInputData)
-    //             });
-    //             const data = await response.json();
-    //             if (data?.encodedToken) {
-    //                 localStorage.setItem('encodedToken', data?.encodedToken);
-    //                 localStorage.setItem('userName', data?.createdUser?.name)
-    //                 localStorage.setItem('userEmail', data?.createdUser?.email)
-    //                 setIsLoggedIn(true)
-    //             } else {
-    //                 toast.error(`Error ${response?.status}: ${data?.errors[0]}`, {
-    //                     position: "bottom-center",
-    //                     autoClose: 2000,
-    //                     hideProgressBar: false,
-    //                     closeOnClick: true,
-    //                     pauseOnHover: true,
-    //                     draggable: true,
-    //                     progress: undefined,
-    //                     theme: "dark",
-    //                     });
-    //             }
+    const signUp = async (signupInputData, isValid) => {
+        if (isValid?.isEmail && isValid?.isPassword && isValid?.isUsername && isValid?.isName) {
+            try {
+                const response = await fetch('/api/auth/signup', {
+                    method: 'POST',
+                    body: JSON.stringify(signupInputData)
+                });
+                const data = await response.json();
+                console.log(data?.createdUser)
+                if (data?.encodedToken) {
+                    localStorage.setItem('encodedToken', data?.encodedToken);
+                    localStorage.setItem('userData', `${JSON.stringify(data?.createdUser)}`)
+                    setIsLoggedIn(true)
+                } else {
+                    toast.error(`Error ${response?.status}: ${data?.errors[0]}`, {
+                        position: "bottom-center",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                        });
+                }
 
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //     }
-    // }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    }
 
     return (
         <AuthContext.Provider value={{
@@ -131,7 +131,7 @@ export const AuthenticationHandler = ({ children }) => {
             isLoggedIn,
             logOut,
             userData,
-            // signUp,
+            signUp,
             login,
         }}>
             {children}
