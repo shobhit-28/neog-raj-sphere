@@ -34,7 +34,15 @@ export const users = [
         profile_pic: "https://res.cloudinary.com/randomwave45/image/upload/v1650022196/one_piece_1_anib9s.jpg",
       }
     ],
-    following: [],
+    following: [
+      {
+        _id: "2",
+        firstName: "Rahul",
+        lastName: "Mallick",
+        username: "mallick",
+        profile_pic: "https://staticg.sportskeeda.com/editor/2022/07/c2ed4-16587439752781.png",
+      }
+    ],
     bookmarks: [],
     id: "1"
   },
@@ -51,7 +59,15 @@ export const users = [
     cover_pic: "",
     link: "https://mallickrahul.netlify.app",
     bio: "Singer",
-    followers: [],
+    followers: [
+      {
+        _id: "1",
+        firstName: "Shobhit",
+        lastName: "Raj",
+        username: "shobhitraj",
+        profile_pic: "https://pbs.twimg.com/profile_images/1266934374060052480/O3nYz9s-_400x400.jpg",
+      }
+    ],
     following: [
       {
         _id: "1",

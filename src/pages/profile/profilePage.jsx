@@ -281,7 +281,7 @@ export const ProfilePage = () => {
                             <p className="user-name">{`${userData?.firstName} ${userData?.lastName}`}</p>
                             <p className="user-username">{`@${userData?.username}`}</p>
                         </div>
-                        <p className="user-email">{userData?.user_email}</p>
+                        <a href={`mailto:${userData?.user_email}`} className="user-email">{userData?.user_email}</a>
                         {userData?.bio && <p className="user-bio">{userData?.bio}</p>}
                         {userData?.link && <a href={userData?.link} className="link" target='_'>{userData?.link?.slice(8)}</a>}
                     </div>

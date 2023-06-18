@@ -118,7 +118,7 @@ export const IndividualUser = () => {
                                 <p className="user-username">{`(follows you)`}</p>}
                             <p className="user-username">{`@${userData?.username}`}</p>
                         </div>
-                        <p className="user-email">{userData?.user_email}</p>
+                        <a href={`mailto:${userData?.user_email}`} className="user-email">{userData?.user_email}</a>
                         {userData?.bio && <p className="user-bio">{userData?.bio}</p>}
                         {userData?.link && <a href={userData?.link} className="link" target='_'>{userData?.link?.slice(8)}</a>}
                     </div>
@@ -139,7 +139,7 @@ export const IndividualUser = () => {
                         {userData?.following?.length === 0
                             ?
                             <div className="none">
-                                <p>You don't follow anyone</p>
+                                <p>{`${userData?.firstName} doesn't follow anyone`}</p>
                             </div>
                             :
                             <div className="following-or-followers">
@@ -178,7 +178,7 @@ export const IndividualUser = () => {
                         {userData?.followers?.length === 0
                             ?
                             <div className="none">
-                                <p>You don't have followers</p>
+                                <p>{`${userData.firstName} don't have any followers`}</p>
                             </div>
                             :
                             <div className="following-or-followers">

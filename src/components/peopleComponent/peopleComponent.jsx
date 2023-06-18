@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, } from "react"
+import { useContext, useEffect, useRef, useState, } from "react"
 import { useNavigate } from "react-router-dom";
 
 import { UserDataContext } from "../../contexts/userDataContext"
@@ -14,6 +14,8 @@ export const PeopleComponent = () => {
 
     const [currUserData, setCurrUserData] = useState(false)
     const [searchResults, setSearchResults] = useState(false)
+
+    const ref = useRef(null)
 
     const userData = followingData ? followingData : currUserData
     const filteredArr = allUsersData
@@ -65,6 +67,7 @@ export const PeopleComponent = () => {
             navigate(`/user/${id}`)
             setSearchResults([])
             setIsMobileViewOpen(false)
+            ref.current.value = ''
         }, 1)
     }
 
@@ -75,6 +78,7 @@ export const PeopleComponent = () => {
         setTimeout(() => {
             navigate(`/user/${id}`)
             setIsMobileViewOpen(false)
+            ref.current.value = ''
         }, 1)
     }
 
@@ -83,7 +87,7 @@ export const PeopleComponent = () => {
             {!userData ? <SmallLoader /> :
                 <>
                     <p className="head">Who to follow</p>
-                    <input type="text" name="" id="" className="search-bar" onChange={(event) => searchBarChangeHandler(event)} placeholder="Search Users" />
+                    <input type="text" name="" id="" ref={ref} className="search-bar" onChange={(event) => searchBarChangeHandler(event)} placeholder="Search Users" />
                     {searchResults?.length > 0 &&
                         <div className="search-results-container">
                             <div className="search-results">

@@ -195,7 +195,10 @@
 }
 
 .profile-page .content .user-email {
+    display: block;
     margin-bottom: 0.5rem;
+    text-decoration: none;
+    color: #000;
 }
 
 .profile-page .content .user-bio {
