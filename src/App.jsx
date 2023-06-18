@@ -16,7 +16,7 @@ import { BookmarkPage } from './pages/bookmarks/bookmarks';
 import { People } from './components/people/people';
 import { RequiresAuth } from './requiresAuth/requiresAuth';
 import { IndividualUser } from './pages/individualUser/individualUser';
-import Mockman from 'mockman-js'
+// import Mockman from 'mockman-js'
 
 function App() {
   const { isLoggedIn } = useContext(AuthContext)
@@ -54,7 +54,7 @@ function App() {
         <Route path='/bookmarks' element={<RequiresAuth><BookmarkPage /></RequiresAuth>} />
         <Route path='/user/:userID' element={<RequiresAuth><IndividualUser /></RequiresAuth>} />
       </Routes>
-      <div className="mockman-container"><Mockman /></div>
+      {/* <div className="mockman-container"><Mockman /></div> */}
     </div>
   );
 }

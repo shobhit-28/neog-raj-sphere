@@ -125,7 +125,7 @@
 }
 
 .individual-user-page .content .user-email {
-    display: block;
+    display: inline-block;
     margin-bottom: 0.5rem;
     text-decoration: none;
     color: #000;

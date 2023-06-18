@@ -7,6 +7,7 @@ import { makeServer } from "./server";
 import { BrowserRouter } from 'react-router-dom';
 import { AuthenticationHandler } from './contexts/AuthContext';
 import { UserDataHandler } from './contexts/userDataContext';
+import { PostDataHandler } from './contexts/PostContext';
 
 // Call make Server
 makeServer();
@@ -17,7 +18,9 @@ root.render(
     <BrowserRouter>
       <AuthenticationHandler>
         <UserDataHandler>
-          <App />
+          <PostDataHandler>
+            <App />
+          </PostDataHandler>
         </UserDataHandler>
       </AuthenticationHandler>
     </BrowserRouter>

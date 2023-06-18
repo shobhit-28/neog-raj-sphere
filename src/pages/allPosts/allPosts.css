@@ -1,0 +1,29 @@
+.explore-page .header {
+    position: fixed;
+    width: 50%;
+    background-color: rgba(255, 255, 255, 0.92);
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 10px 20px -10px;
+}
+
+.explore-page .header .heading {
+    font-size: 1.75rem;
+    font-weight: 500;
+    text-align: center;
+    margin: 0.5rem;
+}
+
+.explore-page .header .search-bar-container .search {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1.25rem;
+    outline: 0;
+    border: 0;
+    border-top: .1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(255, 255, 255, 0.3);
+    /* margin: 0.25rem auto 0.5rem; */
+}
+
+.explore-page .post-container {
+    padding-top: 7rem;
+}
