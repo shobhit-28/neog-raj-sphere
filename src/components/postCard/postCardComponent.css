@@ -2,11 +2,31 @@
     .post-card-container .post-card {
         width: 85% !important;
     }
+    .edit-post-modal-container .edit-post-modal {
+        width: 80% !important;
+    }
+    
+    .edit-post-modal-container .edit-post-modal .img-and-text .post-textarea, .edit-post-modal-container .edit-post-modal .post-modal-fileinput-container .fileinput-label, .edit-post-modal-container .edit-post-modal .btn-container button  {
+        font-size: 1rem !important;
+    }
+
+    .edit-post-modal-container .edit-post-modal .post-modal-fileinput-container .fileinput-label .text {
+        display: none;
+    }
+
+    .edit-post-modal-container .edit-post-modal .btn-container .btn:hover {
+        color: #fff !important;
+        background-color: #000 !important;
+    }
 }
 
 @media only screen and (max-width: 450px) {
     .post-card-container .post-card {
         width: 100% !important;
+    }
+    .edit-post-modal-container .edit-post-modal {
+        width: 100% !important;
+        max-height: 100vh !important;
     }
 }
 
