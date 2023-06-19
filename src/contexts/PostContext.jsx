@@ -69,6 +69,29 @@ export const PostDataHandler = ({children}) => {
             console.error(error);
         }
     }
+    
+    const deletePost = async (postId) => {
+        try {
+            const response = await fetch(`/api/posts/${postId}`,{
+                method: 'delete',
+                headers: { authorization: encodedToken },
+            })
+            const responseData = await response.json()
+            setAllPosts(responseData?.posts)
+            toast.info(`Post deleted`, {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     useEffect(() => {
         fetchAllPostData()
@@ -79,7 +102,8 @@ export const PostDataHandler = ({children}) => {
             allPosts,
             editPost,
             likePost,
-            dislikePost
+            dislikePost,
+            deletePost
         }}>
             {children}
         </PostContext.Provider>

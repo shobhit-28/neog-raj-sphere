@@ -17,7 +17,7 @@ import { PostContext } from '../../contexts/PostContext'
 
 export const PostComponent = ({ postData }) => {
     const { editedData } = useContext(UserDataContext)
-    const { editPost, likePost, dislikePost } = useContext(PostContext)
+    const { editPost, likePost, dislikePost, deletePost } = useContext(PostContext)
 
     const navigate = useNavigate()
 
@@ -115,7 +115,7 @@ export const PostComponent = ({ postData }) => {
                             {isMenuOpen &&
                                 <div className="menu" ref={menuRef}>
                                     <p className="option-1" onClick={() => setIsEditPostModalOpen(true)}>Edit</p>
-                                    <p className="option-2">Delete</p>
+                                    <p className="option-2" onClick={() => deletePost(postData?._id)}>Delete</p>
                                 </div>
                             }
                         </div>}

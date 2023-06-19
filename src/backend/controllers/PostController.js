@@ -259,7 +259,8 @@ export const dislikePostHandler = function (schema, request) {
  * send DELETE Request at /api/user/posts/:postId
  * */
 export const deletePostHandler = function (schema, request) {
-  const user = requiresAuth.call(this, request);
+  // const user = requiresAuth.call(this, request);
+  const user = JSON.parse(localStorage.getItem('userData'));
   try {
     if (!user) {
       return new Response(
