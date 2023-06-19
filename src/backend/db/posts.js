@@ -10,6 +10,7 @@ export const posts = [
     _id: "1",
     content: "RajSphere is the best app 🎉",
     pic: "",
+    username: "shobhitraj",
     postedBy: {
       _id: "1",
       firstName: "Shobhit",
@@ -100,6 +101,7 @@ export const posts = [
     _id: "2",
     content: "Must try these momos from Kalimpong Restaurant, Dharamshala",
     pic: "https://www.thespruceeats.com/thmb/T_R22QniykdQ9aPCLKIk-O22Gh4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/steamed-momos-wontons-1957616-hero-01-1c59e22bad0347daa8f0dfe12894bc3c.jpg",
+    username: "mallick",
     postedBy: {
       _id: "2",
       firstName: "Rahul",
@@ -158,6 +160,7 @@ export const posts = [
     _id: "3",
     content: "Hadimba Temple covered with snow, a symbol of peace and tranquility",
     pic: "https://2.bp.blogspot.com/-lWmqyny4pOU/XB_S3p271kI/AAAAAAAAZcU/k-1aAHyk5yAkF--jnHXs90xDwQ7AL1cKACLcBGAs/s1600/hidimba%2Bmata%2B2.jpg",
+    username: "ayush",
     postedBy: {
       _id: "3",
       firstName: "Ayush",
@@ -207,6 +210,7 @@ export const posts = [
     _id: "4",
     content: "Went to the new Apple store in Mumbai",
     pic: "https://static.dezeen.com/uploads/2023/04/apple-store-mumbai-foster-partners-india_dezeen_2364_hero_12-852x479.jpg",
+    username: "saurabh",
     postedBy: {
       _id: "4",
       firstName: "Saurabh",
@@ -270,6 +274,7 @@ export const posts = [
     _id: "5",
     content: "Got this view after 2 hours trek",
     pic: "https://static.toiimg.com/photo/msid-94791202,width-96,height-65.cms",
+    username: "eklavya",
     postedBy: {
       _id: "5",
       firstName: "Eklavya",
@@ -321,6 +326,7 @@ export const posts = [
     _id: "6",
     content: "Went to this gaming fair yesterday!",
     pic: "https://upload.wikimedia.org/wikipedia/commons/e/ee/EGX_2014.jpg",
+    username: "tintin",
     postedBy: {
       _id: "6",
       firstName: "Nitin",

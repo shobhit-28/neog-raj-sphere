@@ -13,9 +13,11 @@ import { UserDataContext } from '../../contexts/userDataContext'
 import { randomProfilePic } from '../../resources/randomImages/randomImages'
 import { IoIosCloseCircleOutline } from 'react-icons/io'
 import { RiImageAddLine } from 'react-icons/ri'
+import { PostContext } from '../../contexts/PostContext'
 
 export const PostComponent = ({ postData }) => {
     const { editedData } = useContext(UserDataContext)
+    const { editPost } = useContext(PostContext)
 
     const navigate = useNavigate()
 
@@ -23,12 +25,11 @@ export const PostComponent = ({ postData }) => {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isEditPostModalOpen, setIsEditPostModalOpen] = useState(false)
-    const [editedPostData, setEditedPostData] = useState({
-        content: postData.content,
-        pic: postData.pic
-    })
+    const [editedPostData, setEditedPostData] = useState(postData)
+    // const [editedPostDataFront, setEditedPostDataFront] = useState(false)
 
     const menuRef = useRef(null)
+    const fileInputRef = useRef(null)
 
 
     useEffect(() => {
@@ -47,12 +48,7 @@ export const PostComponent = ({ postData }) => {
 
     const remove_img_click_Handler = () => {
         setEditedPostData({ ...editedPostData, pic: '' })
-        setTimeout(() => {
-            setIsEditPostModalOpen(false)
-        }, 0);
-        setTimeout(() => {
-            setIsEditPostModalOpen(true)
-        }, 1);
+        fileInputRef.current.value = ''
     }
 
     const handleFileChange = async (e) => {
@@ -83,6 +79,12 @@ export const PostComponent = ({ postData }) => {
             content: postData.content,
             pic: postData.pic
         })
+    }
+
+    const editClickHandler = () => {
+        setIsEditPostModalOpen(false)
+        editPost(editedPostData)
+        // setEditedPostDataFront(editedPostData)
     }
 
     return (
@@ -177,10 +179,11 @@ export const PostComponent = ({ postData }) => {
                                 <input type="file" name="" id="imgInput" className='post-modal-fileinput'
                                     accept='image/*'
                                     onChange={handleFileChange}
+                                    ref={fileInputRef}
                                 />
                             </div>
                             <div className="btn-container">
-                                <button className={editedPostData.content === '' ? "disabled-btn" : 'btn'} disabled={editedPostData.content === ''}>Save</button>
+                                <button className={editedPostData.content === '' ? "disabled-btn" : 'btn'} disabled={editedPostData.content === ''} onClick={() => editClickHandler()}>Save</button>
                                 <button className="cancel btn" onClick={() => postModalCancelClickHandler()}>Cancel</button>
                             </div>
                         </div>

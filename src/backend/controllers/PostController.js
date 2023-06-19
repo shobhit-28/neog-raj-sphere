@@ -109,7 +109,8 @@ export const createPostHandler = function (schema, request) {
  * body contains { postData }
  * */
 export const editPostHandler = function (schema, request) {
-  const user = requiresAuth.call(this, request);
+  const user = JSON.parse(localStorage.getItem('userData'));
+  // const user = requiresAuth.call(this, request);
   try {
     if (!user) {
       return new Response(
@@ -125,6 +126,8 @@ export const editPostHandler = function (schema, request) {
     const postId = request.params.postId;
     const { postData } = JSON.parse(request.requestBody);
     let post = schema.posts.findBy({ _id: postId }).attrs;
+    console.log('post', post.username)
+    console.log('user', user)
     if (post.username !== user.username) {
       return new Response(
         400,
@@ -134,7 +137,8 @@ export const editPostHandler = function (schema, request) {
         }
       );
     }
-    post = { ...post, ...postData };
+    post = { ...post, ...JSON.parse(request.requestBody) };
+    // post = { ...post, ...postData };
     this.db.posts.update({ _id: postId }, post);
     return new Response(201, {}, { posts: this.db.posts });
   } catch (error) {

@@ -159,9 +159,11 @@
     background-color: #fff;
     border-radius: 0.35rem;
     width: 30%;
+    max-height: 80vh;
     padding: 1rem;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
     border: 0.2px solid rgba(0, 0, 0, 0.2);
+    overflow: auto;
 }
 
 .edit-post-modal-container .edit-post-modal .close-btn {
@@ -231,7 +233,7 @@
 }
 
 .edit-post-modal-container .edit-post-modal .input-img-container {
-    width: 10rem;
+    width: 90%;
     height: fit-content;
     margin: auto;
     position: relative;
@@ -239,7 +241,7 @@
 }
 
 .edit-post-modal-container .edit-post-modal .input-img-container .remove-img {
-    position :fixed;
+    position :absolute;
     border: 0;
     background-color: transparent;
     cursor: pointer;
