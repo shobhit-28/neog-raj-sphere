@@ -1,11 +1,10 @@
 import { useContext } from 'react'
 import './allPosts.css'
 import { PostContext } from '../../contexts/PostContext'
+import { PostComponent } from '../../components/postCard/postCardComponent'
 
 export const AllPosts = () => {
     const { allPosts } = useContext(PostContext)
-
-    console.log(allPosts)
 
     return (
         <div className="explore-page page">
@@ -17,7 +16,7 @@ export const AllPosts = () => {
             </div>
             <div className="post-container">
                 {allPosts?.map((post) => (
-                    <p className="name">{post?.content}</p>
+                    <PostComponent postData={post} key={post?._id} />
                 ))}
             </div>
         </div>

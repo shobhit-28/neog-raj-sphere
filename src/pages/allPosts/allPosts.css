@@ -1,8 +1,14 @@
+@media only screen and (max-width: 450px) {
+    .explore-page .header {
+        width: 100% !important;
+    }
+}
+
 .explore-page .header {
     position: fixed;
     width: 50%;
     background-color: rgba(255, 255, 255, 0.92);
-    box-shadow: rgba(0, 0, 0, 0.45) 0px 10px 20px -10px;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 20px -10px;
 }
 
 .explore-page .header .heading {

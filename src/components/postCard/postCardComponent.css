@@ -1,0 +1,313 @@
+@media only screen and (max-width: 900px) {
+    .post-card-container .post-card {
+        width: 85% !important;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .post-card-container .post-card {
+        width: 100% !important;
+    }
+}
+
+.post-card-container {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.post-card-container .post-card {
+    box-shadow: rgba(0, 0, 0, 0.2) 0 0 5px;
+    transition: 0.5s;
+    margin: auto;
+    width: 70%;
+    overflow: hidden;
+    border-radius: 0.35rem;
+}
+
+.post-card-container .post-card:hover {
+    box-shadow: rgba(0, 0, 0, 0.5) 0 0 7px;
+    cursor: pointer;
+}
+
+.post-card-container .post-card .post-card-head {
+    margin: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-card-container .post-card .post-card-head .kebab-menu-container {
+    display: flex;
+    align-items: center;
+}
+
+.post-card-container .post-card .post-card-head .kebab-menu-container .kebab-icon {
+    background-color: transparent;
+    border: 0;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.post-card-container .post-card .post-card-head .kebab-menu-container .menu{
+    position: absolute;
+    background-color: #fff;
+    margin-top: 7rem;
+    margin-left: -4rem;
+    box-shadow: rgba(0, 0, 0, 0.4) 0 0 8px;
+    padding: 0.5rem;
+    border-radius: 0.35rem;
+    transition: 0.5s;
+}
+
+.post-card-container .post-card .post-card-head .kebab-menu-container .menu .option-1{
+    margin-bottom: 0.35rem;
+}
+
+.post-card-container .post-card .post-card-head .kebab-menu-container .menu *{
+    padding: 0.5rem;
+    border-radius: 0.35rem;
+}
+
+.post-card-container .post-card .post-card-head .kebab-menu-container .menu *:hover{
+    background-color: #000;
+    color: #fff;
+    transition: 0.5s;
+}
+
+.post-card-container .post-card .posted-by {
+    display: flex;
+}
+
+.post-card-container .post-card .posted-by .profile-pic-container {
+    width: 3rem;
+    height: 3rem;
+    border: 0;
+    border-radius: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.5rem;
+}
+
+.post-card-container .post-card .posted-by .profile-pic-container img {
+    width: auto;
+    height: 100%;
+}
+
+.post-card-container .post-card .posted-by .name-username-date {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 0.5rem;
+}
+
+.post-card-container .post-card .posted-by .name-username-date .name {
+    font-size: 1rem;
+}
+
+.post-card-container .post-card .posted-by .name-username-date .username {
+    font-size: 0.75rem;
+    font-style: oblique;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.post-card-container .post-card .posted-by .name-username-date .date {
+    font-size: 0.75rem;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.post-card-container .post-card .content {
+    font-size: 1.1rem;
+    margin: 0.5rem ;
+}
+
+.post-card-container .post-card .post-img-container {
+    margin: 0.5rem 0 ;
+}
+
+.post-card-container .post-card .btn-container {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0.5rem 0;
+}
+
+.post-card-container .post-card .btn-container button {
+    font-size: 1.5rem;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.post-card-container .post-card .btn-container .heart {
+    color: red;
+}
+
+.edit-post-modal-container {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    top: 0;
+    right: 0;
+}
+
+.edit-post-modal-container .edit-post-modal {
+    background-color: #fff;
+    border-radius: 0.35rem;
+    width: 30%;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+    border: 0.2px solid rgba(0, 0, 0, 0.2);
+}
+
+.edit-post-modal-container .edit-post-modal .close-btn {
+    border: 0;
+    padding: 0.5rem;
+    border-radius: 100px;
+    font-size: 1.15rem;
+    background-color: transparent;
+    cursor: pointer;
+    margin: -0.5rem 0 0.5rem -0.5rem;
+    z-index: 1;
+}
+
+.edit-post-modal-container .edit-post-modal .close-btn:active {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.edit-post-modal-container .edit-post-modal .img-and-text {
+    display: flex;
+}
+
+.edit-post-modal-container .edit-post-modal .img-and-text .profile-pic-container {
+    width: 6rem;
+    height: 5rem;
+    border-radius: 100%;
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.edit-post-modal-container .edit-post-modal .img-and-text .profile-pic-container img {
+    /* border-radius: 500px; */
+    height: 100%;
+    width: auto;
+}
+
+.edit-post-modal-container .edit-post-modal .img-and-text .post-textarea {
+    /*removes default styles of a textarea*/
+    border: none;
+    overflow: auto;
+    outline: none;
+    resize: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background-color: transparent;
+
+    font-size: 1.25rem;
+    font-family: 'Montserrat', sans-serif;
+    padding: 0 1rem 0 0;
+    margin: 0;
+}
+
+.edit-post-modal-container .edit-post-modal .img-and-text .post-textarea::-webkit-scrollbar {
+    width: 3px;
+}
+
+.edit-post-modal-container .edit-post-modal .img-and-text .post-textarea::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+}
+
+.edit-post-modal-container .edit-post-modal .img-and-text .post-textarea::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.edit-post-modal-container .edit-post-modal .input-img-container {
+    width: 10rem;
+    height: fit-content;
+    margin: auto;
+    position: relative;
+    margin-top: 1rem;
+}
+
+.edit-post-modal-container .edit-post-modal .input-img-container .remove-img {
+    position :fixed;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 2rem;
+    color: #fc0101;
+}
+
+.edit-post-modal-container .edit-post-modal .post-modal-hr {
+    margin: 1rem 0;
+}
+
+.edit-post-modal-container .edit-post-modal .post-modal-foot {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-post-modal-container .edit-post-modal .post-modal-fileinput-container .post-modal-fileinput {
+    display: none;
+}
+
+.edit-post-modal-container .edit-post-modal .post-modal-fileinput-container .fileinput-label {
+    font-size: 1.25rem;
+    font-weight: 500;
+    background-color: #000;
+    color: #fff;
+    padding: 0.35rem;
+    display: flex;
+    border-radius: 0.35rem;
+    cursor: pointer;
+}
+
+.edit-post-modal-container .edit-post-modal .post-modal-fileinput-container .fileinput-label .img {
+    display: flex;
+    align-items: center;
+    margin-right: 0.35rem;
+}
+
+.edit-post-modal-container .edit-post-modal .btn-container button {
+    font-size: 1.25rem;
+    font-weight: 500;
+    background-color: #000;
+    color: #fff;
+    padding: 0.35rem;
+    border: 0.25px solid black;
+    border-radius: 0.5rem;
+    transition: 0.5s;
+}
+
+.edit-post-modal-container .edit-post-modal .btn-container .disabled-btn {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.edit-post-modal-container .edit-post-modal .btn-container .disabled-btn:active {
+    transform: scale(1);
+}
+
+.edit-post-modal-container .edit-post-modal .btn-container .btn:hover {
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+}
+
+.edit-post-modal-container .edit-post-modal .btn-container .btn:active {
+    background-color: #000;
+    color: #fff;
+}
+
+.edit-post-modal-container .edit-post-modal .btn-container .cancel {
+    margin-left: 0.5rem;
+}
