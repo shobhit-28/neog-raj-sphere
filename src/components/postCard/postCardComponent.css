@@ -151,6 +151,15 @@
     margin: 0.5rem 0;
 }
 
+.post-card-container .post-card .btn-container .like-btn-container {
+    display: flex;
+    align-items: center;
+}
+
+.post-card-container .post-card .btn-container .like-btn-container .likes-num {
+    margin: 0 0 0.5rem 0.5rem;
+}
+
 .post-card-container .post-card .btn-container button {
     font-size: 1.5rem;
     border: 0;

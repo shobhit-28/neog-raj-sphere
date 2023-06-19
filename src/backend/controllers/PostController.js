@@ -158,7 +158,8 @@ export const editPostHandler = function (schema, request) {
  * */
 
 export const likePostHandler = function (schema, request) {
-  const user = requiresAuth.call(this, request);
+  // const user = requiresAuth.call(this, request);
+  const user = JSON.parse(localStorage.getItem('userData'));
   try {
     if (!user) {
       return new Response(
@@ -204,7 +205,8 @@ export const likePostHandler = function (schema, request) {
  * */
 
 export const dislikePostHandler = function (schema, request) {
-  const user = requiresAuth.call(this, request);
+  // const user = requiresAuth.call(this, request);
+  const user = JSON.parse(localStorage.getItem('userData'));
   try {
     if (!user) {
       return new Response(

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { createContext } from "react";
+import { toast } from "react-toastify";
 
 export const PostContext = createContext();
 
@@ -28,7 +29,42 @@ export const PostDataHandler = ({children}) => {
             const responseData = (await response.json())?.posts
             console.log(response)
             setAllPosts(responseData)
-            console.log(responseData)
+            toast.success(`Successfully edited`, {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const likePost = async (postId) => {
+        try {
+            const response = await fetch(`/api/posts/like/${postId}`,{
+                method: 'post',
+                headers: { authorization: encodedToken },
+            })
+            const responseData = await response.json()
+            setAllPosts(responseData?.posts)
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    
+    const dislikePost = async (postId) => {
+        try {
+            const response = await fetch(`/api/posts/dislike/${postId}`,{
+                method: 'post',
+                headers: { authorization: encodedToken },
+            })
+            const responseData = await response.json()
+            setAllPosts(responseData?.posts)
         } catch (error) {
             console.error(error);
         }
@@ -41,7 +77,9 @@ export const PostDataHandler = ({children}) => {
     return (
         <PostContext.Provider value={{
             allPosts,
-            editPost
+            editPost,
+            likePost,
+            dislikePost
         }}>
             {children}
         </PostContext.Provider>

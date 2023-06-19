@@ -17,7 +17,7 @@ import { PostContext } from '../../contexts/PostContext'
 
 export const PostComponent = ({ postData }) => {
     const { editedData } = useContext(UserDataContext)
-    const { editPost } = useContext(PostContext)
+    const { editPost, likePost, dislikePost } = useContext(PostContext)
 
     const navigate = useNavigate()
 
@@ -26,7 +26,6 @@ export const PostComponent = ({ postData }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isEditPostModalOpen, setIsEditPostModalOpen] = useState(false)
     const [editedPostData, setEditedPostData] = useState(postData)
-    // const [editedPostDataFront, setEditedPostDataFront] = useState(false)
 
     const menuRef = useRef(null)
     const fileInputRef = useRef(null)
@@ -126,12 +125,15 @@ export const PostComponent = ({ postData }) => {
                     <img src={postData?.pic} alt="" />
                 </div>}
                 <div className="btn-container">
-                    {postData?.likes?.likedBy?.find((user) => user?._id === profileId)
-                        ?
-                        <button className="dislike heart"><AiFillHeart /></button>
-                        :
-                        <button className="like heart"><AiOutlineHeart /></button>
-                    }
+                    <div className="like-btn-container">
+                        {postData?.likes?.likedBy?.find((user) => user?._id === profileId)
+                            ?
+                            <button className="dislike heart" onClick={() => dislikePost(postData?._id)}><AiFillHeart /></button>
+                            :
+                            <button className="like heart" onClick={() => likePost(postData?._id)}><AiOutlineHeart /></button>
+                        }
+                        <p className="likes-num">{postData?.likes?.likeCount}</p>
+                    </div>
                     <button className="comment"><GoComment /></button>
                     <button className="bookmark"><BsFillBookmarkPlusFill /><BsFillBookmarkCheckFill /></button>
                 </div>
