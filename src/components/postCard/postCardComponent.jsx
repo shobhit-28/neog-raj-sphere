@@ -83,7 +83,11 @@ export const PostComponent = ({ postData }) => {
     const editClickHandler = () => {
         setIsEditPostModalOpen(false)
         editPost(editedPostData)
-        // setEditedPostDataFront(editedPostData)
+    }
+
+    const deleteClickHandler = () => {
+        deletePost(postData?._id)
+        setIsEditPostModalOpen(false)
     }
 
     return (
@@ -115,7 +119,7 @@ export const PostComponent = ({ postData }) => {
                             {isMenuOpen &&
                                 <div className="menu" ref={menuRef}>
                                     <p className="option-1" onClick={() => setIsEditPostModalOpen(true)}>Edit</p>
-                                    <p className="option-2" onClick={() => deletePost(postData?._id)}>Delete</p>
+                                    <p className="option-2" onClick={() => deleteClickHandler()}>Delete</p>
                                 </div>
                             }
                         </div>}

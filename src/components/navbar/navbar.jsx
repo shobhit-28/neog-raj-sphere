@@ -64,7 +64,15 @@ export const Navbar = () => {
         setPostInput({
             content: "",
             pic: "",
-            fileName: ''
+            fileName: '',
+            postedBy: {
+                _id: JSON.parse(localStorage.getItem('userData'))?._id,
+                firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
+                lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
+                username: JSON.parse(localStorage.getItem('userData'))?.username,
+                profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
+            },
+            comments: []
         })
     }
 
@@ -87,7 +95,15 @@ export const Navbar = () => {
         setPostInput({
             content: "",
             pic: "",
-            fileName: ''
+            fileName: '',
+            postedBy: {
+                _id: JSON.parse(localStorage.getItem('userData'))?._id,
+                firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
+                lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
+                username: JSON.parse(localStorage.getItem('userData'))?.username,
+                profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
+            },
+            comments: []
         })
     }
 
@@ -109,6 +125,19 @@ export const Navbar = () => {
     const postClickHandler = () => {
         createPost(postInput)
         setIsPostModalOpen(false)
+        setPostInput({
+            content: "",
+            pic: "",
+            fileName: '',
+            postedBy: {
+                _id: JSON.parse(localStorage.getItem('userData'))?._id,
+                firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
+                lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
+                username: JSON.parse(localStorage.getItem('userData'))?.username,
+                profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
+            },
+            comments: []
+        })
     }
 
     useEffect(() => {

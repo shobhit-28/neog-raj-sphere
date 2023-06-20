@@ -12,6 +12,8 @@ import { MdOutlineAddPhotoAlternate } from 'react-icons/md'
 import { toast } from 'react-toastify'
 import { Loader } from '../../components/loader/loader'
 import { UserDataContext } from '../../contexts/userDataContext'
+import { PostContext } from '../../contexts/PostContext'
+import { PostComponent } from '../../components/postCard/postCardComponent'
 
 export const ProfilePage = () => {
     // const encodedToken = localStorage.getItem('encodedToken');
@@ -30,6 +32,9 @@ export const ProfilePage = () => {
         setFollowed,
         // allUsersData
     } = useContext(UserDataContext)
+    const { allPosts } = useContext(PostContext)
+
+    console.log('Current user post', allPosts?.filter((post) => post.postedBy._id === userId))
 
     const [userData, setUserData] = useState(false)
     const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false)
@@ -264,17 +269,19 @@ export const ProfilePage = () => {
         <>
             {!userData ? <Loader /> :
                 <div className="profile-page page">
-                    <div className="img-container">
-                        <div className="cover-pic-container" onClick={() => setIsCoverPicModalOpen(true)}>
-                            <img src={userData?.cover_pic?.length > 0 ? userData?.cover_pic : randomCoverPic} alt="" className="cover-pic" />
+                    <div className="fixed-part">
+                        <div className="img-container">
+                            <div className="cover-pic-container" onClick={() => setIsCoverPicModalOpen(true)}>
+                                <img src={userData?.cover_pic?.length > 0 ? userData?.cover_pic : randomCoverPic} alt="" className="cover-pic" />
+                            </div>
+                            <div className="profile-pic-container" onClick={() => setIsProfilePicModalOpen(true)}>
+                                <img src={userData?.profile_pic?.length > 0 ? userData?.profile_pic : randomProfilePic} alt="" className="profile-pic" />
+                            </div>
                         </div>
-                        <div className="profile-pic-container" onClick={() => setIsProfilePicModalOpen(true)}>
-                            <img src={userData?.profile_pic?.length > 0 ? userData?.profile_pic : randomProfilePic} alt="" className="profile-pic" />
+                        <div className="profile-btn-container">
+                            <button className="edit" onClick={() => setIsEditProfileModalOpen(true)}><FiEdit /><span className="text">Profile</span></button>
+                            <button className="logout" onClick={() => logOut()}><LuLogOut /></button>
                         </div>
-                    </div>
-                    <div className="profile-btn-container">
-                        <button className="edit" onClick={() => setIsEditProfileModalOpen(true)}><FiEdit /><span className="text">Profile</span></button>
-                        <button className="logout" onClick={() => logOut()}><LuLogOut /></button>
                     </div>
                     <div className="content">
                         <div className="name-username">
@@ -288,6 +295,18 @@ export const ProfilePage = () => {
                     <div className="followers-btn-container">
                         <button className="following" onClick={() => setIsFollowingModalOpen(!isFollowingModalOpen)}>{`${followed?.length} Following`}</button>
                         <button className="followers" onClick={() => setIsFollowersModalOpen(!isFollowersModalOpen)}>{`${userData?.followers?.length} Followers`}</button>
+                    </div>
+                    <div className="post-content">
+                        {allPosts?.filter((post) => post.postedBy._id === userId)?.length > 0
+                            ?
+                            <div className="user-post">
+                                {allPosts?.filter((post) => post.postedBy._id === userId)?.map((post) => <PostComponent postData={post} />)}
+                            </div>
+                            :
+                            <div className="not-posted">
+                                User has not posted anything yet!
+                            </div>
+                        }
                     </div>
                 </div>}
             {isFollowingModalOpen &&
