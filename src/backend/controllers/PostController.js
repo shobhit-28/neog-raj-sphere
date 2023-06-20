@@ -126,8 +126,6 @@ export const editPostHandler = function (schema, request) {
     const postId = request.params.postId;
     const { postData } = JSON.parse(request.requestBody);
     let post = schema.posts.findBy({ _id: postId }).attrs;
-    console.log('post', post.username)
-    console.log('user', user)
     if (post.username !== user.username) {
       return new Response(
         400,

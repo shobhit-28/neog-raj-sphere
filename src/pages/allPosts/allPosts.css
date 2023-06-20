@@ -30,6 +30,35 @@
     /* margin: 0.25rem auto 0.5rem; */
 }
 
+.explore-page .no-post-div {
+    padding-top: 7rem;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.explore-page .no-post-div p {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
 .explore-page .post-container {
     padding-top: 7rem;
+}
+
+.explore-page .post-container .not-found {
+    margin-top: -7rem;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+}
+
+.explore-page .post-container .not-found p {
+    font-size: 1.5rem;
+    font-weight: 500;
 }

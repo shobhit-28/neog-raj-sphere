@@ -8,7 +8,7 @@ export const PostContext = createContext();
 export const PostDataHandler = ({children}) => {
     const encodedToken = localStorage.getItem('encodedToken');
 
-    const [allPosts, setAllPosts] = useState([]);
+    const [allPosts, setAllPosts] = useState(undefined);
 
     const fetchAllPostData = async () => {
         try {
@@ -27,7 +27,6 @@ export const PostDataHandler = ({children}) => {
                 body: JSON.stringify(editedPostData)
             })
             const responseData = (await response.json())?.posts
-            console.log(response)
             setAllPosts(responseData)
             toast.success(`Successfully edited`, {
                 position: "top-center",
