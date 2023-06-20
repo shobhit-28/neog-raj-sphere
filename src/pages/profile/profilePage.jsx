@@ -34,8 +34,6 @@ export const ProfilePage = () => {
     } = useContext(UserDataContext)
     const { allPosts } = useContext(PostContext)
 
-    console.log('Current user post', allPosts?.filter((post) => post.postedBy._id === userId))
-
     const [userData, setUserData] = useState(false)
     const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false)
     const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false)
@@ -300,7 +298,7 @@ export const ProfilePage = () => {
                         {allPosts?.filter((post) => post.postedBy._id === userId)?.length > 0
                             ?
                             <div className="user-post">
-                                {allPosts?.filter((post) => post.postedBy._id === userId)?.map((post) => <PostComponent postData={post} />)}
+                                {allPosts?.filter((post) => post.postedBy._id === userId)?.map((post) => <PostComponent postData={post} key={post?._id} />)}
                             </div>
                             :
                             <div className="not-posted">

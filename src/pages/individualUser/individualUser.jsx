@@ -6,6 +6,7 @@ import { randomCoverPic, randomProfilePic } from "../../resources/randomImages/r
 import { Loader } from "../../components/loader/loader";
 import { UserDataContext } from "../../contexts/userDataContext";
 import { TfiClose } from "react-icons/tfi";
+import { PostComponent } from "../../components/postCard/postCardComponent";
 
 // import './homepage.css'
 
@@ -23,16 +24,20 @@ export const IndividualUser = () => {
     const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false)
     const [isProfilePicModalOpen, setIsProfilePicModalOpen] = useState(false)
     const [isCoverPicModalOpen, setIsCoverPicModalOpen] = useState(false)
+    const [allPosts, setAllPosts] = useState(undefined)
 
     const fetchData = async () => {
         try {
             const response = await fetch(`/api/users/${userID}`)
-            setUserData((await response.json())?.user)
+            const data = (await response.json())?.user
+            setUserData(data)
+            const posts = await fetch(`/api/posts/user/${data?.username}`)
+            setAllPosts((await posts.json())?.posts)
         } catch (error) {
             console.error(error);
         }
     }
-
+    
     const fetchCurrUser = async () => {
         try {
             const response = await fetch(`/api/users/${profileID}`)
@@ -50,7 +55,8 @@ export const IndividualUser = () => {
         }
         fetchData()
         fetchCurrUser()
-    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const unfollowHandler = (user) => {
         unfollow(user?._id)
@@ -129,6 +135,18 @@ export const IndividualUser = () => {
                         <button className="followers"
                             onClick={() => setIsFollowersModalOpen(!isFollowersModalOpen)}
                         >{`${userData?.followers?.length} Followers`}</button>
+                    </div>
+                    <div className="post-content">
+                        {allPosts?.length > 0
+                            ?
+                            <div className="user-post">
+                                {allPosts?.map((post) => <PostComponent postData={post} key={post?._id} />)}
+                            </div>
+                            :
+                            <div className="not-posted">
+                                User has not posted anything yet!
+                            </div>
+                        }
                     </div>
                 </div>
             }
