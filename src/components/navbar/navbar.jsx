@@ -1,7 +1,7 @@
 import './navbar.css'
 
 import { NavLink, useNavigate } from 'react-router-dom'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import { MdOutlineExplore, MdBookmarks } from 'react-icons/md'
 import { BsPlusSquare } from 'react-icons/bs'
@@ -11,16 +11,27 @@ import { IoIosCloseCircleOutline } from 'react-icons/io'
 import { AuthContext } from '../../contexts/AuthContext'
 import { randomProfilePic } from '../../resources/randomImages/randomImages'
 import { UserDataContext } from '../../contexts/userDataContext'
+import { PostContext } from '../../contexts/PostContext'
 
 export const Navbar = () => {
     const navigate = useNavigate()
 
     const { userData } = useContext(AuthContext);
     const { editedData, setIsMobileViewOpen, isPostModalOpen, setIsPostModalOpen } = useContext(UserDataContext)
+    const {createPost} = useContext(PostContext)
+
     const [postInput, setPostInput] = useState({
         content: "",
         pic: "",
-        fileName: ''
+        fileName: '',
+        postedBy: {
+            _id: JSON.parse(localStorage.getItem('userData'))?._id,
+            firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
+            lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
+            username: JSON.parse(localStorage.getItem('userData'))?.username,
+            profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
+        },
+        comments: []
     });
     const [isClosePostModalConfirmationOpen, setIsClosePostModalConfirmationOpen] = useState(false)
 
@@ -94,6 +105,25 @@ export const Navbar = () => {
         navigate('profile')
         setIsMobileViewOpen(false)
     }
+
+    const postClickHandler = () => {
+        createPost(postInput)
+        setIsPostModalOpen(false)
+    }
+
+    useEffect(() => {
+        setPostInput({
+            ...postInput,
+            postedBy: {
+                _id: JSON.parse(localStorage.getItem('userData'))?._id,
+                firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
+                lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
+                username: JSON.parse(localStorage.getItem('userData'))?.username,
+                profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
+            }
+        })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userData])
 
     return (
         <>
@@ -180,7 +210,7 @@ export const Navbar = () => {
                                 />
                             </div>
                             <div className="btn-container">
-                                <button className={postInput.content === '' ? "disabled-btn" : 'btn'} disabled={postInput.content === ''}>Post</button>
+                                <button className={postInput.content === '' ? "disabled-btn" : 'btn'} disabled={postInput.content === ''} onClick={() => postClickHandler()}>Post</button>
                                 <button className="cancel btn" onClick={() => postModalCancelClickHandler()}>Cancel</button>
                             </div>
                         </div>

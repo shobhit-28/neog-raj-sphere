@@ -42,6 +42,30 @@ export const PostDataHandler = ({children}) => {
             console.error(error);
         }
     }
+    
+    const createPost = async (postData) => {
+        try {
+            const response = await fetch(`/api/posts`,{
+                method: 'POST',
+                headers: { authorization: encodedToken },
+                body: JSON.stringify(postData)
+            })
+            const responseData = (await response.json())?.posts
+            setAllPosts(responseData)
+            toast.success(`Posted successfully`, {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const likePost = async (postId) => {
         try {
@@ -100,6 +124,7 @@ export const PostDataHandler = ({children}) => {
         <PostContext.Provider value={{
             allPosts,
             editPost,
+            createPost,
             likePost,
             dislikePost,
             deletePost
