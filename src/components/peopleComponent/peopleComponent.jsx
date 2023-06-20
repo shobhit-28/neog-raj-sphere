@@ -10,14 +10,14 @@ export const PeopleComponent = () => {
 
     const userId = JSON.parse(localStorage.getItem('userData'))?._id;
 
-    const { allUsersData, followingData, follow, followed, setFollowed, setIsMobileViewOpen } = useContext(UserDataContext)
+    const { allUsersData, followingData, follow, followed, setFollowed, setIsMobileViewOpen, currUserData, setCurrUserData } = useContext(UserDataContext)
 
-    const [currUserData, setCurrUserData] = useState(false)
+    const [profileData, setProfileData] = useState(false)
     const [searchResults, setSearchResults] = useState(false)
 
     const ref = useRef(null)
 
-    const userData = followingData ? followingData : currUserData
+    const userData = followingData ? followingData : profileData
     const filteredArr = allUsersData
         ?.filter((user) => user._id !== userId)
         ?.filter((allUsersUser) => !userData?.following?.find((user) => user?._id === allUsersUser?._id))
@@ -28,7 +28,7 @@ export const PeopleComponent = () => {
         try {
             const response = await fetch(`/api/users/${userId}`)
             const data = (await response.json())
-            setCurrUserData(data?.user)
+            setProfileData(data?.user)
         } catch (error) {
             console.error(error)
         }
@@ -43,6 +43,10 @@ export const PeopleComponent = () => {
         follow(user)
         setFollowed([...followed, user])
         event.stopPropagation()
+        setCurrUserData({
+            ...currUserData,
+            following: [...currUserData?.following, user]
+        })
     }
 
     const searchBarChangeHandler = (event) => {

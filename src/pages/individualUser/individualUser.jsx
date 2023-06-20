@@ -7,6 +7,7 @@ import { Loader } from "../../components/loader/loader";
 import { UserDataContext } from "../../contexts/userDataContext";
 import { TfiClose } from "react-icons/tfi";
 import { PostComponent } from "../../components/postCard/postCardComponent";
+import { SmallLoader } from "../../components/smallLoader/smallLoader";
 
 // import './homepage.css'
 
@@ -16,10 +17,9 @@ export const IndividualUser = () => {
 
     const profileID = JSON.parse(localStorage.getItem('userData'))?._id;
 
-    const { followed, setFollowed, follow, unfollow } = useContext(UserDataContext)
+    const { followed, setFollowed, follow, unfollow, currUserData, setCurrUserData } = useContext(UserDataContext)
 
     const [userData, setUserData] = useState(false)
-    const [currUserData, setCurrUserData] = useState(false)
     const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false)
     const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false)
     const [isProfilePicModalOpen, setIsProfilePicModalOpen] = useState(false)
@@ -37,7 +37,7 @@ export const IndividualUser = () => {
             console.error(error);
         }
     }
-    
+
     const fetchCurrUser = async () => {
         try {
             const response = await fetch(`/api/users/${profileID}`)
@@ -55,14 +55,14 @@ export const IndividualUser = () => {
         }
         fetchData()
         fetchCurrUser()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const unfollowHandler = (user) => {
         unfollow(user?._id)
         setUserData({
             ...userData,
-            followers: userData?.followers?.filter((user) => user?._id !== userID)
+            followers: userData?.followers?.filter((user) => user?._id !== currUserData?._id)
         })
         setFollowed(followed?.filter((user) => user?._id !== userID))
     }
@@ -71,36 +71,54 @@ export const IndividualUser = () => {
         follow(user)
         setUserData({
             ...userData,
-            followers: [...userData?.followers, user]
+            followers: [...userData?.followers, currUserData]
         })
         setFollowed([...followed, user])
+    }
+
+    const modalFollowHandler = (user) => {
+        follow(user)
+        setCurrUserData({
+            ...currUserData,
+            following: [...currUserData?.following, user]
+        })
+        setFollowed([...followed, user])
+    }
+    
+    const modalUnfollowHandler = (user) => {
+        unfollow(user?._id)
+        setCurrUserData({
+            ...currUserData,
+            following: currUserData?.following?.filter((filterUser) => filterUser?._id !== user?._id  )
+        })
+        setFollowed(followed?.filter((followedUser) => followedUser?._id !== user?._id))
     }
 
     const navigationHandler = (url) => {
         setTimeout(() => {
             navigate('/')
-        },0)
+        }, 0)
         setTimeout(() => {
             navigate(url)
             setIsFollowersModalOpen(false)
             setIsFollowingModalOpen(false)
-        },1)
+        }, 1)
     }
 
     const followCheck = (userId) => currUserData?.following?.find((user) => user?._id === userId)
-
+    
     return (
         <>
             {!userData ? <Loader /> :
                 <div className="individual-user-page page">
                     <div className="img-container">
                         <div className="cover-pic-container"
-                         onClick={() => setIsCoverPicModalOpen(true)}
+                            onClick={() => setIsCoverPicModalOpen(true)}
                         >
                             <img src={userData?.cover_pic?.length > 0 ? userData?.cover_pic : randomCoverPic} alt="" className="cover-pic" />
                         </div>
                         <div className="profile-pic-container"
-                         onClick={() => setIsProfilePicModalOpen(true)}
+                            onClick={() => setIsProfilePicModalOpen(true)}
                         >
                             <img src={userData?.profile_pic?.length > 0 ? userData?.profile_pic : randomProfilePic} alt="" className="profile-pic" />
                         </div>
@@ -136,18 +154,20 @@ export const IndividualUser = () => {
                             onClick={() => setIsFollowersModalOpen(!isFollowersModalOpen)}
                         >{`${userData?.followers?.length} Followers`}</button>
                     </div>
-                    <div className="post-content">
-                        {allPosts?.length > 0
-                            ?
-                            <div className="user-post">
-                                {allPosts?.map((post) => <PostComponent postData={post} key={post?._id} />)}
-                            </div>
-                            :
-                            <div className="not-posted">
-                                User has not posted anything yet!
-                            </div>
-                        }
-                    </div>
+                    {!allPosts ? <SmallLoader /> :
+                        <div className="post-content">
+                            {allPosts?.length > 0
+                                ?
+                                <div className="user-post">
+                                    {allPosts?.map((post) => <PostComponent postData={post} key={post?._id} />)}
+                                </div>
+                                :
+                                <div className="not-posted">
+                                    User has not posted anything yet!
+                                </div>
+                            }
+                        </div>
+                    }
                 </div>
             }
             {isFollowingModalOpen &&
@@ -176,10 +196,10 @@ export const IndividualUser = () => {
                                             {following?._id !== profileID &&
                                                 (followCheck(following?._id) ?
                                                     <button className="unfollow"
-                                                        onClick={() => unfollowHandler(following)}
+                                                        onClick={() => modalUnfollowHandler(following)}
                                                     >Unfollow</button> :
                                                     <button className="unfollow"
-                                                        onClick={() => followHandler(following)}
+                                                        onClick={() => modalFollowHandler(following)}
                                                     >Follow</button>)
                                             }
                                         </div>
@@ -216,10 +236,10 @@ export const IndividualUser = () => {
                                                 (
                                                     followCheck(follower?._id) ?
                                                         <button className="unfollow"
-                                                            onClick={() => unfollowHandler(follower)}
+                                                            onClick={() => modalUnfollowHandler(follower)}
                                                         >Unfollow</button> :
                                                         <button className="unfollow"
-                                                            onClick={() => followHandler(follower)}
+                                                            onClick={() => modalFollowHandler(follower)}
                                                         >Follow
                                                         </button>
                                                 )

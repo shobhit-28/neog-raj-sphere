@@ -13,6 +13,7 @@ export const UserDataHandler = ({ children }) => {
     const [isPostModalOpen, setIsPostModalOpen] = useState(false)
     const [followingData, setFollowingData] = useState(false)
     const [followed, setFollowed] = useState([])
+    const [currUserData, setCurrUserData] = useState(false)
 
     const fetchAllUsers = async () => {
         try {
@@ -111,6 +112,8 @@ export const UserDataHandler = ({ children }) => {
             setFollowingData,
             followed,
             setFollowed,
+            currUserData,
+            setCurrUserData
         }}>
             {children}
         </UserDataContext.Provider>

@@ -101,7 +101,6 @@ export const AuthenticationHandler = ({ children }) => {
                     body: JSON.stringify(signupInputData)
                 });
                 const data = await response.json();
-                console.log(data?.createdUser)
                 if (data?.encodedToken) {
                     localStorage.setItem('encodedToken', data?.encodedToken);
                     localStorage.setItem('userData', `${JSON.stringify(data?.createdUser)}`)

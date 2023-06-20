@@ -236,6 +236,14 @@
     padding-top: 1rem;
 }
 
+.profile-page .post-content .not-posted {
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+}
+
 .follower-following-modal-container {
     position: fixed;
     top: 0;
