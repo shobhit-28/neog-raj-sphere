@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom"
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import dayjs from "dayjs";
 
 import './singlePostPage.css'
@@ -10,28 +10,81 @@ import { CiMenuKebab } from "react-icons/ci";
 import { BsFillBookmarkCheckFill, BsFillBookmarkPlusFill } from "react-icons/bs";
 import { GoComment } from "react-icons/go";
 
+import { formatDate } from "../../backend/utils/authUtils";
+import { PostContext } from "../../contexts/PostContext";
+
 export const SinglePostPage = () => {
     const { postId } = useParams();
     const profileId = JSON.parse(localStorage.getItem('userData'))?._id;
 
+    const { addComment } = useContext(PostContext)
+
     const [postData, setPostData] = useState(undefined)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [comment, setComment] = useState('')
 
     const menuRef = useRef(null)
+    const addCommentRef = useRef(null)
 
     const navigate = useNavigate()
 
     const fetchPostData = async () => {
         try {
             const response = await fetch(`/api/posts/${postId}`)
-            setPostData((await response.json())?.post)
+            const responseData = (await response.json())?.post
+            setPostData(responseData)
         } catch (error) {
             console.error(error);
         }
     }
 
-
-    console.log(postData)
+    const addCommentHandler = () => {
+        if (comment?.length > 0) {
+            addComment({
+                ...postData,
+                comments: [
+                    ...postData?.comments,
+                    {
+                        _id: String(postData?.comments?.length + 1),
+                        content: comment,
+                        postId: postData?._id,
+                        user: {
+                            _id: JSON.parse(localStorage.getItem('userData'))?._id,
+                            firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
+                            lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
+                            username: JSON.parse(localStorage.getItem('userData'))?.username,
+                            profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
+                        },
+                        replies: [],
+                        createdAt: formatDate(),
+                        updatedAt: formatDate(),
+                    },
+                ]
+            })
+            setPostData({
+                ...postData,
+                comments: [
+                    ...postData?.comments,
+                    {
+                        _id: String(postData?.comments?.length + 1),
+                        content: comment,
+                        postId: postData?._id,
+                        user: {
+                            _id: JSON.parse(localStorage.getItem('userData'))?._id,
+                            firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
+                            lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
+                            username: JSON.parse(localStorage.getItem('userData'))?.username,
+                            profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
+                        },
+                        replies: [],
+                        createdAt: formatDate(),
+                        updatedAt: formatDate(),
+                    },
+                ]
+            })
+            addCommentRef.current.value = ''
+        }
+    }
 
     useEffect(() => {
         fetchPostData()
@@ -122,9 +175,9 @@ export const SinglePostPage = () => {
                 <div className="comment-section">
                     <div className="comment-input-div">
                         <label htmlFor="comment" className="comment-input">
-                            <input type="text" name="comment" />
+                            <input type="text" name="comment" onChange={(event) => setComment(event.target.value)} ref={addCommentRef} />
                         </label>
-                        <button className="add-comment"><AiOutlineSend /></button>
+                        <button className="add-comment" onClick={() => addCommentHandler()}><AiOutlineSend /></button>
                     </div>
                     <div className="comments">
                         {postData?.comments?.map((comment) => (

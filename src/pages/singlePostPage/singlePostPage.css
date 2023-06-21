@@ -1,6 +1,15 @@
+@media only screen and (max-width: 900px) {
+    .single-post-page .comment-container {
+        width: 75% !important;
+    }
+}
+
 @media only screen and (max-width: 450px) {
     .single-post-page .header {
         width: 100% !important;
+    }
+    .single-post-page .comment-container {
+        width: 95% !important;
     }
 }
 

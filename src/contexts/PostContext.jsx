@@ -45,6 +45,29 @@ export const PostDataHandler = ({children}) => {
         }
     }
     
+    const addComment = async (editedPostData) => {
+        try {
+            const response = await fetch(`/api/posts/edit/${editedPostData._id}`,{
+                method: 'POST',
+                headers: { authorization: encodedToken },
+                body: JSON.stringify(editedPostData)
+            })
+            await response.json()?.posts
+            toast.success(`Comment added`, {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    
     const createPost = async (postData) => {
         try {
             const response = await fetch(`/api/posts`,{
@@ -128,6 +151,7 @@ export const PostDataHandler = ({children}) => {
         <PostContext.Provider value={{
             allPosts,
             editPost,
+            addComment,
             createPost,
             likePost,
             dislikePost,
