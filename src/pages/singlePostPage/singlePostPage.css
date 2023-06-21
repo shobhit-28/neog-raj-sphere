@@ -1,0 +1,273 @@
+@media only screen and (max-width: 450px) {
+    .single-post-page .header {
+        width: 100% !important;
+    }
+}
+
+.single-post-page {
+    padding-top: 3.75rem;
+}
+
+.single-post-page .comment-container {
+    width: 65%;
+    margin: auto;
+}
+
+.single-post-page .header {
+    position: fixed;
+    width: 50%;
+    background-color: rgba(255, 255, 255, 0.92);
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 5px 20px -10px;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    top: 0;
+}
+
+.single-post-page .header .back-btn {
+    font-size: 1.5rem;
+    background-color: transparent;
+    border: 0;
+    padding: 0 0.5rem;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    margin-bottom: -5px;
+}
+
+.single-post-page .header .heading {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.single-post-page .posted-by {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.single-post-page .posted-by .left-section {
+    display: flex;
+    align-items: center;
+}
+
+.single-post-page .posted-by .left-section .profile-pic-container {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.5rem;
+}
+
+.single-post-page .posted-by .left-section .profile-pic-container img {
+    width: auto;
+    height: 100%;
+}
+
+.single-post-page .posted-by .left-section .name-username-date .name {
+    font-size: 1rem;
+}
+
+.single-post-page .posted-by .left-section .name-username-date .username {
+    font-size: 0.85rem;
+    font-style: oblique;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.single-post-page .posted-by .left-section .name-username-date .date {
+    font-size: 0.85rem;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.single-post-page .posted-by .right-section .kebab-menu-container .kebab-icon {
+    background-color: transparent;
+    border: 0;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.single-post-page .posted-by .right-section .kebab-menu-container .menu {
+    position: absolute;
+    background-color: #fff;
+    margin-top: 0rem;
+    margin-left: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.4) 0 0 8px;
+    padding: 0.5rem;
+    border-radius: 0.35rem;
+    transition: 0.5s;
+}
+
+.single-post-page .posted-by .right-section .kebab-menu-container .menu .option-1 {
+    margin-bottom: 0.35rem;
+}
+
+.single-post-page .posted-by .right-section .kebab-menu-container .menu * {
+    padding: 0.5rem;
+    border-radius: 0.35rem;
+}
+
+.single-post-page .posted-by .right-section .kebab-menu-container .menu *:hover {
+    background-color: #000;
+    color: #fff;
+    transition: 0.5s;
+}
+
+.single-post-page .post-content {
+    margin-bottom: 1rem;
+}
+
+.single-post-page .post-content .content {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.single-post-page .btn-container {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.single-post-page .btn-container button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: 0;
+    border: 0;
+    background-color: transparent;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.single-post-page .btn-container .like-btn-container {
+    display: flex;
+    align-items: center;
+}
+
+.single-post-page .btn-container .like-btn-container button {
+    color: red;
+}
+
+.comment-section .comment-input-div {
+    border: 1.1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 0.2rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.comment-section .comment-input-div .comment-input {
+    display: block;
+    width: 100%;
+}
+
+.comment-section .comment-input-div .comment-input input {
+    width: 100%;
+    font-size: 1.25rem;
+    padding: 0.5rem;
+    outline: 0;
+    border: 0;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.comment-section .comment-input-div .add-comment {
+    width: 5%;
+    background-color: transparent;
+    border: 0;
+    font-size: 1.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin: 0 0.5rem;
+}
+
+.comment-section .comments .single-comment-div {
+    margin-bottom: 0.5rem;
+    border: .1px solid rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    border-radius: 0.45rem;
+}
+
+.comment-section .comments .single-comment-div .commented-by {
+    display: flex;
+    align-items: center;
+}
+
+.comment-section .comments .single-comment-div .commented-by .profile-pic-container {
+    width: 2.8rem;
+    height: 2.8rem;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    margin-right: 0.35rem;
+}
+
+.comment-section .comments .single-comment-div .commented-by .profile-pic-container img {
+    width: auto;
+    height: 100%;
+}
+
+.comment-section .comments .single-comment-div .commented-by .name-username-date .name {
+    font-size: .9rem;
+}
+
+.comment-section .comments .single-comment-div .commented-by .name-username-date .username {
+    font-size: 0.75rem;
+    color: rgba(0, 0, 0, 0.7);
+    font-style: italic;
+}
+
+.comment-section .comments .single-comment-div .commented-by .name-username-date .date {
+    font-size: 0.75rem;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.comment-section .comments .single-comment-div .content {
+    margin: 0.35rem 0 0 0.25rem;
+    font-size: 1rem;
+}
+
+.comment-section .comments .single-comment-div .reply {
+    margin: 0.5rem 0 0 3rem;
+}
+
+.comment-section .comments .single-comment-div .reply .replied-by {
+    display: flex;
+    align-items: center;
+}
+
+.comment-section .comments .single-comment-div .reply .replied-by .profile-pic-container {
+    width: 2.8rem;
+    height: 2.8rem;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    margin-right: .25rem;
+}
+
+.comment-section .comments .single-comment-div .reply .replied-by .profile-pic-container img {
+    width: auto;
+    height: 100%;
+}
+
+.comment-section .comments .single-comment-div .reply .replied-by .name-username .name {
+    font-size: .9rem;
+}
+
+.comment-section .comments .single-comment-div .reply .replied-by .name-username .username {
+    font-size: 0.75rem;
+    color: rgba(0, 0, 0, 0.7);
+    font-style: italic;
+}
+
+.comment-section .comments .single-comment-div .reply .reply {
+    margin: 0.35rem 0 0 0.25rem;
+    font-size: 1rem;
+}

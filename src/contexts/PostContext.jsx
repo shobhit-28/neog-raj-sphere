@@ -9,6 +9,8 @@ export const PostDataHandler = ({children}) => {
     const encodedToken = localStorage.getItem('encodedToken');
 
     const [allPosts, setAllPosts] = useState(undefined);
+    const [isLikeBtnDisabled, setIsLikeBtnDisabled] = useState(true)
+    const [isDisLikeBtnDisabled, setIsDisLikeBtnDisabled] = useState(true)
 
     const fetchAllPostData = async () => {
         try {
@@ -75,6 +77,7 @@ export const PostDataHandler = ({children}) => {
             })
             const responseData = await response.json()
             setAllPosts(responseData?.posts)
+            setIsLikeBtnDisabled(responseData?.posts)
         } catch (error) {
             console.error(error);
         }
@@ -88,6 +91,7 @@ export const PostDataHandler = ({children}) => {
             })
             const responseData = await response.json()
             setAllPosts(responseData?.posts)
+            setIsDisLikeBtnDisabled(responseData?.posts)
         } catch (error) {
             console.error(error);
         }
@@ -127,7 +131,11 @@ export const PostDataHandler = ({children}) => {
             createPost,
             likePost,
             dislikePost,
-            deletePost
+            deletePost,
+            isLikeBtnDisabled,
+            setIsLikeBtnDisabled,
+            isDisLikeBtnDisabled,
+            setIsDisLikeBtnDisabled
         }}>
             {children}
         </PostContext.Provider>

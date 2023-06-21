@@ -17,7 +17,7 @@ import { PostContext } from '../../contexts/PostContext'
 
 export const PostComponent = ({ postData }) => {
     const { editedData } = useContext(UserDataContext)
-    const { editPost, likePost, dislikePost, deletePost } = useContext(PostContext)
+    const { editPost, likePost, dislikePost, deletePost, isLikeBtnDisabled, setIsLikeBtnDisabled, isDisLikeBtnDisabled, setIsDisLikeBtnDisabled } = useContext(PostContext)
 
     const navigate = useNavigate()
 
@@ -90,6 +90,20 @@ export const PostComponent = ({ postData }) => {
         setIsEditPostModalOpen(false)
     }
 
+    const dislikeClickHandler = () => {
+        if (isDisLikeBtnDisabled) {
+            dislikePost(postData?._id)
+        }
+        setIsDisLikeBtnDisabled(false)
+    }
+    
+    const likeClickHandler = () => {
+        if (isLikeBtnDisabled) {
+            likePost(postData?._id)
+        }
+        setIsLikeBtnDisabled(false)
+    }
+
     return (
         <div className="post-card-container">
             <div className="post-card">
@@ -124,17 +138,19 @@ export const PostComponent = ({ postData }) => {
                             }
                         </div>}
                 </div>
-                <p className="content">{postData?.content}</p>
-                {postData?.pic && <div className="post-img-container">
-                    <img src={postData?.pic} alt="" />
-                </div>}
+                <div onClick={() => navigate(`/post/${postData?._id}`)}>
+                    <p className="content">{postData?.content}</p>
+                    {postData?.pic && <div className="post-img-container">
+                        <img src={postData?.pic} alt="" />
+                    </div>}
+                </div>
                 <div className="btn-container">
                     <div className="like-btn-container">
                         {postData?.likes?.likedBy?.find((user) => user?._id === profileId)
                             ?
-                            <button className="dislike heart" onClick={() => dislikePost(postData?._id)}><AiFillHeart /></button>
+                            <button className="dislike heart" onClick={() => dislikeClickHandler()}><AiFillHeart /></button>
                             :
-                            <button className="like heart" onClick={() => likePost(postData?._id)}><AiOutlineHeart /></button>
+                            <button className="like heart" onClick={() => likeClickHandler()}><AiOutlineHeart /></button>
                         }
                         <p className="likes-num">{postData?.likes?.likeCount}</p>
                     </div>

@@ -50,7 +50,7 @@ function App() {
         <Route path='/signup' element={<SignupPage />} />
         <Route path='/explore' element={<RequiresAuth><AllPosts /></RequiresAuth>} />
         <Route path='/profile' element={<RequiresAuth><ProfilePage /></RequiresAuth>} />
-        <Route path='/post/:post_id' element={<RequiresAuth><SinglePostPage /></RequiresAuth>} />
+        <Route path='/post/:postId' element={<RequiresAuth><SinglePostPage /></RequiresAuth>} />
         <Route path='/bookmarks' element={<RequiresAuth><BookmarkPage /></RequiresAuth>} />
         <Route path='/user/:userID' element={<RequiresAuth><IndividualUser /></RequiresAuth>} />
       </Routes>
