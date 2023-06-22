@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { useState, useEffect, useRef, useContext } from "react";
 import dayjs from "dayjs";
 import { v4 as uuidv4 } from 'uuid';
+import copy from "copy-to-clipboard";
 
 import './singlePostPage.css'
 
@@ -10,22 +11,34 @@ import { AiFillHeart, AiOutlineClose, AiOutlineEdit, AiOutlineHeart, AiOutlineSe
 import { CiMenuKebab } from "react-icons/ci";
 import { BsFillBookmarkCheckFill, BsFillBookmarkPlusFill, BsTrash } from "react-icons/bs";
 import { GoComment } from "react-icons/go";
+import { FiShare2 } from "react-icons/fi"
+import { TfiClose } from "react-icons/tfi";
+import { IoIosCloseCircleOutline } from "react-icons/io";
+import { RiImageAddLine } from "react-icons/ri";
 
 import { formatDate } from "../../backend/utils/authUtils";
 import { PostContext } from "../../contexts/PostContext";
 import { toast } from "react-toastify";
 import { Loader } from "../../components/loader/loader";
 import { UserDataContext } from "../../contexts/userDataContext";
-import { TfiClose } from "react-icons/tfi";
 import { randomProfilePic } from "../../resources/randomImages/randomImages";
-import { IoIosCloseCircleOutline } from "react-icons/io";
-import { RiImageAddLine } from "react-icons/ri";
 
 export const SinglePostPage = () => {
     const { postId } = useParams();
     const profileId = JSON.parse(localStorage.getItem('userData'))?._id;
 
-    const { addComment, editPost, removeComment, deletePost } = useContext(PostContext)
+    const { 
+        addComment,
+        editPost,
+        removeComment,
+        deletePost,
+        isLikeBtnDisabled,
+        setIsLikeBtnDisabled,
+        isDisLikeBtnDisabled,
+        setIsDisLikeBtnDisabled,
+        likePost,
+        dislikePost
+    } = useContext(PostContext)
     const { editedData } = useContext(UserDataContext)
 
     const [postData, setPostData] = useState(undefined)
@@ -382,6 +395,56 @@ export const SinglePostPage = () => {
         addCommentRef.current.focus()
     }
 
+    const shareHandler = () => {
+        copy(window.location.href)
+        toast.success(`Link has been copied to clipboard.`, {
+            position: "top-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
+    }
+
+    const dislikeClickHandler = () => {
+        if (isDisLikeBtnDisabled) {
+            dislikePost(postData?._id)
+            setPostData({
+                ...postData,
+                likes: {
+                    ...postData?.likes,
+                    likeCount: (postData?.likes?.likeCount - 1),
+                    likedBy: postData?.likes?.likedBy?.filter((user) => user?._id !== profileId)
+                }
+            })
+        }
+        setIsDisLikeBtnDisabled(false)
+    }
+
+    const likeClickHandler = () => {
+        if (isLikeBtnDisabled) {
+            likePost(postData?._id)
+            setPostData({
+                ...postData,
+                likes: {
+                    ...postData?.likes,
+                    likeCount: (postData?.likes?.likeCount + 1),
+                    likedBy: [...postData?.likes?.likedBy, {
+                        _id: JSON.parse(localStorage.getItem('userData'))?._id,
+                        firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
+                        lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
+                        username: JSON.parse(localStorage.getItem('userData'))?.username,
+                        profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
+                    }]
+                }
+            })
+        }
+        setIsLikeBtnDisabled(false)
+    }
+
     useEffect(() => {
         fetchPostData()
         const handleOutsideClick = (e) => {
@@ -453,18 +516,15 @@ export const SinglePostPage = () => {
                             <div className="like-btn-container">
                                 {postData?.likes?.likedBy?.find((user) => user?._id === profileId)
                                     ?
-                                    <button className="dislike heart"
-                                    //  onClick={() => dislikeClickHandler()}
-                                    ><AiFillHeart /></button>
+                                    <button className="dislike heart" onClick={() => dislikeClickHandler()}><AiFillHeart /></button>
                                     :
-                                    <button className="like heart"
-                                    // onClick={() => likeClickHandler()}
-                                    ><AiOutlineHeart /></button>
+                                    <button className="like heart" onClick={() => likeClickHandler()}><AiOutlineHeart /></button>
                                 }
                                 <p className="likes-num">{postData?.likes?.likeCount}</p>
                             </div>
                             <button className="comment" onClick={() => commentBtnClickHandler()}><GoComment /></button>
                             <button className="bookmark"><BsFillBookmarkPlusFill /><BsFillBookmarkCheckFill /></button>
+                            <button className="share" onClick={() => shareHandler()}><FiShare2 /></button>
                         </div>
                         <div className="comment-section">
                             <div className="comment-input-div">
