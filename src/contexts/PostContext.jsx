@@ -57,7 +57,22 @@ export const PostDataHandler = ({children}) => {
                 body: JSON.stringify(inputData)
             })
             await response.json()?.posts
-            toast.success(`Comment added`, {
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    
+    const removeComment = async (editedPostData) => {
+        const inputData = {...editedPostData, isComment: true}
+
+        try {
+            const response = await fetch(`/api/posts/edit/${editedPostData._id}`,{
+                method: 'POST',
+                headers: { authorization: encodedToken },
+                body: JSON.stringify(inputData)
+            })
+            await response.json()?.posts
+            toast.info(`Comment removed`, {
                 position: "top-center",
                 autoClose: 1500,
                 hideProgressBar: false,
@@ -156,6 +171,7 @@ export const PostDataHandler = ({children}) => {
             allPosts,
             editPost,
             addComment,
+            removeComment,
             createPost,
             likePost,
             dislikePost,

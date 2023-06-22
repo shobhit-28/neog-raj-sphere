@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom"
 import { useState, useEffect, useRef, useContext } from "react";
 import dayjs from "dayjs";
+import { v4 as uuidv4 } from 'uuid';
 
 import './singlePostPage.css'
 
@@ -24,12 +25,14 @@ export const SinglePostPage = () => {
     const { postId } = useParams();
     const profileId = JSON.parse(localStorage.getItem('userData'))?._id;
 
-    const { addComment, editPost } = useContext(PostContext)
+    const { addComment, editPost, removeComment, deletePost } = useContext(PostContext)
     const { editedData } = useContext(UserDataContext)
 
     const [postData, setPostData] = useState(undefined)
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [comment, setComment] = useState('')
+    const [editedComment, setEditedComment] = useState('')
+    const [reply, setReply] = useState('')
     const [isEditCommentOpen, setIsEditCommentOpen] = useState('')
     const [isReplyCommentOpen, setIsReplyCommentOpen] = useState('')
     const [isEditPostModalOpen, setIsEditPostModalOpen] = useState(false)
@@ -38,6 +41,8 @@ export const SinglePostPage = () => {
     const menuRef = useRef(null)
     const addCommentRef = useRef(null)
     const fileInputRef = useRef(null)
+    const replyCommentRef = useRef(null)
+    const editCommentRef = useRef(null)
 
     const navigate = useNavigate()
 
@@ -59,7 +64,7 @@ export const SinglePostPage = () => {
                 comments: [
                     ...postData?.comments,
                     {
-                        _id: String(postData?.comments?.length + 1),
+                        _id: uuidv4(),
                         content: comment,
                         postId: postData?._id,
                         user: {
@@ -80,7 +85,28 @@ export const SinglePostPage = () => {
                 comments: [
                     ...postData?.comments,
                     {
-                        _id: String(postData?.comments?.length + 1),
+                        _id: uuidv4(),
+                        content: comment,
+                        postId: postData?._id,
+                        user: {
+                            _id: JSON.parse(localStorage.getItem('userData'))?._id,
+                            firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
+                            lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
+                            username: JSON.parse(localStorage.getItem('userData'))?.username,
+                            profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
+                        },
+                        replies: [],
+                        createdAt: formatDate(),
+                        updatedAt: formatDate(),
+                    },
+                ]
+            })
+            setEditedPostData({
+                ...postData,
+                comments: [
+                    ...postData?.comments,
+                    {
+                        _id: uuidv4(),
                         content: comment,
                         postId: postData?._id,
                         user: {
@@ -98,6 +124,107 @@ export const SinglePostPage = () => {
             })
             addCommentRef.current.value = ''
             setComment('')
+            toast.success(`Comment added`, {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        } else {
+            toast.warn(`Comment cannot be empty`, {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
+    }
+    const addReplyHandler = (commentId) => {
+        if (reply?.length > 0) {
+            setPostData({
+                ...postData,
+                comments: postData?.comments?.map((comment) => comment?._id === commentId
+                    ?
+                    {
+                        ...comment,
+                        replies: [...comment?.replies, {
+                            _id: uuidv4(),
+                            content: reply,
+                            user: {
+                                _id: JSON.parse(localStorage.getItem('userData'))?._id,
+                                firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
+                                lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
+                                username: JSON.parse(localStorage.getItem('userData'))?.username,
+                                profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
+                            }
+                        }]
+                    }
+                    :
+                    comment)
+            })
+            setEditedPostData({
+                ...postData,
+                comments: postData?.comments?.map((comment) => comment?._id === commentId
+                    ?
+                    {
+                        ...comment,
+                        replies: [...comment?.replies, {
+                            _id: uuidv4(),
+                            content: reply,
+                            user: {
+                                _id: JSON.parse(localStorage.getItem('userData'))?._id,
+                                firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
+                                lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
+                                username: JSON.parse(localStorage.getItem('userData'))?.username,
+                                profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
+                            }
+                        }]
+                    }
+                    :
+                    comment)
+            })
+            addComment({
+                ...postData,
+                comments: postData?.comments?.map((comment) => comment?._id === commentId
+                    ?
+                    {
+                        ...comment,
+                        replies: [...comment?.replies, {
+                            _id: uuidv4(),
+                            content: reply,
+                            user: {
+                                _id: JSON.parse(localStorage.getItem('userData'))?._id,
+                                firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
+                                lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
+                                username: JSON.parse(localStorage.getItem('userData'))?.username,
+                                profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
+                            }
+                        }]
+                    }
+                    :
+                    comment)
+            })
+            replyCommentRef.current.value = ''
+            setReply('')
+            setIsReplyCommentOpen(false)
+            toast.success(`Comment added`, {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
         } else {
             toast.warn(`Comment cannot be empty`, {
                 position: "top-center",
@@ -112,28 +239,92 @@ export const SinglePostPage = () => {
         }
     }
 
+    const editCommentHandler = (commentId) => {
+        if (editedComment === (postData?.comments?.find((comment) => comment?._id === commentId))?.content) {
+            setIsEditCommentOpen(false)
+        } else {
+            if (editedComment?.length > 0) {
+                setPostData({
+                    ...postData,
+                    comments: postData?.comments?.map((comment) => comment?._id === commentId ? { ...comment, content: editedComment } : comment)
+                })
+                setEditedPostData({
+                    ...postData,
+                    comments: postData?.comments?.map((comment) => comment?._id === commentId ? { ...comment, content: editedComment } : comment)
+                })
+                addComment({
+                    ...postData,
+                    comments: postData?.comments?.map((comment) => comment?._id === commentId ? { ...comment, content: editedComment } : comment)
+                })
+                setEditedComment('')
+                setIsEditCommentOpen(false)
+                toast.success(`Comment edited`, {
+                    position: "top-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            } else {
+                toast.warn(`Comment cannot be empty`, {
+                    position: "top-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
+        }
+    }
+
+    const deleteCommentHandler = (commentId) => {
+        removeComment({
+            ...postData,
+            comments: postData?.comments?.filter((comment) => comment?._id !== commentId)
+        })
+        setPostData({
+            ...postData,
+            comments: postData?.comments?.filter((comment) => comment?._id !== commentId)
+        })
+        setEditedPostData({
+            ...postData,
+            comments: postData?.comments?.filter((comment) => comment?._id !== commentId)
+        })
+    }
+
     const isRemovable = (comment) => (
         postData?.postedBy?._id === profileId || comment?.user?._id === profileId
     )
 
     const handleEditComments = (commentID) => {
-        setIsEditCommentOpen(commentID)
-        if (isEditCommentOpen !== '') {
+        if (isEditCommentOpen === commentID) {
             setIsEditCommentOpen('')
-        }
-        if (commentID !== isEditCommentOpen) {
+        } else {
             setIsEditCommentOpen(commentID)
+            setTimeout(() => {
+                editCommentRef.current.focus()
+                setEditedComment(editCommentRef.current.value)
+            }, 1)
         }
+        setIsReplyCommentOpen('')
     }
 
     const handleReplyOnComment = (commentID) => {
-        setIsReplyCommentOpen(commentID)
-        if (isReplyCommentOpen !== '') {
+        if (isReplyCommentOpen === commentID) {
             setIsReplyCommentOpen('')
-        }
-        if (commentID !== isReplyCommentOpen) {
+        } else {
             setIsReplyCommentOpen(commentID)
+            setTimeout(() => {
+                replyCommentRef.current.focus()
+            }, 1)
         }
+        setIsEditCommentOpen('')
     }
 
     const remove_img_click_Handler = () => {
@@ -179,6 +370,16 @@ export const SinglePostPage = () => {
             content: editedPostData?.content,
             pic: editedPostData?.pic
         })
+    }
+
+    const deleteClickHandler = () => {
+        deletePost(postData?._id)
+        setIsEditPostModalOpen(false)
+        navigate('/')
+    }
+
+    const commentBtnClickHandler = () => {
+        addCommentRef.current.focus()
     }
 
     useEffect(() => {
@@ -233,9 +434,7 @@ export const SinglePostPage = () => {
                                         {isMenuOpen &&
                                             <div className="menu" ref={menuRef}>
                                                 <p className="option-1" onClick={() => setIsEditPostModalOpen(true)}>Edit</p>
-                                                <p className="option-2"
-                                                // onClick={() => deleteClickHandler()}
-                                                >Delete</p>
+                                                <p className="option-2" onClick={() => deleteClickHandler()}>Delete</p>
                                             </div>
                                         }
                                     </div>
@@ -264,7 +463,7 @@ export const SinglePostPage = () => {
                                 }
                                 <p className="likes-num">{postData?.likes?.likeCount}</p>
                             </div>
-                            <button className="comment"><GoComment /></button>
+                            <button className="comment" onClick={() => commentBtnClickHandler()}><GoComment /></button>
                             <button className="bookmark"><BsFillBookmarkPlusFill /><BsFillBookmarkCheckFill /></button>
                         </div>
                         <div className="comment-section">
@@ -291,7 +490,7 @@ export const SinglePostPage = () => {
                                             <div className="right-section">
                                                 <div className="comment-btn-container">
                                                     {isRemovable(comment) &&
-                                                        <button className="delete"><BsTrash /></button>
+                                                        <button className="delete" onClick={() => deleteCommentHandler(comment?._id)}><BsTrash /></button>
                                                     }
                                                     {comment?.user?._id === profileId &&
                                                         <button className="edit-comment" onClick={() => handleEditComments(comment?._id)}><AiOutlineEdit /></button>
@@ -303,13 +502,9 @@ export const SinglePostPage = () => {
                                             ?
                                             <div className="comment-input-div">
                                                 <label className="comment-input">
-                                                    <input type="text" defaultValue={comment?.content}
-                                                    // onChange={(event) => setComment(event.target.value)}
-                                                    />
+                                                    <input type="text" ref={editCommentRef} defaultValue={comment?.content} onChange={(event) => setEditedComment(event.target.value)} />
                                                 </label>
-                                                <button className="add-comment"
-                                                // onClick={() => addCommentHandler()}
-                                                ><AiOutlineSend /></button>
+                                                <button className="add-comment" onClick={() => editCommentHandler(comment?._id)}><AiOutlineSend /></button>
                                             </div>
                                             :
                                             <p className="content">{comment?.content}</p>
@@ -333,13 +528,9 @@ export const SinglePostPage = () => {
                                             <div className="comment-reply-input-div">
                                                 <div className="comment-input-div">
                                                     <label className="comment-input">
-                                                        <input type="text"
-                                                        // onChange={(event) => setComment(event.target.value)}
-                                                        />
+                                                        <input type="text" ref={replyCommentRef} onChange={(event) => setReply(event.target.value)} />
                                                     </label>
-                                                    <button className="add-comment"
-                                                    // onClick={() => addCommentHandler()}
-                                                    ><AiOutlineSend /></button>
+                                                    <button className="add-comment" onClick={() => addReplyHandler(comment?._id)}><AiOutlineSend /></button>
                                                 </div>
                                             </div>
                                         }
