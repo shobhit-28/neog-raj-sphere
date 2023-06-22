@@ -8,6 +8,7 @@ import { BsPlusSquare } from 'react-icons/bs'
 import { TfiClose } from 'react-icons/tfi'
 import { RiImageAddLine } from 'react-icons/ri'
 import { IoIosCloseCircleOutline } from 'react-icons/io'
+
 import { AuthContext } from '../../contexts/AuthContext'
 import { randomProfilePic } from '../../resources/randomImages/randomImages'
 import { UserDataContext } from '../../contexts/userDataContext'

@@ -129,15 +129,17 @@ export const editPostHandler = function (schema, request) {
     const postId = request.params.postId;
     const { postData } = JSON.parse(request.requestBody);
     let post = schema.posts.findBy({ _id: postId }).attrs;
-    // if (post.username !== user.username) {
-    //   return new Response(
-    //     400,
-    //     {},
-    //     {
-    //       errors: ["Cannot edit a Post doesn't belong to the logged in User."],
-    //     }
-    //   );
-    // }
+    if (!(JSON.parse(request.requestBody))?.isComment) {
+      if (post.username !== user.username) {
+        return new Response(
+          400,
+          {},
+          {
+            errors: ["Cannot edit a Post doesn't belong to the logged in User."],
+          }
+        );
+      }      
+    }
     post = { ...post, ...JSON.parse(request.requestBody) };
     // post = { ...post, ...postData };
     this.db.posts.update({ _id: postId }, post);

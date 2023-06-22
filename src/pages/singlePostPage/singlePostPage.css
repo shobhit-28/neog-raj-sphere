@@ -102,7 +102,7 @@
     position: absolute;
     background-color: #fff;
     margin-top: 0rem;
-    margin-left: 1rem;
+    margin-left: -4rem;
     box-shadow: rgba(0, 0, 0, 0.4) 0 0 8px;
     padding: 0.5rem;
     border-radius: 0.35rem;
@@ -122,6 +122,7 @@
     background-color: #000;
     color: #fff;
     transition: 0.5s;
+    cursor: pointer;
 }
 
 .single-post-page .post-content {
@@ -203,6 +204,12 @@
 .comment-section .comments .single-comment-div .commented-by {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+
+.comment-section .comments .single-comment-div .commented-by .left-section {
+    display: flex;
+    align-items: center;
 }
 
 .comment-section .comments .single-comment-div .commented-by .profile-pic-container {
@@ -236,9 +243,37 @@
     color: rgba(0, 0, 0, 0.7);
 }
 
+.comment-section .comments .single-comment-div .commented-by .right-section button {
+    background-color: transparent;
+    border: 0;
+    font-size: 1.15rem;
+    cursor: pointer;
+    padding-left: 0.35rem;
+}
+
 .comment-section .comments .single-comment-div .content {
-    margin: 0.35rem 0 0 0.25rem;
+    margin: 0.35rem 0 0 .25rem;
     font-size: 1rem;
+}
+
+.comment-section .comments .single-comment-div .comment-input-div {
+    margin: 0.35rem 0 0 .25rem;
+}
+
+.comment-section .comments .single-comment-div .comment-input input {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.comment-section .comments .single-comment-div .reply-btn {
+    margin: 0.35rem 0 0 0.75rem;
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.35rem;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.7);
 }
 
 .comment-section .comments .single-comment-div .reply {
@@ -279,4 +314,8 @@
 .comment-section .comments .single-comment-div .reply .reply {
     margin: 0.35rem 0 0 0.25rem;
     font-size: 1rem;
+}
+
+.comment-section .comments .single-comment-div .comment-reply-input-div {
+    margin: 0.5rem 0 0 3rem;
 }

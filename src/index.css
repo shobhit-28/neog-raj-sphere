@@ -39,6 +39,10 @@ img {
   width: 100%;
 }
 
+button {
+    transition: 0.5s;
+}
+
 button:active {
     transform: scale(0.9);
 }

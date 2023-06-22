@@ -22,11 +22,13 @@ export const PostDataHandler = ({children}) => {
     }
 
     const editPost = async (editedPostData) => {
+        const inputData = {...editedPostData, isComment: false}
+
         try {
             const response = await fetch(`/api/posts/edit/${editedPostData._id}`,{
                 method: 'POST',
                 headers: { authorization: encodedToken },
-                body: JSON.stringify(editedPostData)
+                body: JSON.stringify(inputData)
             })
             const responseData = (await response.json())?.posts
             setAllPosts(responseData)
@@ -46,11 +48,13 @@ export const PostDataHandler = ({children}) => {
     }
     
     const addComment = async (editedPostData) => {
+        const inputData = {...editedPostData, isComment: true}
+
         try {
             const response = await fetch(`/api/posts/edit/${editedPostData._id}`,{
                 method: 'POST',
                 headers: { authorization: encodedToken },
-                body: JSON.stringify(editedPostData)
+                body: JSON.stringify(inputData)
             })
             await response.json()?.posts
             toast.success(`Comment added`, {
