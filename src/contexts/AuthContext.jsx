@@ -1,5 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { toast } from "react-toastify";
+import { PostContext } from "./PostContext";
 
 export const AuthContext = createContext();
 
@@ -8,6 +9,8 @@ export const AuthenticationHandler = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(localStorage?.getItem('encodedToken')?.length > 0)
 
     const userData = JSON.parse(localStorage.getItem('userData'));
+
+    const {setBookMarks} = useContext(PostContext)
 
     const testLogin = async () => {
         try {
@@ -21,6 +24,7 @@ export const AuthenticationHandler = ({ children }) => {
                 body: JSON.stringify(testCreds)
             });
             const data = await response.json();
+            setBookMarks(data?.foundUser?.bookmarks)
             localStorage.setItem('encodedToken', data?.encodedToken);
             localStorage.setItem('userData', `${JSON.stringify(data?.foundUser)}`)
             setIsLoggedIn(true)
@@ -33,7 +37,7 @@ export const AuthenticationHandler = ({ children }) => {
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
-                });
+            });
         } catch (error) {
             console.error(error);
         }
@@ -48,6 +52,7 @@ export const AuthenticationHandler = ({ children }) => {
 
             const data = await response.json();
             if (data?.encodedToken) {
+                setBookMarks(data?.foundUser?.bookmarks)
                 localStorage.setItem('encodedToken', data?.encodedToken);
                 localStorage.setItem('userData', `${JSON.stringify(data?.foundUser)}`)
                 setIsLoggedIn(true)
@@ -60,7 +65,7 @@ export const AuthenticationHandler = ({ children }) => {
                     draggable: true,
                     progress: undefined,
                     theme: "dark",
-                    });
+                });
             } else {
                 toast.error(`Error ${response?.status}: ${data?.errors[0]}`, {
                     position: "top-center",
@@ -115,7 +120,7 @@ export const AuthenticationHandler = ({ children }) => {
                         draggable: true,
                         progress: undefined,
                         theme: "dark",
-                        });
+                    });
                 }
 
             } catch (error) {

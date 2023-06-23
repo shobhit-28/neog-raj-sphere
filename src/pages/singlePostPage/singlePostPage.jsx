@@ -9,12 +9,12 @@ import './singlePostPage.css'
 import { MdArrowBackIosNew } from 'react-icons/md'
 import { AiFillHeart, AiOutlineClose, AiOutlineEdit, AiOutlineHeart, AiOutlineSend } from "react-icons/ai";
 import { CiMenuKebab } from "react-icons/ci";
-import { BsFillBookmarkCheckFill, BsFillBookmarkPlusFill, BsTrash } from "react-icons/bs";
+import { BsTrash } from "react-icons/bs";
 import { GoComment } from "react-icons/go";
 import { FiShare2 } from "react-icons/fi"
 import { TfiClose } from "react-icons/tfi";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-import { RiImageAddLine } from "react-icons/ri";
+import { RiBookmarkFill, RiBookmarkLine, RiImageAddLine } from "react-icons/ri";
 
 import { formatDate } from "../../backend/utils/authUtils";
 import { PostContext } from "../../contexts/PostContext";
@@ -27,7 +27,7 @@ export const SinglePostPage = () => {
     const { postId } = useParams();
     const profileId = JSON.parse(localStorage.getItem('userData'))?._id;
 
-    const { 
+    const {
         addComment,
         editPost,
         removeComment,
@@ -37,7 +37,11 @@ export const SinglePostPage = () => {
         isDisLikeBtnDisabled,
         setIsDisLikeBtnDisabled,
         likePost,
-        dislikePost
+        dislikePost,
+        //bookmarks
+        addBookmark,
+        removeBookmark,
+        bookMarks
     } = useContext(PostContext)
     const { editedData } = useContext(UserDataContext)
 
@@ -523,13 +527,18 @@ export const SinglePostPage = () => {
                                 <p className="likes-num">{postData?.likes?.likeCount}</p>
                             </div>
                             <button className="comment" onClick={() => commentBtnClickHandler()}><GoComment /></button>
-                            <button className="bookmark"><BsFillBookmarkPlusFill /><BsFillBookmarkCheckFill /></button>
+                            {!bookMarks?.find((post) => post?._id === postData?._id )
+                                ?
+                                <button className="bookmark" onClick={() => addBookmark(postId)}><RiBookmarkLine /></button>
+                                :
+                                <button className="bookmark" onClick={() => removeBookmark(postId)}><RiBookmarkFill /></button>
+                            }
                             <button className="share" onClick={() => shareHandler()}><FiShare2 /></button>
                         </div>
                         <div className="comment-section">
                             <div className="comment-input-div">
                                 <label htmlFor="comment" className="comment-input">
-                                    <input type="text" name="comment" onChange={(event) => setComment(event.target.value)} ref={addCommentRef} />
+                                    <input type="text" name="comment" placeholder="Enter Comment" onChange={(event) => setComment(event.target.value)} ref={addCommentRef} />
                                 </label>
                                 <button className="add-comment" onClick={() => addCommentHandler()}><AiOutlineSend /></button>
                             </div>

@@ -183,6 +183,12 @@
     color: rgba(0, 0, 0, 0.7);
 }
 
+.comment-section .comment-input-div .comment-input input::placeholder {
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 1rem;
+}
+
 .comment-section .comment-input-div .add-comment {
     width: 5%;
     background-color: transparent;

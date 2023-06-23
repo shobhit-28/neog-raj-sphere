@@ -77,6 +77,7 @@ export const users = [
         profile_pic: "https://pbs.twimg.com/profile_images/1266934374060052480/O3nYz9s-_400x400.jpg",
       },
     ],
+    bookmarks: [],
   },
   {
     _id: "3",
@@ -137,6 +138,7 @@ export const users = [
         profile_pic: "https://res.cloudinary.com/randomwave45/image/upload/v1650009611/uchicha_crest_ngetfr.jpg",
       },
     ],
+    bookmarks: [],
   },
   {
     _id: "4",
@@ -169,6 +171,7 @@ export const users = [
         pic: "https://res.cloudinary.com/randomwave45/image/upload/v1650022196/one_piece_1_anib9s.jpg",
       },
     ],
+    bookmarks: [],
   },
   {
     _id: "5",
@@ -215,6 +218,7 @@ export const users = [
         pic: "https://res.cloudinary.com/randomwave45/image/upload/v1650022196/one_piece_1_anib9s.jpg",
       },
     ],
+    bookmarks: [],
   },
   {
     _id: "6",
@@ -239,5 +243,6 @@ export const users = [
       },
     ],
     following: [],
+    bookmarks: [],
   },
 ];

@@ -16,13 +16,13 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthenticationHandler>
-        <UserDataHandler>
-          <PostDataHandler>
+      <UserDataHandler>
+        <PostDataHandler>
+          <AuthenticationHandler>
             <App />
-          </PostDataHandler>
-        </UserDataHandler>
-      </AuthenticationHandler>
+          </AuthenticationHandler>
+        </PostDataHandler>
+      </UserDataHandler>
     </BrowserRouter>
   </React.StrictMode>
 );

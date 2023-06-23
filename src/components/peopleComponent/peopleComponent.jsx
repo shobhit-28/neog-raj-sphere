@@ -43,10 +43,12 @@ export const PeopleComponent = () => {
         follow(user)
         setFollowed([...followed, user])
         event.stopPropagation()
-        setCurrUserData({
-            ...currUserData,
-            following: [...currUserData?.following, user]
-        })
+        if (currUserData) {
+            setCurrUserData({
+                ...currUserData,
+                following: [...currUserData?.following, user]
+            })            
+        }
     }
 
     const searchBarChangeHandler = (event) => {

@@ -5,10 +5,11 @@ import { toast } from "react-toastify";
 
 export const PostContext = createContext();
 
-export const PostDataHandler = ({children}) => {
+export const PostDataHandler = ({ children }) => {
     const encodedToken = localStorage.getItem('encodedToken');
 
     const [allPosts, setAllPosts] = useState(undefined);
+    const [bookMarks, setBookMarks] = useState(undefined)
     const [isLikeBtnDisabled, setIsLikeBtnDisabled] = useState(true)
     const [isDisLikeBtnDisabled, setIsDisLikeBtnDisabled] = useState(true)
 
@@ -22,10 +23,10 @@ export const PostDataHandler = ({children}) => {
     }
 
     const editPost = async (editedPostData) => {
-        const inputData = {...editedPostData, isComment: false}
+        const inputData = { ...editedPostData, isComment: false }
 
         try {
-            const response = await fetch(`/api/posts/edit/${editedPostData._id}`,{
+            const response = await fetch(`/api/posts/edit/${editedPostData._id}`, {
                 method: 'POST',
                 headers: { authorization: encodedToken },
                 body: JSON.stringify(inputData)
@@ -46,12 +47,12 @@ export const PostDataHandler = ({children}) => {
             console.error(error);
         }
     }
-    
+
     const addComment = async (editedPostData) => {
-        const inputData = {...editedPostData, isComment: true}
+        const inputData = { ...editedPostData, isComment: true }
 
         try {
-            const response = await fetch(`/api/posts/edit/${editedPostData._id}`,{
+            const response = await fetch(`/api/posts/edit/${editedPostData._id}`, {
                 method: 'POST',
                 headers: { authorization: encodedToken },
                 body: JSON.stringify(inputData)
@@ -61,12 +62,12 @@ export const PostDataHandler = ({children}) => {
             console.error(error);
         }
     }
-    
+
     const removeComment = async (editedPostData) => {
-        const inputData = {...editedPostData, isComment: true}
+        const inputData = { ...editedPostData, isComment: true }
 
         try {
-            const response = await fetch(`/api/posts/edit/${editedPostData._id}`,{
+            const response = await fetch(`/api/posts/edit/${editedPostData._id}`, {
                 method: 'POST',
                 headers: { authorization: encodedToken },
                 body: JSON.stringify(inputData)
@@ -86,10 +87,10 @@ export const PostDataHandler = ({children}) => {
             console.error(error);
         }
     }
-    
+
     const createPost = async (postData) => {
         try {
-            const response = await fetch(`/api/posts`,{
+            const response = await fetch(`/api/posts`, {
                 method: 'POST',
                 headers: { authorization: encodedToken },
                 body: JSON.stringify(postData)
@@ -113,7 +114,7 @@ export const PostDataHandler = ({children}) => {
 
     const likePost = async (postId) => {
         try {
-            const response = await fetch(`/api/posts/like/${postId}`,{
+            const response = await fetch(`/api/posts/like/${postId}`, {
                 method: 'post',
                 headers: { authorization: encodedToken },
             })
@@ -124,10 +125,10 @@ export const PostDataHandler = ({children}) => {
             console.error(error);
         }
     }
-    
+
     const dislikePost = async (postId) => {
         try {
-            const response = await fetch(`/api/posts/dislike/${postId}`,{
+            const response = await fetch(`/api/posts/dislike/${postId}`, {
                 method: 'post',
                 headers: { authorization: encodedToken },
             })
@@ -138,10 +139,10 @@ export const PostDataHandler = ({children}) => {
             console.error(error);
         }
     }
-    
+
     const deletePost = async (postId) => {
         try {
-            const response = await fetch(`/api/posts/${postId}`,{
+            const response = await fetch(`/api/posts/${postId}`, {
                 method: 'delete',
                 headers: { authorization: encodedToken },
             })
@@ -162,8 +163,54 @@ export const PostDataHandler = ({children}) => {
         }
     }
 
+    //BOOKMARKS
+
+    const fetchAllBookMarks = async () => {
+        try {
+            const response = await fetch('/api/users/bookmark/', {
+                headers: { authorization: encodedToken }
+            })
+            const responseData = (await response.json())?.bookmarks
+            setBookMarks(responseData)
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const addBookmark = async (postID) => {
+        try {
+            const response = await fetch(`/api/users/bookmark/${postID}`,{
+                method: 'post',
+                headers: { authorization: encodedToken }
+            })
+            const responseData = (await response.json())?.bookmarks
+            if (responseData) {
+                setBookMarks(responseData)                
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    
+    const removeBookmark = async (postID) => {
+        try {
+            const response = await fetch(`/api/users/remove-bookmark/${postID}`,{
+                method: 'post',
+                headers: { authorization: encodedToken }
+            })
+            const responseData = (await response.json())?.bookmarks
+            if (responseData) {
+                setBookMarks(responseData)                
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     useEffect(() => {
         fetchAllPostData()
+        fetchAllBookMarks()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
@@ -179,7 +226,13 @@ export const PostDataHandler = ({children}) => {
             isLikeBtnDisabled,
             setIsLikeBtnDisabled,
             isDisLikeBtnDisabled,
-            setIsDisLikeBtnDisabled
+            setIsDisLikeBtnDisabled,
+            //bookmarks
+            fetchAllBookMarks,
+            addBookmark,
+            removeBookmark,
+            bookMarks,
+            setBookMarks
         }}>
             {children}
         </PostContext.Provider>
