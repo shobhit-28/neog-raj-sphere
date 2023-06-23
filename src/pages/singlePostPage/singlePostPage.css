@@ -11,6 +11,9 @@
     .single-post-page .comment-container {
         width: 95% !important;
     }
+    .single-post-page .post-content .content {
+        font-size: 1rem !important;
+    }
 }
 
 .single-post-page {
@@ -58,6 +61,7 @@
 .single-post-page .posted-by .left-section {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .single-post-page .posted-by .left-section .profile-pic-container {
@@ -131,7 +135,7 @@
 
 .single-post-page .post-content .content {
     margin-bottom: 1rem;
-    font-size: 1.5rem;
+    font-size: 1.35rem;
 }
 
 .single-post-page .btn-container {
@@ -216,6 +220,7 @@
 .comment-section .comments .single-comment-div .commented-by .left-section {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .comment-section .comments .single-comment-div .commented-by .profile-pic-container {
@@ -289,6 +294,7 @@
 .comment-section .comments .single-comment-div .reply .replied-by {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .comment-section .comments .single-comment-div .reply .replied-by .profile-pic-container {

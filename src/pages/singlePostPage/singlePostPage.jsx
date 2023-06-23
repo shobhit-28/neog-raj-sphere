@@ -475,7 +475,7 @@ export const SinglePostPage = () => {
                     </div>
                     <div className="comment-container">
                         <div className="posted-by">
-                            <div className="left-section" title={`@${postData?.postedBy?.username}`}>
+                            <div className="left-section" title={`@${postData?.postedBy?.username}`} onClick={() => navigate(`/user/${postData?.postedBy?._id}`)}>
                                 <div className="profile-pic-container">
                                     <img src={postData?.postedBy?.profile_pic} alt={`@${postData?.postedBy?.username}`} />
                                 </div>
@@ -546,7 +546,7 @@ export const SinglePostPage = () => {
                                 {postData?.comments?.map((comment) => (
                                     <div className="single-comment-div" key={comment?._id}>
                                         <div className="commented-by">
-                                            <div className="left-section">
+                                            <div className="left-section" onClick={() => navigate(`/user/${comment?.user?._id}`)}>
                                                 <div className="profile-pic-container">
                                                     <img src={comment?.user?.profile_pic} alt="" />
                                                 </div>
@@ -581,7 +581,7 @@ export const SinglePostPage = () => {
                                         <button className="reply-btn" onClick={() => handleReplyOnComment(comment?._id)}>Reply</button>
                                         {comment?.replies?.map((reply) => (
                                             <div className="reply" key={reply?._id}>
-                                                <div className="replied-by">
+                                                <div className="replied-by" onClick={() => navigate(`/user/${reply?.user?._id}`)}>
                                                     <div className="profile-pic-container">
                                                         <img src={reply?.user?.profile_pic} alt="" />
                                                     </div>

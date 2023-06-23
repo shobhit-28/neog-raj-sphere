@@ -1,25 +1,39 @@
 import './postCardComponent.css'
+import copy from "copy-to-clipboard";
 
 import { AiOutlineHeart, AiFillHeart, AiOutlineClose } from 'react-icons/ai'
 import { GoComment } from 'react-icons/go'
-import { BsFillBookmarkPlusFill, BsFillBookmarkCheckFill } from 'react-icons/bs'
 import { CiMenuKebab } from 'react-icons/ci'
 import dayjs from 'dayjs'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import { TfiClose } from 'react-icons/tfi'
 import { useContext } from 'react'
 import { UserDataContext } from '../../contexts/userDataContext'
 import { randomProfilePic } from '../../resources/randomImages/randomImages'
 import { IoIosCloseCircleOutline } from 'react-icons/io'
-import { RiImageAddLine } from 'react-icons/ri'
+import { RiBookmarkFill, RiBookmarkLine, RiImageAddLine } from 'react-icons/ri'
 import { PostContext } from '../../contexts/PostContext'
+import { toast } from 'react-toastify';
+import { FiShare2 } from 'react-icons/fi';
 
 export const PostComponent = ({ postData }) => {
     const { editedData } = useContext(UserDataContext)
-    const { editPost, likePost, dislikePost, deletePost, isLikeBtnDisabled, setIsLikeBtnDisabled, isDisLikeBtnDisabled, setIsDisLikeBtnDisabled } = useContext(PostContext)
+    const { editPost,
+        likePost,
+        dislikePost,
+        deletePost,
+        isLikeBtnDisabled,
+        setIsLikeBtnDisabled,
+        isDisLikeBtnDisabled,
+        setIsDisLikeBtnDisabled,
+        bookMarks,
+        addBookmark,
+        removeBookmark
+    } = useContext(PostContext)
 
     const navigate = useNavigate()
+    const location = useLocation()
 
     const profileId = JSON.parse(localStorage.getItem('userData'))?._id;
 
@@ -96,12 +110,26 @@ export const PostComponent = ({ postData }) => {
         }
         setIsDisLikeBtnDisabled(false)
     }
-    
+
     const likeClickHandler = () => {
         if (isLikeBtnDisabled) {
             likePost(postData?._id)
         }
         setIsLikeBtnDisabled(false)
+    }
+
+    const shareHandler = () => {
+        copy(`${(window.location.href).slice(0, window.location.href.length - (location.pathname.length - 1))}post/${postData?._id}`)
+        toast.success(`Link has been copied to clipboard.`, {
+            position: "top-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
     }
 
     return (
@@ -155,7 +183,13 @@ export const PostComponent = ({ postData }) => {
                         <p className="likes-num">{postData?.likes?.likeCount}</p>
                     </div>
                     <button className="comment"><GoComment /></button>
-                    <button className="bookmark"><BsFillBookmarkPlusFill /><BsFillBookmarkCheckFill /></button>
+                    {!bookMarks?.find((post) => post?._id === postData?._id)
+                        ?
+                        <button className="bookmark" onClick={() => addBookmark(postData?._id)}><RiBookmarkLine /></button>
+                        :
+                        <button className="bookmark" onClick={() => removeBookmark(postData?._id)}><RiBookmarkFill /></button>
+                    }
+                    <button className="share" onClick={() => shareHandler()}><FiShare2 /></button>
                 </div>
             </div>
             {isEditPostModalOpen &&

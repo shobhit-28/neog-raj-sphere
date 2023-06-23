@@ -185,7 +185,17 @@ export const PostDataHandler = ({ children }) => {
             })
             const responseData = (await response.json())?.bookmarks
             if (responseData) {
-                setBookMarks(responseData)                
+                setBookMarks(responseData)
+                toast.success(`Successfully added to bookmarks`, {
+                    position: "top-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });         
             }
         } catch (error) {
             console.error(error);
@@ -200,7 +210,17 @@ export const PostDataHandler = ({ children }) => {
             })
             const responseData = (await response.json())?.bookmarks
             if (responseData) {
-                setBookMarks(responseData)                
+                setBookMarks(responseData)
+                toast.info(`Post removed from bookmarks`, {
+                    position: "top-center",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });              
             }
         } catch (error) {
             console.error(error);
