@@ -27,6 +27,8 @@ export const SinglePostPage = () => {
     const profileId = JSON.parse(localStorage.getItem('userData'))?._id;
 
     const {
+        allPosts,
+        setAllPosts,
         addComment,
         editPost,
         removeComment,
@@ -73,6 +75,7 @@ export const SinglePostPage = () => {
         }
     }
 
+
     const addCommentHandler = () => {
         if (comment?.length > 0) {
             addComment({
@@ -83,13 +86,7 @@ export const SinglePostPage = () => {
                         _id: uuidv4(),
                         content: comment,
                         postId: postData?._id,
-                        user: {
-                            _id: JSON.parse(localStorage.getItem('userData'))?._id,
-                            firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
-                            lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
-                            username: JSON.parse(localStorage.getItem('userData'))?.username,
-                            profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
-                        },
+                        user: editedData,
                         replies: [],
                         createdAt: formatDate(),
                         updatedAt: formatDate(),
@@ -104,13 +101,7 @@ export const SinglePostPage = () => {
                         _id: uuidv4(),
                         content: comment,
                         postId: postData?._id,
-                        user: {
-                            _id: JSON.parse(localStorage.getItem('userData'))?._id,
-                            firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
-                            lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
-                            username: JSON.parse(localStorage.getItem('userData'))?.username,
-                            profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
-                        },
+                        user: editedData,
                         replies: [],
                         createdAt: formatDate(),
                         updatedAt: formatDate(),
@@ -125,19 +116,35 @@ export const SinglePostPage = () => {
                         _id: uuidv4(),
                         content: comment,
                         postId: postData?._id,
-                        user: {
-                            _id: JSON.parse(localStorage.getItem('userData'))?._id,
-                            firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
-                            lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
-                            username: JSON.parse(localStorage.getItem('userData'))?.username,
-                            profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
-                        },
+                        user: editedData,
                         replies: [],
                         createdAt: formatDate(),
                         updatedAt: formatDate(),
                     },
                 ]
             })
+            setAllPosts(
+                allPosts?.map((post) => post?._id === postData?._id
+                    ?
+                    {
+                        ...postData,
+                        comments: [
+                            ...postData?.comments,
+                            {
+                                _id: uuidv4(),
+                                content: comment,
+                                postId: postData?._id,
+                                user: editedData,
+                                replies: [],
+                                createdAt: formatDate(),
+                                updatedAt: formatDate(),
+                            },
+                        ]
+                    }
+                    :
+                    post
+                )
+            )
             addCommentRef.current.value = ''
             setComment('')
             toast.success(`Comment added`, {
@@ -174,13 +181,7 @@ export const SinglePostPage = () => {
                         replies: [...comment?.replies, {
                             _id: uuidv4(),
                             content: reply,
-                            user: {
-                                _id: JSON.parse(localStorage.getItem('userData'))?._id,
-                                firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
-                                lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
-                                username: JSON.parse(localStorage.getItem('userData'))?.username,
-                                profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
-                            }
+                            user: editedData
                         }]
                     }
                     :
@@ -195,13 +196,7 @@ export const SinglePostPage = () => {
                         replies: [...comment?.replies, {
                             _id: uuidv4(),
                             content: reply,
-                            user: {
-                                _id: JSON.parse(localStorage.getItem('userData'))?._id,
-                                firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
-                                lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
-                                username: JSON.parse(localStorage.getItem('userData'))?.username,
-                                profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
-                            }
+                            user: editedData
                         }]
                     }
                     :
@@ -216,18 +211,34 @@ export const SinglePostPage = () => {
                         replies: [...comment?.replies, {
                             _id: uuidv4(),
                             content: reply,
-                            user: {
-                                _id: JSON.parse(localStorage.getItem('userData'))?._id,
-                                firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
-                                lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
-                                username: JSON.parse(localStorage.getItem('userData'))?.username,
-                                profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
-                            }
+                            user: editedData
                         }]
                     }
                     :
                     comment)
             })
+            setAllPosts(
+                allPosts?.map((post) => post?._id === postData?._id
+                    ?
+                    {
+                        ...postData,
+                        comments: postData?.comments?.map((comment) => comment?._id === commentId
+                            ?
+                            {
+                                ...comment,
+                                replies: [...comment?.replies, {
+                                    _id: uuidv4(),
+                                    content: reply,
+                                    user: editedData
+                                }]
+                            }
+                            :
+                            comment)
+                    }
+                    :
+                    post
+                )
+            )
             replyCommentRef.current.value = ''
             setReply('')
             setIsReplyCommentOpen(false)
@@ -272,6 +283,17 @@ export const SinglePostPage = () => {
                     ...postData,
                     comments: postData?.comments?.map((comment) => comment?._id === commentId ? { ...comment, content: editedComment } : comment)
                 })
+                setAllPosts(
+                    allPosts?.map((post) => post?._id === postData?._id
+                        ?
+                        {
+                            ...postData,
+                            comments: postData?.comments?.map((comment) => comment?._id === commentId ? { ...comment, content: editedComment } : comment)
+                        }
+                        :
+                        post
+                    )
+                )
                 setEditedComment('')
                 setIsEditCommentOpen(false)
                 toast.success(`Comment edited`, {
@@ -312,6 +334,17 @@ export const SinglePostPage = () => {
             ...postData,
             comments: postData?.comments?.filter((comment) => comment?._id !== commentId)
         })
+        setAllPosts(
+            allPosts?.map((post) => post?._id === postData?._id
+                ?
+                {
+                    ...postData,
+                    comments: postData?.comments?.filter((comment) => comment?._id !== commentId)
+                }
+                :
+                post
+            )
+        )
     }
 
     const isRemovable = (comment) => (
@@ -435,13 +468,7 @@ export const SinglePostPage = () => {
                 likes: {
                     ...postData?.likes,
                     likeCount: (postData?.likes?.likeCount + 1),
-                    likedBy: [...postData?.likes?.likedBy, {
-                        _id: JSON.parse(localStorage.getItem('userData'))?._id,
-                        firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
-                        lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
-                        username: JSON.parse(localStorage.getItem('userData'))?.username,
-                        profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
-                    }]
+                    likedBy: [...postData?.likes?.likedBy, editedData]
                 }
             })
         }
@@ -526,7 +553,7 @@ export const SinglePostPage = () => {
                                 <p className="likes-num">{postData?.likes?.likeCount}</p>
                             </div>
                             <button className="comment" onClick={() => commentBtnClickHandler()}><GoComment /></button>
-                            {!bookMarks?.find((post) => post?._id === postData?._id )
+                            {!bookMarks?.find((post) => post?._id === postData?._id)
                                 ?
                                 <button className="bookmark" onClick={() => addBookmark(postId)}><RiBookmarkLine /></button>
                                 :

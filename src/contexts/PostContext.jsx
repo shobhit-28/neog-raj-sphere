@@ -236,6 +236,7 @@ export const PostDataHandler = ({ children }) => {
     return (
         <PostContext.Provider value={{
             allPosts,
+            setAllPosts,
             editPost,
             addComment,
             removeComment,

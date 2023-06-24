@@ -1,11 +1,14 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { PostContext } from "./PostContext";
 
 export const UserDataContext = createContext();
 
 export const UserDataHandler = ({ children }) => {
     const encodedToken = localStorage.getItem('encodedToken');
-    // const userId = JSON.parse(localStorage.getItem('userData'))?._id;
+    const userId = JSON.parse(localStorage.getItem('userData'))?._id;
+
+    const { allPosts, setAllPosts, editPost, addComment } = useContext(PostContext)
 
     const [editedData, setEditedData] = useState({})
     const [allUsersData, setAllUsersData] = useState([])
@@ -24,6 +27,16 @@ export const UserDataHandler = ({ children }) => {
         }
     }
 
+    const fetchUserData = async () => {
+        try {
+            const response = await fetch(`/api/users/${userId}`)
+            const data = (await response.json())
+            setEditedData(data?.user)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     const editUserData = async (inputData) => {
         try {
             const response = await fetch('/api/users/edit', {
@@ -32,7 +45,39 @@ export const UserDataHandler = ({ children }) => {
                 body: JSON.stringify(inputData)
             });
 
-            await response.json();
+            const responseData = (await response.json())?.user;
+
+            setEditedData(responseData)
+
+            setAllPosts(allPosts?.map((post) => post?.postedBy?._id === userId ? { ...post, postedBy: responseData } : post))
+
+            allPosts?.map((post) => (
+                post?.comments?.find((comment) => comment?.user?._id === userId)
+                    ?
+                    addComment({ ...post, comments: post?.comments?.map((comment) => comment?.user?._id === userId ? { ...comment, user: responseData } : comment) })
+                    :
+                    post
+            ))
+
+            allPosts?.map((post) => post?.postedBy?._id === userId ? editPost({ ...post, postedBy: responseData }) : post)
+
+            allPosts?.map((post) => (
+                post?.comments?.find((comment) => comment?.replies?.find((reply) => reply?.user?._id === userId))
+                    ?
+                    addComment({
+                        ...post,
+                        comments: post?.comments?.map((comment) => comment?.replies?.find((reply) => reply?.user?._id === userId)
+                            ?
+                            { ...comment, replies: comment?.replies?.map((reply) => reply?.user?._id ? { ...reply, user: responseData } : reply) }
+                            :
+                            comment
+                        ),
+                        postedBy: post?.postedBy?._id === userId && responseData
+                    })
+                    :
+                    post
+            ))
+
             toast.success(`Successfully edited`, {
                 position: "top-center",
                 autoClose: 1500,
@@ -94,6 +139,8 @@ export const UserDataHandler = ({ children }) => {
 
     useEffect(() => {
         fetchAllUsers()
+        fetchUserData()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

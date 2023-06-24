@@ -13,6 +13,7 @@ import { AuthContext } from '../../contexts/AuthContext'
 import { randomProfilePic } from '../../resources/randomImages/randomImages'
 import { UserDataContext } from '../../contexts/userDataContext'
 import { PostContext } from '../../contexts/PostContext'
+import { SmallLoader } from '../smallLoader/smallLoader'
 
 export const Navbar = () => {
     const navigate = useNavigate()
@@ -25,13 +26,7 @@ export const Navbar = () => {
         content: "",
         pic: "",
         fileName: '',
-        postedBy: {
-            _id: JSON.parse(localStorage.getItem('userData'))?._id,
-            firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
-            lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
-            username: JSON.parse(localStorage.getItem('userData'))?.username,
-            profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
-        },
+        postedBy: editedData,
         comments: []
     });
     const [isClosePostModalConfirmationOpen, setIsClosePostModalConfirmationOpen] = useState(false)
@@ -66,13 +61,7 @@ export const Navbar = () => {
             content: "",
             pic: "",
             fileName: '',
-            postedBy: {
-                _id: JSON.parse(localStorage.getItem('userData'))?._id,
-                firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
-                lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
-                username: JSON.parse(localStorage.getItem('userData'))?.username,
-                profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
-            },
+            postedBy: editedData,
             comments: []
         })
     }
@@ -97,13 +86,7 @@ export const Navbar = () => {
             content: "",
             pic: "",
             fileName: '',
-            postedBy: {
-                _id: JSON.parse(localStorage.getItem('userData'))?._id,
-                firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
-                lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
-                username: JSON.parse(localStorage.getItem('userData'))?.username,
-                profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
-            },
+            postedBy: editedData,
             comments: []
         })
     }
@@ -130,13 +113,7 @@ export const Navbar = () => {
             content: "",
             pic: "",
             fileName: '',
-            postedBy: {
-                _id: JSON.parse(localStorage.getItem('userData'))?._id,
-                firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
-                lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
-                username: JSON.parse(localStorage.getItem('userData'))?.username,
-                profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
-            },
+            postedBy: editedData,
             comments: []
         })
     }
@@ -144,13 +121,7 @@ export const Navbar = () => {
     useEffect(() => {
         setPostInput({
             ...postInput,
-            postedBy: {
-                _id: JSON.parse(localStorage.getItem('userData'))?._id,
-                firstName: JSON.parse(localStorage.getItem('userData'))?.firstName,
-                lastName: JSON.parse(localStorage.getItem('userData'))?.lastName,
-                username: JSON.parse(localStorage.getItem('userData'))?.username,
-                profile_pic: JSON.parse(localStorage.getItem('userData'))?.profile_pic
-            }
+            postedBy: editedData
         })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userData])
@@ -181,6 +152,7 @@ export const Navbar = () => {
                         </button>
                     </div>
                 </div>
+                {editedData?.firstName === undefined ? <SmallLoader /> : 
                 <div className="profile" onClick={() => profileNavHandler()}>
                     <div className="profile-pic-container">
                         <img src={editedData?.profile_pic
@@ -192,10 +164,10 @@ export const Navbar = () => {
                                 : randomProfilePic} alt="profile" className="profile-pic" />
                     </div>
                     <div className="content">
-                        <p className="profile-name">{`${editedData?.firstName  !== undefined  ? editedData?.firstName : userData?.firstName} ${editedData?.lastName  !== undefined  ? editedData?.lastName : userData?.lastName}`}</p>
+                        <p className="profile-name">{`${editedData?.firstName} ${editedData?.lastName  !== undefined  ? editedData?.lastName : ''}`}</p>
                         <p className="profile-username">{userData?.username}</p>
                     </div>
-                </div>
+                </div>}
             </div>
             {isPostModalOpen &&
                 <div className="post-modal-container" onClick={() => closePostModal()}>
@@ -203,13 +175,7 @@ export const Navbar = () => {
                         <button className="close-btn" onClick={() => closePostModal()}><TfiClose /></button>
                         <div className="img-and-text">
                             <div className="profile-pic-container">
-                                <img src={editedData?.profile_pic
-                                    ?
-                                    editedData?.profile_pic
-                                    :
-                                    userData?.profile_pic?.length > 0
-                                        ? userData?.profile_pic
-                                        : randomProfilePic} alt="profile" className="profile-pic" />
+                                <img src={editedData?.profile_pic} alt="profile" className="profile-pic" />
                             </div>
                             <textarea name="" id="" cols="30" rows="7"
                                 className='post-textarea'

@@ -213,11 +213,8 @@ export const ProfilePage = () => {
         }
     }
 
-    // console.log(userData)
-
     useEffect(() => {
         fetchData()
-        setEditedData(editedUserData)
         setFollowingData(userData)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

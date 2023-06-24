@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { PostContext } from "./PostContext";
+import { UserDataContext } from "./userDataContext";
 
 export const AuthContext = createContext();
 
@@ -11,6 +12,7 @@ export const AuthenticationHandler = ({ children }) => {
     const userData = JSON.parse(localStorage.getItem('userData'));
 
     const {setBookMarks} = useContext(PostContext)
+    const {setEditedData} = useContext(UserDataContext)
 
     const testLogin = async () => {
         try {
@@ -25,6 +27,7 @@ export const AuthenticationHandler = ({ children }) => {
             });
             const data = await response.json();
             setBookMarks(data?.foundUser?.bookmarks)
+            setEditedData(data?.foundUser)
             localStorage.setItem('encodedToken', data?.encodedToken);
             localStorage.setItem('userData', `${JSON.stringify(data?.foundUser)}`)
             setIsLoggedIn(true)
@@ -53,6 +56,7 @@ export const AuthenticationHandler = ({ children }) => {
             const data = await response.json();
             if (data?.encodedToken) {
                 setBookMarks(data?.foundUser?.bookmarks)
+                setEditedData(data?.foundUser)
                 localStorage.setItem('encodedToken', data?.encodedToken);
                 localStorage.setItem('userData', `${JSON.stringify(data?.foundUser)}`)
                 setIsLoggedIn(true)

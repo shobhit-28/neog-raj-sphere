@@ -64,8 +64,8 @@ export const getAllUserPostsHandler = function (schema, request) {
  * */
 
 export const createPostHandler = function (schema, request) {
-  // const user = requiresAuth.call(this, request);
-  const user = JSON.parse(localStorage.getItem('userData'));
+  const user = requiresAuth.call(this, request);
+  // const user = JSON.parse(localStorage.getItem('userData'));
   try {
     if (!user) {
       return new Response(
@@ -111,9 +111,9 @@ export const createPostHandler = function (schema, request) {
  * body contains { postData }
  * */
 export const editPostHandler = function (schema, request) {
-  const user = JSON.parse(localStorage.getItem('userData'));
+  // const user = JSON.parse(localStorage.getItem('userData'));
   // console.log(user)
-  // const user = requiresAuth.call(this, request);
+  const user = requiresAuth.call(this, request);
   try {
     if (!user) {
       return new Response(
@@ -161,8 +161,8 @@ export const editPostHandler = function (schema, request) {
  * */
 
 export const likePostHandler = function (schema, request) {
-  // const user = requiresAuth.call(this, request);
-  const user = JSON.parse(localStorage.getItem('userData'));
+  const user = requiresAuth.call(this, request);
+  // const user = JSON.parse(localStorage.getItem('userData'));
   try {
     if (!user) {
       return new Response(
@@ -208,8 +208,8 @@ export const likePostHandler = function (schema, request) {
  * */
 
 export const dislikePostHandler = function (schema, request) {
-  // const user = requiresAuth.call(this, request);
-  const user = JSON.parse(localStorage.getItem('userData'));
+  const user = requiresAuth.call(this, request);
+  // const user = JSON.parse(localStorage.getItem('userData'));
   try {
     if (!user) {
       return new Response(
@@ -262,8 +262,8 @@ export const dislikePostHandler = function (schema, request) {
  * send DELETE Request at /api/user/posts/:postId
  * */
 export const deletePostHandler = function (schema, request) {
-  // const user = requiresAuth.call(this, request);
-  const user = JSON.parse(localStorage.getItem('userData'));
+  const user = requiresAuth.call(this, request);
+  // const user = JSON.parse(localStorage.getItem('userData'));
   try {
     if (!user) {
       return new Response(
