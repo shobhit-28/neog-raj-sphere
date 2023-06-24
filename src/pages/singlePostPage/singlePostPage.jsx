@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom"
 import { useState, useEffect, useRef, useContext } from "react";
-import dayjs from "dayjs";
 import { v4 as uuidv4 } from 'uuid';
 import copy from "copy-to-clipboard";
 
@@ -482,7 +481,7 @@ export const SinglePostPage = () => {
                                 <div className="name-username-date">
                                     <p className="name">{`${postData?.postedBy?.firstName} ${postData?.postedBy?.lastName}`}</p>
                                     <p className="username">{`@${postData?.username}`}</p>
-                                    <p className="date">{String((dayjs.call(postData?.createdAt))?.$d).slice(0, 16)}</p>
+                                    <p className="date">{new Date(postData?.createdAt).toDateString()}</p>
                                 </div>
                             </div>
                             <div className="right-section">
@@ -553,7 +552,7 @@ export const SinglePostPage = () => {
                                                 <div className="name-username-date">
                                                     <p className="name">{`${comment?.user?.firstName} ${comment?.user?.lastName}`}</p>
                                                     <p className="username">{`@${comment?.user?.username}`}</p>
-                                                    <p className="date">{String((dayjs.call(comment?.createdAt))?.$d).slice(0, 16)}</p>
+                                                    <p className="date">{new Date(comment?.createdAt).toDateString()}</p>
                                                 </div>
                                             </div>
                                             <div className="right-section">

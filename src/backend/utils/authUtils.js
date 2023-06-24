@@ -1,6 +1,9 @@
 import { Response } from "miragejs";
 import dayjs from "dayjs";
+import dayjsRandom from 'dayjs-random'
 import jwt_decode from "jwt-decode";
+
+dayjs.extend(dayjsRandom)
 
 export const requiresAuth = function (request) {
   // const encodedToken = request.requestHeaders.authorization;
@@ -21,3 +24,5 @@ export const requiresAuth = function (request) {
 };
 
 export const formatDate = () => dayjs().format("YYYY-MM-DDTHH:mm:ssZ");
+export const formatRandomPostDate = () => dayjs.between('2022-06-10T11:00:00+01:00', '2023-01-30T19:00:00+01:00').format("YYYY-MM-DDTHH:mm:ssZ");
+export const formatRandomCommentDate = () => dayjs.between('2023-01-30T19:00:00+01:00', '2023-05-30T19:00:00+01:00').format("YYYY-MM-DDTHH:mm:ssZ");

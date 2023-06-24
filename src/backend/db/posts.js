@@ -1,4 +1,4 @@
-import { formatDate } from "../utils/authUtils";
+import { formatRandomCommentDate, formatRandomPostDate } from "../utils/authUtils";
 
 /**
  * Posts can be added here.
@@ -63,8 +63,8 @@ export const posts = [
             content: "Ping me @ayush if you find any bug",
           },
         ],
-        createdAt: formatDate(),
-        updatedAt: formatDate(),
+        createdAt: formatRandomCommentDate(),
+        updatedAt: formatRandomCommentDate(),
       },
       {
         _id: "2",
@@ -90,12 +90,12 @@ export const posts = [
             content: "Ping me @mallick if you find any bug",
           },
         ],
-        createdAt: formatDate(),
-        updatedAt: formatDate(),
+        createdAt: formatRandomCommentDate(),
+        updatedAt: formatRandomCommentDate(),
       },
     ],
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: formatRandomPostDate(),
+    updatedAt: formatRandomPostDate(),
   },
   {
     _id: "2",
@@ -149,12 +149,12 @@ export const posts = [
           profile_pic: "https://pbs.twimg.com/profile_images/1266934374060052480/O3nYz9s-_400x400.jpg",
         },
         replies: [],
-        createdAt: formatDate(),
-        updatedAt: formatDate(),
+        createdAt: formatRandomCommentDate(),
+        updatedAt: formatRandomCommentDate(),
       },
     ],
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: formatRandomPostDate(),
+    updatedAt: formatRandomPostDate(),
   },
   {
     _id: "3",
@@ -203,8 +203,8 @@ export const posts = [
       dislikedBy: [],
     },
     comments: [],
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: formatRandomPostDate(),
+    updatedAt: formatRandomPostDate(),
   },
   {
     _id: "4",
@@ -263,12 +263,12 @@ export const posts = [
             content: "It was nice",
           },
         ],
-        createdAt: formatDate(),
-        updatedAt: formatDate(),
+        createdAt: formatRandomCommentDate(),
+        updatedAt: formatRandomCommentDate(),
       },
     ],
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: formatRandomPostDate(),
+    updatedAt: formatRandomPostDate(),
   },
   {
     _id: "5",
@@ -315,12 +315,12 @@ export const posts = [
           profile_pic: "https://pbs.twimg.com/profile_images/1266934374060052480/O3nYz9s-_400x400.jpg",
         },
         replies: [],
-        createdAt: formatDate(),
-        updatedAt: formatDate(),
+        createdAt: formatRandomCommentDate(),
+        updatedAt: formatRandomCommentDate(),
       },
     ],
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: formatRandomPostDate(),
+    updatedAt: formatRandomPostDate(),
   },
   {
     _id: "6",
@@ -355,8 +355,8 @@ export const posts = [
       dislikedBy: [],
     },
     comments: [],
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
+    createdAt: formatRandomPostDate(),
+    updatedAt: formatRandomPostDate(),
   },
 ];
 

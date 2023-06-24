@@ -13,10 +13,69 @@
     top: 0;
 }
 
+.homepage .header .declaration {
+    position: absolute;
+    left: 1rem;
+    top: 0.65rem; 
+    font-style: italic;
+    font-size: 1rem;
+}
+
 .homepage .header .heading {
     font-size: 1.5rem;
     font-weight: 500;
     text-align: center;
+}
+
+.homepage .header .sort {
+    position: absolute;
+    right: 1rem;
+    top: 0.65rem;   
+}
+
+.homepage .header .sort .menu-container .icon {
+    background-color: transparent;
+    border: 0;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.homepage .header .sort .menu-container .menu {
+    position: absolute;
+    background-color: #fff;
+    margin-top: 0rem;
+    margin-left: -5rem;
+    box-shadow: rgba(0, 0, 0, 0.4) 0 0 8px;
+    padding: 0.5rem;
+    border-radius: 0.35rem;
+    transition: 0.5s;
+    width: rem;
+}
+
+.homepage .header .sort .menu-container .menu input {
+    display: none;
+}
+
+.homepage .header .sort .menu-container .menu label {
+    padding: 0.75rem;
+    border-radius: 0.35rem;
+    display: block;
+    text-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    transition: 0.5s;
+}
+
+.homepage .header .sort .menu-container .menu label:hover {
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+}
+
+.homepage .header .sort .menu-container .menu .active-style {
+    background-color: #000;
+    color: #fff;
 }
 
 .homepage .no-post-div {
@@ -34,6 +93,6 @@
     font-weight: 500;
 }
 
-.homepage .post-container{
+.homepage .post-container {
     padding-top: 3.8rem;
 }

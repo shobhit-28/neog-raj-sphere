@@ -7,6 +7,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "dayjs": "^1.11.8",
+    "dayjs-random": "^1.0.1",
     "jwt-decode": "^3.1.2",
     "jwt-encode": "^1.0.1",
     "miragejs": "^0.1.47",

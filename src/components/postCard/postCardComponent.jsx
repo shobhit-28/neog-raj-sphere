@@ -4,7 +4,6 @@ import copy from "copy-to-clipboard";
 import { AiOutlineHeart, AiFillHeart, AiOutlineClose } from 'react-icons/ai'
 import { GoComment } from 'react-icons/go'
 import { CiMenuKebab } from 'react-icons/ci'
-import dayjs from 'dayjs'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import { TfiClose } from 'react-icons/tfi'
@@ -143,7 +142,7 @@ export const PostComponent = ({ postData }) => {
                         <div className="name-username-date">
                             <p className="name">{`${postData?.postedBy?.firstName} ${postData?.postedBy?.lastName}`}</p>
                             <p className="username">{`@${postData?.postedBy?.username}`}</p>
-                            <p className="date">{String((dayjs.call(postData?.createdAt))?.$d).slice(0, 16)}</p>
+                            <p className="date">{new Date(postData?.createdAt).toDateString()}</p>
                         </div>
                     </div>
                     {postData?.postedBy?._id === profileId &&
