@@ -28,13 +28,6 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.page {
-  margin: 0 25%;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px;
-  min-height: 100vh;
-  overflow: hidden;
-}
-
 img {
   width: 100%;
 }
@@ -46,6 +39,19 @@ button {
 button:active {
     transform: scale(0.9);
 }
+
+html {
+    font-size: 100%;
+    scroll-behavior: smooth;
+}
+
+.page {
+    margin: 0 25%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
 
 .mockman-container {
     position: relative;

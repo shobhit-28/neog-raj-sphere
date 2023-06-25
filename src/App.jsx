@@ -1,7 +1,7 @@
 import { AuthContext } from './contexts/AuthContext';
 
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -22,6 +22,10 @@ function App() {
   const { isLoggedIn } = useContext(AuthContext)
 
   const location = useLocation()
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   return (
     <div className="App">
