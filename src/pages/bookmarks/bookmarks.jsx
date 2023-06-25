@@ -10,7 +10,7 @@ export const BookmarkPage = () => {
     const { bookMarks, allPosts } = useContext(PostContext)
 
     const filteredData = allPosts?.filter((post) => (
-        bookMarks.some((bookmarkedPost) => bookmarkedPost?._id === post?._id)
+        bookMarks.some((bookmarkedPostID) => bookmarkedPostID === post?._id)
     ))
 
     return (

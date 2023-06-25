@@ -553,7 +553,7 @@ export const SinglePostPage = () => {
                                 <p className="likes-num">{postData?.likes?.likeCount}</p>
                             </div>
                             <button className="comment" onClick={() => commentBtnClickHandler()}><GoComment /></button>
-                            {!bookMarks?.find((post) => post?._id === postData?._id)
+                            {!bookMarks?.find((postID) => postID === postData?._id)
                                 ?
                                 <button className="bookmark" onClick={() => addBookmark(postId)}><RiBookmarkLine /></button>
                                 :

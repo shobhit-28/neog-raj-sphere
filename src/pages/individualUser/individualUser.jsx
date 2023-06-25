@@ -8,6 +8,7 @@ import { UserDataContext } from "../../contexts/userDataContext";
 import { TfiClose } from "react-icons/tfi";
 import { PostComponent } from "../../components/postCard/postCardComponent";
 import { SmallLoader } from "../../components/smallLoader/smallLoader";
+import { PostContext } from "../../contexts/PostContext";
 
 // import './homepage.css'
 
@@ -18,21 +19,19 @@ export const IndividualUser = () => {
     const profileID = JSON.parse(localStorage.getItem('userData'))?._id;
 
     const { followed, setFollowed, follow, unfollow, currUserData, setCurrUserData } = useContext(UserDataContext)
+    const { allPosts } = useContext(PostContext)
 
     const [userData, setUserData] = useState(false)
     const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false)
     const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false)
     const [isProfilePicModalOpen, setIsProfilePicModalOpen] = useState(false)
     const [isCoverPicModalOpen, setIsCoverPicModalOpen] = useState(false)
-    const [allPosts, setAllPosts] = useState(undefined)
 
     const fetchData = async () => {
         try {
             const response = await fetch(`/api/users/${userID}`)
             const data = (await response.json())?.user
             setUserData(data)
-            const posts = await fetch(`/api/posts/user/${data?.username}`)
-            setAllPosts((await posts.json())?.posts)
         } catch (error) {
             console.error(error);
         }
@@ -156,10 +155,10 @@ export const IndividualUser = () => {
                     </div>
                     {!allPosts ? <SmallLoader /> :
                         <div className="post-content">
-                            {allPosts?.length > 0
+                            {allPosts?.filter((post) => post.postedBy._id === userID)?.length > 0
                                 ?
                                 <div className="user-post">
-                                    {allPosts?.map((post) => <PostComponent postData={post} key={post?._id} />)}
+                                    {allPosts?.filter((post) => post.postedBy._id === userID)?.map((post) => <PostComponent postData={post} key={post?._id} />)}
                                 </div>
                                 :
                                 <div className="not-posted">
