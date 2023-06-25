@@ -18,10 +18,9 @@ export const IndividualUser = () => {
 
     const profileID = JSON.parse(localStorage.getItem('userData'))?._id;
 
-    const { followed, setFollowed, follow, unfollow, currUserData, setCurrUserData } = useContext(UserDataContext)
+    const { followed, setFollowed, follow, unfollow, currUserData, setCurrUserData, userData, setUserData } = useContext(UserDataContext)
     const { allPosts } = useContext(PostContext)
-
-    const [userData, setUserData] = useState(false)
+    
     const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false)
     const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false)
     const [isProfilePicModalOpen, setIsProfilePicModalOpen] = useState(false)

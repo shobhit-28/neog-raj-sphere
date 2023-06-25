@@ -17,6 +17,7 @@ export const UserDataHandler = ({ children }) => {
     const [followingData, setFollowingData] = useState(false)
     const [followed, setFollowed] = useState([])
     const [currUserData, setCurrUserData] = useState(false)
+    const [userData, setUserData] = useState(false)
 
     const fetchAllUsers = async () => {
         try {
@@ -160,7 +161,10 @@ export const UserDataHandler = ({ children }) => {
             followed,
             setFollowed,
             currUserData,
-            setCurrUserData
+            setCurrUserData,
+            //individual-user-page
+            userData,
+            setUserData
         }}>
             {children}
         </UserDataContext.Provider>

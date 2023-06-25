@@ -10,18 +10,28 @@ export const PeopleComponent = () => {
 
     const userId = JSON.parse(localStorage.getItem('userData'))?._id;
 
-    const { allUsersData, followingData, follow, followed, setFollowed, setIsMobileViewOpen, currUserData, setCurrUserData } = useContext(UserDataContext)
+    const { allUsersData,
+        followingData,
+        follow,
+        followed,
+        setFollowed,
+        setIsMobileViewOpen,
+        currUserData,
+        setCurrUserData,
+        userData,
+        setUserData
+    } = useContext(UserDataContext)
 
     const [profileData, setProfileData] = useState(false)
     const [searchResults, setSearchResults] = useState(false)
 
     const ref = useRef(null)
 
-    const userData = followingData ? followingData : profileData
+    const peopleCompUserData = followingData ? followingData : profileData
     const filteredArr = allUsersData
         ?.filter((user) => user._id !== userId)
-        ?.filter((allUsersUser) => !userData?.following?.find((user) => user?._id === allUsersUser?._id))
-        ?.filter((allUsersUser) => !userData?.followers?.find((user) => user?._id === allUsersUser?._id))
+        ?.filter((allUsersUser) => !peopleCompUserData?.following?.find((user) => user?._id === allUsersUser?._id))
+        ?.filter((allUsersUser) => !peopleCompUserData?.followers?.find((user) => user?._id === allUsersUser?._id))
         ?.filter((allUsersUser) => !followed?.find((user) => user?._id === allUsersUser?._id))
 
     const fetchData = async () => {
@@ -42,12 +52,18 @@ export const PeopleComponent = () => {
     const followHandler = (user, event) => {
         follow(user)
         setFollowed([...followed, user])
+        if (user?._id === userData?._id) {
+            setUserData({
+                ...userData,
+                followers: [...userData?.followers, currUserData]
+            })            
+        }
         event.stopPropagation()
         if (currUserData) {
             setCurrUserData({
                 ...currUserData,
                 following: [...currUserData?.following, user]
-            })            
+            })
         }
     }
 
@@ -90,7 +106,7 @@ export const PeopleComponent = () => {
 
     return (
         <div className="people-component">
-            {!userData ? <SmallLoader /> :
+            {!peopleCompUserData ? <SmallLoader /> :
                 <>
                     <p className="head">Who to follow</p>
                     <input type="text" name="" id="" ref={ref} className="search-bar" onChange={(event) => searchBarChangeHandler(event)} placeholder="Search Users" />
