@@ -18,24 +18,24 @@ export const IndividualUser = () => {
 
     const profileID = JSON.parse(localStorage.getItem('userData'))?._id;
 
-    const { followed, setFollowed, follow, unfollow, currUserData, setCurrUserData, userData, setUserData } = useContext(UserDataContext)
+    const { followed, setFollowed, follow, unfollow, currUserData, setCurrUserData, userData, setUserData, allUsersData } = useContext(UserDataContext)
     const { allPosts } = useContext(PostContext)
-    
+
     const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false)
     const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false)
     const [isProfilePicModalOpen, setIsProfilePicModalOpen] = useState(false)
     const [isCoverPicModalOpen, setIsCoverPicModalOpen] = useState(false)
+    const [visible, setVisible] = useState(false)
 
     const fetchData = async () => {
         try {
             const response = await fetch(`/api/users/${userID}`)
-            const data = (await response.json())?.user
-            setUserData(data)
+            await response.json()   
         } catch (error) {
             console.error(error);
         }
     }
-
+    
     const fetchCurrUser = async () => {
         try {
             const response = await fetch(`/api/users/${profileID}`)
@@ -53,8 +53,15 @@ export const IndividualUser = () => {
         }
         fetchData()
         fetchCurrUser()
+        setUserData(allUsersData?.find((user) => user?._id === userID))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+    
+    useEffect(() => {
+        setUserData(allUsersData?.find((user) => user?._id === userID))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [allUsersData])
+    
 
     const unfollowHandler = (user) => {
         unfollow(user?._id)
@@ -82,12 +89,12 @@ export const IndividualUser = () => {
         })
         setFollowed([...followed, user])
     }
-    
+
     const modalUnfollowHandler = (user) => {
         unfollow(user?._id)
         setCurrUserData({
             ...currUserData,
-            following: currUserData?.following?.filter((filterUser) => filterUser?._id !== user?._id  )
+            following: currUserData?.following?.filter((filterUser) => filterUser?._id !== user?._id)
         })
         setFollowed(followed?.filter((followedUser) => followedUser?._id !== user?._id))
     }
@@ -104,10 +111,14 @@ export const IndividualUser = () => {
     }
 
     const followCheck = (userId) => currUserData?.following?.find((user) => user?._id === userId)
-    
+
+    setTimeout(() => {
+        setVisible(true)
+    }, 400)
+
     return (
         <>
-            {!userData ? <Loader /> :
+            {!visible ? <Loader /> :
                 <div className="individual-user-page page">
                     <div className="img-container">
                         <div className="cover-pic-container"

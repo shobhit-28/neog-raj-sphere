@@ -79,16 +79,17 @@ export const UserDataHandler = ({ children }) => {
                     post
             ))
 
-            toast.success(`Successfully edited`, {
-                position: "top-center",
-                autoClose: 1500,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
+            setAllUsersData(allUsersData?.map((user) => user?._id === userId
+                ?
+                responseData
+                :
+                {
+                    ...user,
+                    followers: user?.followers?.map((follower) => follower?._id === userId ? responseData : follower),
+                    following: user?.following?.map((followed) => followed?._id === userId ? responseData : followed),
+                }
+            ))
+            
         } catch (error) {
             console.error(error);
         }
