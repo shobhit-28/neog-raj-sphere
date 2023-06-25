@@ -51,8 +51,10 @@ export const PeopleComponent = () => {
         const handleOutsideClick = (e) => {
             if (!searchResRef?.current?.contains(e?.target)) {
                 setIsSearchResultOpen(false)
+                if (ref?.current?.value?.length > 0) {
+                    ref.current.value = '' 
+                }
             }
-            ref.current.value = ''
         }
         document.addEventListener("mousedown", handleOutsideClick, true)
         document.addEventListener("scroll", () => setIsSearchResultOpen(false))
@@ -126,8 +128,8 @@ export const PeopleComponent = () => {
                     <p className="head">Who to follow</p>
                     <input type="text" name="" id="" ref={ref} className="search-bar" onChange={(event) => searchBarChangeHandler(event)} placeholder="Search Users" />
                     {searchResults?.length > 0 &&
-                        <div className="search-results-container">
-                            {isSearchResultOpen && <div className="search-results" ref={searchResRef}>
+                        <div className="search-results-container" ref={searchResRef}>
+                            {isSearchResultOpen && <div className="search-results">
                                 {searchResults.map((user) => (
                                     <div className="user" title={user?.username} key={user?._id} onClick={() => searchNavHandler(user?._id)}>
                                         <div className="img-container">

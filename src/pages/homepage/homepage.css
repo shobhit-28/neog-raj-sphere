@@ -2,6 +2,13 @@
     .homepage .header {
         width: 100% !important;
     }
+    .homepage .header .declaration {
+        position: absolute;
+        left: 0.5rem !important;
+        top: 0.65rem; 
+        font-style: italic;
+        font-size: 0.75rem !important;
+    }
 }
 
 .homepage .header {
