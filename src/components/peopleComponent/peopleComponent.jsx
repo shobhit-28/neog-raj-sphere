@@ -24,8 +24,10 @@ export const PeopleComponent = () => {
 
     const [profileData, setProfileData] = useState(false)
     const [searchResults, setSearchResults] = useState(false)
+    const [isSearchResultOpen, setIsSearchResultOpen] = useState(false)
 
     const ref = useRef(null)
+    const searchResRef = useRef(null)
 
     const peopleCompUserData = followingData ? followingData : profileData
     const filteredArr = allUsersData
@@ -46,6 +48,18 @@ export const PeopleComponent = () => {
 
     useEffect(() => {
         fetchData()
+        const handleOutsideClick = (e) => {
+            if (!searchResRef?.current?.contains(e?.target)) {
+                setIsSearchResultOpen(false)
+            }
+            ref.current.value = ''
+        }
+        document.addEventListener("mousedown", handleOutsideClick, true)
+        document.addEventListener("scroll", () => setIsSearchResultOpen(false))
+        return () => {
+            document.removeEventListener("mousedown", handleOutsideClick)
+            document.removeEventListener("scroll", () => setSearchResults(false))
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -71,6 +85,7 @@ export const PeopleComponent = () => {
         if (event?.target?.value?.length === 0) {
             setSearchResults([])
         } else {
+            setIsSearchResultOpen(true)
             setSearchResults(
                 [
                     ...allUsersData?.filter((user) => user?.firstName?.slice(0, event?.target?.value.length).toLowerCase() === event?.target?.value.toLowerCase()),
@@ -112,7 +127,7 @@ export const PeopleComponent = () => {
                     <input type="text" name="" id="" ref={ref} className="search-bar" onChange={(event) => searchBarChangeHandler(event)} placeholder="Search Users" />
                     {searchResults?.length > 0 &&
                         <div className="search-results-container">
-                            <div className="search-results">
+                            {isSearchResultOpen && <div className="search-results" ref={searchResRef}>
                                 {searchResults.map((user) => (
                                     <div className="user" title={user?.username} key={user?._id} onClick={() => searchNavHandler(user?._id)}>
                                         <div className="img-container">
@@ -124,7 +139,7 @@ export const PeopleComponent = () => {
                                         </div>
                                     </div>
                                 ))}
-                            </div>
+                            </div>}
                         </div>
                     }
                     <div className="user-data">
