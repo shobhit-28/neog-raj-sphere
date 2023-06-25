@@ -57,6 +57,7 @@ function App() {
         <Route path='/post/:postId' element={<RequiresAuth><SinglePostPage /></RequiresAuth>} />
         <Route path='/bookmarks' element={<RequiresAuth><BookmarkPage /></RequiresAuth>} />
         <Route path='/user/:userID' element={<RequiresAuth><IndividualUser /></RequiresAuth>} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       {/* <div className="mockman-container"><Mockman /></div> */}
     </div>
