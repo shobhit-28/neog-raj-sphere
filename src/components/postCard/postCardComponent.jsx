@@ -1,20 +1,22 @@
-import './postCardComponent.css'
 import copy from "copy-to-clipboard";
+import { v4 as uuidv4 } from 'uuid';
+import { toast } from 'react-toastify';
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useEffect, useRef, useState, useContext } from 'react'
 
-import { AiOutlineHeart, AiFillHeart, AiOutlineClose } from 'react-icons/ai'
+import { AiOutlineHeart, AiFillHeart, AiOutlineClose, AiOutlineSend } from 'react-icons/ai'
 import { GoComment } from 'react-icons/go'
 import { CiMenuKebab } from 'react-icons/ci'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { useEffect, useRef, useState } from 'react'
 import { TfiClose } from 'react-icons/tfi'
-import { useContext } from 'react'
-import { UserDataContext } from '../../contexts/userDataContext'
-import { randomProfilePic } from '../../resources/randomImages/randomImages'
 import { IoIosCloseCircleOutline } from 'react-icons/io'
 import { RiBookmarkFill, RiBookmarkLine, RiImageAddLine } from 'react-icons/ri'
-import { PostContext } from '../../contexts/PostContext'
-import { toast } from 'react-toastify';
 import { FiShare2 } from 'react-icons/fi';
+
+import './postCardComponent.css'
+import { UserDataContext } from '../../contexts/userDataContext'
+import { randomProfilePic } from '../../resources/randomImages/randomImages'
+import { PostContext } from '../../contexts/PostContext'
+import { formatDate } from "../../backend/utils/authUtils";
 
 export const PostComponent = ({ postData }) => {
     const { editedData } = useContext(UserDataContext)
@@ -28,7 +30,10 @@ export const PostComponent = ({ postData }) => {
         setIsDisLikeBtnDisabled,
         bookMarks,
         addBookmark,
-        removeBookmark
+        removeBookmark,
+        addComment,
+        allPosts,
+        setAllPosts,
     } = useContext(PostContext)
 
     const navigate = useNavigate()
@@ -39,9 +44,12 @@ export const PostComponent = ({ postData }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isEditPostModalOpen, setIsEditPostModalOpen] = useState(false)
     const [editedPostData, setEditedPostData] = useState(postData)
+    const [comment, setComment] = useState('')
+    const [isCommentOpen, setIsCommentOpen] = useState(false)
 
     const menuRef = useRef(null)
     const fileInputRef = useRef(null)
+    const addCommentRef = useRef(null)
 
 
     useEffect(() => {
@@ -131,6 +139,96 @@ export const PostComponent = ({ postData }) => {
         });
     }
 
+    const commentClickHandler = () => {
+        setIsCommentOpen(!isCommentOpen)
+        if (addCommentRef) {
+            setTimeout(() => {
+                addCommentRef?.current?.focus()  
+            }, 1)
+        }
+    } 
+
+    const addCommentHandler = () => {
+        setIsCommentOpen(!isCommentOpen)
+        if (comment?.length > 0) {
+            addComment({
+                ...postData,
+                comments: [
+                    ...postData?.comments,
+                    {
+                        _id: uuidv4(),
+                        content: comment,
+                        postId: postData?._id,
+                        user: editedData,
+                        replies: [],
+                        createdAt: formatDate(),
+                        updatedAt: formatDate(),
+                    },
+                ]
+            })
+            setEditedPostData({
+                ...postData,
+                comments: [
+                    ...postData?.comments,
+                    {
+                        _id: uuidv4(),
+                        content: comment,
+                        postId: postData?._id,
+                        user: editedData,
+                        replies: [],
+                        createdAt: formatDate(),
+                        updatedAt: formatDate(),
+                    },
+                ]
+            })
+            setAllPosts(
+                allPosts?.map((post) => post?._id === postData?._id
+                    ?
+                    {
+                        ...postData,
+                        comments: [
+                            ...postData?.comments,
+                            {
+                                _id: uuidv4(),
+                                content: comment,
+                                postId: postData?._id,
+                                user: editedData,
+                                replies: [],
+                                createdAt: formatDate(),
+                                updatedAt: formatDate(),
+                            },
+                        ]
+                    }
+                    :
+                    post
+                )
+            )
+            addCommentRef.current.value = ''
+            setComment('')
+            toast.success(`Comment added`, {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        } else {
+            toast.warn(`Comment cannot be empty`, {
+                position: "top-center",
+                autoClose: 1500,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
+    }
+
     return (
         <div className="post-card-container">
             <div className="post-card">
@@ -181,7 +279,7 @@ export const PostComponent = ({ postData }) => {
                         }
                         <p className="likes-num">{postData?.likes?.likeCount}</p>
                     </div>
-                    <button className="comment"><GoComment /></button>
+                    <button className="comment" onClick={() => commentClickHandler()} ><GoComment /></button>
                     {!bookMarks?.find((postID) => postID === postData?._id)
                         ?
                         <button className="bookmark" onClick={() => addBookmark(postData?._id)}><RiBookmarkLine /></button>
@@ -190,6 +288,12 @@ export const PostComponent = ({ postData }) => {
                     }
                     <button className="share" onClick={() => shareHandler()}><FiShare2 /></button>
                 </div>
+                {isCommentOpen && <div className="comment-input-div">
+                    <label htmlFor="comment" className="comment-input">
+                        <input type="text" name="comment" placeholder="Enter Comment" onChange={(event) => setComment(event.target.value)} ref={addCommentRef} />
+                    </label>
+                    <button className="add-comment" onClick={() => addCommentHandler()}><AiOutlineSend /></button>
+                </div>}
             </div>
             {isEditPostModalOpen &&
                 <div className="edit-post-modal-container" onClick={() => closeEditPostModal()}>

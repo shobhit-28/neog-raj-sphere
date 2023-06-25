@@ -171,6 +171,46 @@
     color: red;
 }
 
+.post-card-container .post-card .comment-input-div {
+    border: 1.1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 0.2rem;
+    display: flex;
+    align-items: center;
+    margin: 0 auto 1rem;
+    width: 85%;
+}
+
+.post-card-container .post-card .comment-input-div .comment-input {
+    display: block;
+    width: 100%;
+}
+
+.post-card-container .post-card .comment-input-div .comment-input input {
+    width: 100%;
+    font-size: 1.25rem;
+    padding: 0.5rem;
+    outline: 0;
+    border: 0;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.post-card-container .post-card .comment-input-div .comment-input input::placeholder {
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.3);
+    font-size: 1rem;
+}
+
+.post-card-container .post-card .comment-input-div .add-comment {
+    width: 5%;
+    background-color: transparent;
+    border: 0;
+    font-size: 1.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin: 0 0.5rem;
+}
+
 .edit-post-modal-container {
     position: fixed;
     height: 100vh;
