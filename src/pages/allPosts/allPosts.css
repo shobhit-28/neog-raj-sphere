@@ -66,3 +66,9 @@
 .explore-page .post-container .loading-container {
     margin-bottom: 1.5rem;
 }
+
+.explore-page .post-container .loading-container p {
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 0 1.5rem;
+}
