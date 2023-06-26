@@ -101,3 +101,13 @@
 .homepage .post-container {
     padding-top: 3.8rem;
 }
+
+.homepage .post-container .loading-container {
+    margin-bottom: 1.5rem;
+}
+
+.homepage .post-container .loading-container p {
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 0 1.5rem;
+}

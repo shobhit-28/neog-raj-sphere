@@ -16,7 +16,6 @@ export const AllPosts = () => {
 
     const searchBarChangeHandler = (event) => {
         window.scrollTo(0, 0);
-        setSliceQuantity(3)
         if (event?.target?.value?.length === 0) {
             setSearchResults(allPosts)
         } else {

@@ -41,6 +41,13 @@ export const users = [
         lastName: "Mallick",
         username: "mallick",
         profile_pic: "https://staticg.sportskeeda.com/editor/2022/07/c2ed4-16587439752781.png",
+      },
+      {
+        _id: "3",
+        firstName: "Ayush",
+        lastName: "Singh",
+        username: "ayush",
+        profile_pic: "https://res.cloudinary.com/randomwave45/image/upload/v1650022196/one_piece_1_anib9s.jpg",
       }
     ],
     bookmarks: [],
@@ -66,6 +73,13 @@ export const users = [
         lastName: "Raj",
         username: "shobhitraj",
         profile_pic: "https://pbs.twimg.com/profile_images/1266934374060052480/O3nYz9s-_400x400.jpg",
+      },
+      {
+        _id: "5",
+        firstName: "Eklavya",
+        lastName: "Prasad",
+        username: "eklavya",
+        profile_pic: "https://res.cloudinary.com/randomwave45/image/upload/v1650009611/uchicha_crest_ngetfr.jpg",
       }
     ],
     following: [
@@ -76,6 +90,13 @@ export const users = [
         username: "shobhitraj",
         profile_pic: "https://pbs.twimg.com/profile_images/1266934374060052480/O3nYz9s-_400x400.jpg",
       },
+      {
+        _id: "5",
+        firstName: "Eklavya",
+        lastName: "Prasad",
+        username: "eklavya",
+        profile_pic: "https://res.cloudinary.com/randomwave45/image/upload/v1650009611/uchicha_crest_ngetfr.jpg",
+      }
     ],
     bookmarks: [],
   },
@@ -107,6 +128,13 @@ export const users = [
         username: "eklavya",
         profile_pic: "https://res.cloudinary.com/randomwave45/image/upload/v1650009611/uchicha_crest_ngetfr.jpg",
       },
+      {
+        _id: "1",
+        firstName: "Shobhit",
+        lastName: "Raj",
+        username: "shobhitraj",
+        profile_pic: "https://pbs.twimg.com/profile_images/1266934374060052480/O3nYz9s-_400x400.jpg",
+      }
     ],
     following: [
       {
