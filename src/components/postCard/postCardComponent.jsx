@@ -275,7 +275,7 @@ export const PostComponent = ({ postData }) => {
                             ?
                             <button className="dislike heart" onClick={() => dislikeClickHandler()}><AiFillHeart /></button>
                             :
-                            <button className="like heart" onClick={() => likeClickHandler()}><AiOutlineHeart /></button>
+                            <button className="like" onClick={() => likeClickHandler()}><AiOutlineHeart /></button>
                         }
                         <p className="likes-num">{postData?.likes?.likeCount}</p>
                     </div>
