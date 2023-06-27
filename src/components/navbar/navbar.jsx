@@ -18,7 +18,7 @@ import { SmallLoader } from '../smallLoader/smallLoader'
 export const Navbar = () => {
     const navigate = useNavigate()
 
-    const { userData } = useContext(AuthContext);
+    const { userData, isLoggedIn  } = useContext(AuthContext);
     const { editedData, setIsMobileViewOpen, isPostModalOpen, setIsPostModalOpen } = useContext(UserDataContext)
     const {createPost} = useContext(PostContext)
 
@@ -127,7 +127,7 @@ export const Navbar = () => {
     }, [userData])
 
     return (
-        <>
+        isLoggedIn && (<>
             <div className="navbar">
                 <div className="nav-upper-section">
                     <div className="nav-head" onClick={() => navHeadClickHandler()}>
@@ -226,6 +226,6 @@ export const Navbar = () => {
                     </div>
                 </div>
             }
-        </>
+        </>)
     )
 }
