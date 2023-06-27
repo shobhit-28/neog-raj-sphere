@@ -16,7 +16,7 @@ export const users = [
     updatedAt: formatDate(),
     profile_pic: "https://pbs.twimg.com/profile_images/1266934374060052480/O3nYz9s-_400x400.jpg",
     cover_pic: "https://pbs.twimg.com/profile_banners/822058153051295745/1678301248/1500x500",
-    link: "https://shobhit-raj-portfolio.netlify.app/",
+    link: "https://github.com/shobhit-28/",
     bio: "Software Developer",
     followers: [
       {
