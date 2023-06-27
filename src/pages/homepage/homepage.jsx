@@ -43,6 +43,7 @@ export const HomePage = () => {
         setOption(eventVal)
         setIsMenuOpen(false)
         window.scrollTo(0, 0)
+        setSliceQuantity(3)
     }
 
     useEffect(() => {
@@ -88,7 +89,7 @@ export const HomePage = () => {
         window.addEventListener("scroll", handelInfiniteScroll);
         return () => window.removeEventListener("scroll", handelInfiniteScroll);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [isBottom]);
 
     return (
         <div className="homepage page">

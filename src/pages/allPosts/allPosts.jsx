@@ -12,10 +12,11 @@ export const AllPosts = () => {
     const [searchResults, setSearchResults] = useState(undefined)
     const [isLoading, setIsLoading] = useState(false)
     const [sliceQuantity, setSliceQuantity] = useState(3)
-    const [isBottom, setIsBottom] = useState(false)
+    const [isBottom, setIsBottom] = useState(sliceQuantity >= searchResults?.length)
 
     const searchBarChangeHandler = (event) => {
         window.scrollTo(0, 0);
+        setSliceQuantity(3)
         if (event?.target?.value?.length === 0) {
             setSearchResults(allPosts)
         } else {
@@ -26,6 +27,16 @@ export const AllPosts = () => {
                         ?.filter((post) => post?.content.concat(post?.postedBy?.firstName).concat(post?.postedBy?.lastName).toLowerCase()?.includes(event?.target?.value?.toLowerCase()))
                 ]
             )
+            setIsBottom(3 >= [
+                ...allPosts?.filter((post) => post?.content?.slice(0, event?.target?.value.length).toLowerCase() === event?.target?.value.toLowerCase()),
+                ...allPosts?.filter((post) => post?.content?.slice(0, event?.target?.value.length).toLowerCase() !== event?.target?.value.toLowerCase())
+                    ?.filter((post) => post?.content.concat(post?.postedBy?.firstName).concat(post?.postedBy?.lastName).toLowerCase()?.includes(event?.target?.value?.toLowerCase()))
+            ]?.length)
+            console.log('changeHandlerCondition', 3 >= [
+                ...allPosts?.filter((post) => post?.content?.slice(0, event?.target?.value.length).toLowerCase() === event?.target?.value.toLowerCase()),
+                ...allPosts?.filter((post) => post?.content?.slice(0, event?.target?.value.length).toLowerCase() !== event?.target?.value.toLowerCase())
+                    ?.filter((post) => post?.content.concat(post?.postedBy?.firstName).concat(post?.postedBy?.lastName).toLowerCase()?.includes(event?.target?.value?.toLowerCase()))
+            ]?.length)
         }
     }
 
@@ -45,21 +56,23 @@ export const AllPosts = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allPosts])
 
+    // console.log('outside', searchResults?.length)
+
     // infinite-scroll
     const handelInfiniteScroll = () => {
-        try {
-            setIsBottom(sliceQuantity >= searchResults?.length)
-            if (!isBottom) {
-                if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
-                    setIsLoading(true);
-                    setTimeout(() => {
-                        setSliceQuantity(sliceQuantity + 3)
-                        setIsLoading(false)
-                    }, 600)
-                }
+        // console.log(sliceQuantity)
+        // console.log('inside', searchResults?.length)
+        console.log(isBottom)
+        if (!isBottom) {
+            console.log('first')
+            if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
+                setIsBottom(sliceQuantity >= searchResults?.length)
+                setIsLoading(true);
+                setTimeout(() => {
+                    setSliceQuantity(sliceQuantity + 3)
+                    setIsLoading(false)
+                }, 600)
             }
-        } catch (error) {
-            console.error(error);
         }
     };
 
@@ -68,6 +81,12 @@ export const AllPosts = () => {
         return () => window.removeEventListener("scroll", handelInfiniteScroll);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sliceQuantity]);
+    
+    useEffect(() => {
+        window.addEventListener("scroll", handelInfiniteScroll);
+        return () => window.removeEventListener("scroll", handelInfiniteScroll);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isBottom]);
 
     return (
         <>
