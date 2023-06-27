@@ -32,11 +32,6 @@ export const AllPosts = () => {
                 ...allPosts?.filter((post) => post?.content?.slice(0, event?.target?.value.length).toLowerCase() !== event?.target?.value.toLowerCase())
                     ?.filter((post) => post?.content.concat(post?.postedBy?.firstName).concat(post?.postedBy?.lastName).toLowerCase()?.includes(event?.target?.value?.toLowerCase()))
             ]?.length)
-            console.log('changeHandlerCondition', 3 >= [
-                ...allPosts?.filter((post) => post?.content?.slice(0, event?.target?.value.length).toLowerCase() === event?.target?.value.toLowerCase()),
-                ...allPosts?.filter((post) => post?.content?.slice(0, event?.target?.value.length).toLowerCase() !== event?.target?.value.toLowerCase())
-                    ?.filter((post) => post?.content.concat(post?.postedBy?.firstName).concat(post?.postedBy?.lastName).toLowerCase()?.includes(event?.target?.value?.toLowerCase()))
-            ]?.length)
         }
     }
 
@@ -56,15 +51,9 @@ export const AllPosts = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allPosts])
 
-    // console.log('outside', searchResults?.length)
-
     // infinite-scroll
     const handelInfiniteScroll = () => {
-        // console.log(sliceQuantity)
-        // console.log('inside', searchResults?.length)
-        console.log(isBottom)
         if (!isBottom) {
-            console.log('first')
             if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
                 setIsBottom(sliceQuantity >= searchResults?.length)
                 setIsLoading(true);
