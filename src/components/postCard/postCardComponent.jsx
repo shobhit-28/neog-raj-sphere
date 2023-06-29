@@ -325,7 +325,7 @@ export const PostComponent = ({ postData }) => {
                         ?
                         <button className="bookmark" onClick={() => addBookmark(postData?._id)}><RiBookmarkLine /></button>
                         :
-                        <button className="bookmark" onClick={() => removeBookmark(postData?._id)}><RiBookmarkFill /></button>
+                        <button className="bookmark filled-bookmark" onClick={() => removeBookmark(postData?._id)}><RiBookmarkFill /></button>
                     }
                     <button className="share" onClick={() => shareHandler()}><FiShare2 /></button>
                 </div>

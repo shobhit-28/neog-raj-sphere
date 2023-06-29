@@ -180,6 +180,10 @@
     cursor: pointer;
 }
 
+.post-card-container .post-card .btn-container .filled-bookmark {
+    color: #212A3E;
+}
+
 .post-card-container .post-card .btn-container .heart {
     color: red;
 }
@@ -390,6 +394,10 @@
 .edit-post-modal-container .edit-post-modal .btn-container .btn:active {
     background-color: #000;
     color: #fff;
+}
+
+.edit-post-modal-container .edit-post-modal .btn-container .cancel {
+    margin-left: 0.5rem;
 }
 
 .edit-post-modal-container .edit-post-modal .btn-container .cancel {
