@@ -55,6 +55,7 @@ export const SinglePostPage = () => {
     const [isReplyCommentOpen, setIsReplyCommentOpen] = useState('')
     const [isEditPostModalOpen, setIsEditPostModalOpen] = useState(false)
     const [editedPostData, setEditedPostData] = useState(postData)
+    const [isHeartModalOpen, setIsHeartModalOpen] = useState(false)
 
     const menuRef = useRef(null)
     const addCommentRef = useRef(null)
@@ -501,6 +502,16 @@ export const SinglePostPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const doubleClickHandler = () => {
+        setIsHeartModalOpen(true)
+        setTimeout(() => {
+            setIsHeartModalOpen(false)
+        }, 500)
+        if (!postData?.likes?.likedBy?.find((user) => user?._id === profileId)) {
+            likeClickHandler()
+        }
+    }
+
     return (
         <div className="single-post-page page">
             {!postData ? <Loader /> :
@@ -544,11 +555,16 @@ export const SinglePostPage = () => {
                                 }
                             </div>
                         </div>
-                        <div className="post-content">
+                        <div className="post-content" onDoubleClick={() => doubleClickHandler()} >
                             <p className="content">{postData?.content}</p>
                             {postData?.pic &&
-                                <div className="content-img">
-                                    <img src={postData?.pic} alt="" />
+                                <div className="heart-modal-container">
+                                    <div className="content-img">
+                                        <img src={postData?.pic} alt="" />
+                                    </div>
+                                    {isHeartModalOpen && <div className="heart-modal">
+                                        <AiFillHeart />
+                                    </div>}
                                 </div>
                             }
                         </div>
