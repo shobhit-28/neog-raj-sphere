@@ -242,7 +242,7 @@ export const SinglePostPage = () => {
             replyCommentRef.current.value = ''
             setReply('')
             setIsReplyCommentOpen(false)
-            toast.success(`Comment added`, {
+            toast.success(`Reply added`, {
                 position: "top-center",
                 autoClose: 1500,
                 hideProgressBar: false,
@@ -419,6 +419,16 @@ export const SinglePostPage = () => {
             content: editedPostData?.content,
             pic: editedPostData?.pic
         })
+        toast.success(`Successfully edited`, {
+            position: "top-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
     }
 
     const deleteClickHandler = () => {

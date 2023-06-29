@@ -161,7 +161,7 @@
     align-items: center;
 }
 
-.single-post-page .btn-container .like-btn-container button {
+.single-post-page .btn-container .like-btn-container .dislike {
     color: red;
 }
 

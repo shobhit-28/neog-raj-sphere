@@ -104,6 +104,16 @@ export const PostComponent = ({ postData }) => {
     const editClickHandler = () => {
         setIsEditPostModalOpen(false)
         editPost(editedPostData)
+        toast.success(`Successfully edited`, {
+            position: "top-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
     }
 
     const deleteClickHandler = () => {
