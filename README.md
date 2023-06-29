@@ -25,6 +25,7 @@ $ npm start
 - Sort by date and likes
 - Like, Comment, Bookmark and Share posts
 - Edit and Delete posts
+- Like posts with double click
 - Add new posts
 - Edit profile (except username)
 - Authentication:
