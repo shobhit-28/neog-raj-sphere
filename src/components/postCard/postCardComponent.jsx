@@ -17,6 +17,7 @@ import { UserDataContext } from '../../contexts/userDataContext'
 import { randomProfilePic } from '../../resources/randomImages/randomImages'
 import { PostContext } from '../../contexts/PostContext'
 import { formatDate } from "../../backend/utils/authUtils";
+import useDoubleClick from "use-double-click";
 
 export const PostComponent = ({ postData }) => {
     const { editedData } = useContext(UserDataContext)
@@ -46,10 +47,12 @@ export const PostComponent = ({ postData }) => {
     const [editedPostData, setEditedPostData] = useState(postData)
     const [comment, setComment] = useState('')
     const [isCommentOpen, setIsCommentOpen] = useState(false)
+    const [isHeartModalOpen, setIsHeartModalOpen] = useState(false)
 
     const menuRef = useRef(null)
     const fileInputRef = useRef(null)
     const addCommentRef = useRef(null)
+    const buttonRef = useRef(null)
 
 
     useEffect(() => {
@@ -153,10 +156,10 @@ export const PostComponent = ({ postData }) => {
         setIsCommentOpen(!isCommentOpen)
         if (addCommentRef) {
             setTimeout(() => {
-                addCommentRef?.current?.focus()  
+                addCommentRef?.current?.focus()
             }, 1)
         }
-    } 
+    }
 
     const addCommentHandler = () => {
         setIsCommentOpen(!isCommentOpen)
@@ -239,6 +242,27 @@ export const PostComponent = ({ postData }) => {
         }
     }
 
+    const singleClickHandler = () => {
+        navigate(`/post/${postData?._id}`)
+    }
+
+    const doubleClickHandler = () => {
+        setIsHeartModalOpen(true)
+        setTimeout(() => {
+            setIsHeartModalOpen(false)
+        }, 500)
+        if (!postData?.likes?.likedBy?.find((user) => user?._id === profileId)) {
+            likeClickHandler()
+        }
+    }
+
+    useDoubleClick({
+        onSingleClick: e => singleClickHandler(),
+        onDoubleClick: e => doubleClickHandler(),
+        ref: buttonRef,
+        latency: 250
+    });
+
     return (
         <div className="post-card-container">
             <div className="post-card">
@@ -273,11 +297,18 @@ export const PostComponent = ({ postData }) => {
                             }
                         </div>}
                 </div>
-                <div onClick={() => navigate(`/post/${postData?._id}`)}>
+                <div ref={buttonRef}>
                     <p className="content">{postData?.content}</p>
-                    {postData?.pic && <div className="post-img-container">
-                        <img src={postData?.pic} alt="" />
-                    </div>}
+                    {postData?.pic &&
+                    <div className="heart-modal-container">
+                        <div className="post-img-container">
+                            <img src={postData?.pic} alt="" />
+                        </div>
+                        {isHeartModalOpen && <div className="heart-modal">
+                            <AiFillHeart />
+                        </div> }
+                    </div>
+                    }
                 </div>
                 <div className="btn-container">
                     <div className="like-btn-container">
