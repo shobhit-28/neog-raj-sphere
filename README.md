@@ -43,4 +43,4 @@ $ npm start
 
 ## **Demo -**
 
-[file.mp4](src\resources\videos\raj-sphere-30-june-2023-1_YpobP6MU.mp4)
+https://github.com/shobhit-28/neog-raj-sphere/assets/92620327/917fcc67-10f9-4800-8caf-9558f2b88337
