@@ -89,6 +89,7 @@
     height: 255px;
     display: flex;
     cursor: pointer;
+    background-color: #000;
 }
 
 .profile-page .img-container .profile-pic-container {
