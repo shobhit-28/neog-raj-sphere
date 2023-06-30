@@ -155,7 +155,8 @@
 .post-card-container .post-card .heart-modal-container .heart-modal {
     font-size: 8rem;
     position: absolute;
-    color: rgba(0, 0, 0, 0.8);
+    color: #F9FBE7;
+    opacity: 0.9;
 }
 
 .post-card-container .post-card .btn-container {
