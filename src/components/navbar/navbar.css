@@ -97,6 +97,14 @@
     .post-modal-container .post-modal {
         width: 100% !important;
     }
+
+    .navbar .nav-head .home-icon {
+        display: block !important;
+    }
+    
+    .navbar .nav-head .nav-img-container {
+        display: none;
+    }
 }
 
 .navbar {
@@ -143,6 +151,10 @@
 .navbar .nav-head .nav-img-container {
     width: 2rem;
     margin-right: 0.5rem;
+}
+
+.navbar .nav-head .home-icon {
+    display: none;
 }
 
 .navbar .nav-links {

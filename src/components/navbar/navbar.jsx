@@ -8,6 +8,7 @@ import { BsPlusSquare } from 'react-icons/bs'
 import { TfiClose } from 'react-icons/tfi'
 import { RiImageAddLine } from 'react-icons/ri'
 import { IoIosCloseCircleOutline } from 'react-icons/io'
+import { AiTwotoneHome } from 'react-icons/ai'
 
 import { AuthContext } from '../../contexts/AuthContext'
 import { randomProfilePic } from '../../resources/randomImages/randomImages'
@@ -18,9 +19,9 @@ import { SmallLoader } from '../smallLoader/smallLoader'
 export const Navbar = () => {
     const navigate = useNavigate()
 
-    const { userData, isLoggedIn  } = useContext(AuthContext);
+    const { userData, isLoggedIn } = useContext(AuthContext);
     const { editedData, setIsMobileViewOpen, isPostModalOpen, setIsPostModalOpen } = useContext(UserDataContext)
-    const {createPost} = useContext(PostContext)
+    const { createPost } = useContext(PostContext)
 
     const [postInput, setPostInput] = useState({
         content: "",
@@ -123,7 +124,7 @@ export const Navbar = () => {
             ...postInput,
             postedBy: editedData
         })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userData])
 
     return (
@@ -131,6 +132,7 @@ export const Navbar = () => {
             <div className="navbar">
                 <div className="nav-upper-section">
                     <div className="nav-head" onClick={() => navHeadClickHandler()}>
+                        <p className="home-icon"><AiTwotoneHome /></p>
                         <div className="nav-img-container">
                             <img src={require('../../resources/images/raj-sphere.png')} alt="" className="nav-img" />
                         </div>
@@ -152,22 +154,22 @@ export const Navbar = () => {
                         </button>
                     </div>
                 </div>
-                {editedData?.firstName === undefined ? <SmallLoader /> : 
-                <div className="profile" onClick={() => profileNavHandler()}>
-                    <div className="profile-pic-container">
-                        <img src={editedData?.profile_pic
-                            ?
-                            editedData?.profile_pic
-                            :
-                            userData?.profile_pic?.length > 0
-                                ? userData?.profile_pic
-                                : randomProfilePic} alt="profile" className="profile-pic" />
-                    </div>
-                    <div className="content">
-                        <p className="profile-name">{`${editedData?.firstName} ${editedData?.lastName  !== undefined  ? editedData?.lastName : ''}`}</p>
-                        <p className="profile-username">{userData?.username}</p>
-                    </div>
-                </div>}
+                {editedData?.firstName === undefined ? <SmallLoader /> :
+                    <div className="profile" onClick={() => profileNavHandler()}>
+                        <div className="profile-pic-container">
+                            <img src={editedData?.profile_pic
+                                ?
+                                editedData?.profile_pic
+                                :
+                                userData?.profile_pic?.length > 0
+                                    ? userData?.profile_pic
+                                    : randomProfilePic} alt="profile" className="profile-pic" />
+                        </div>
+                        <div className="content">
+                            <p className="profile-name">{`${editedData?.firstName} ${editedData?.lastName !== undefined ? editedData?.lastName : ''}`}</p>
+                            <p className="profile-username">{userData?.username}</p>
+                        </div>
+                    </div>}
             </div>
             {isPostModalOpen &&
                 <div className="post-modal-container" onClick={() => closePostModal()}>
