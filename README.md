@@ -1,6 +1,6 @@
 <div align="center">
     
-# Raj-Kart
+# Raj-Sphere
   A Social Media website
 </div>
 

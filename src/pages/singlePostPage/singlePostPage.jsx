@@ -22,6 +22,22 @@ import { Loader } from "../../components/loader/loader";
 import { UserDataContext } from "../../contexts/userDataContext";
 import { randomProfilePic } from "../../resources/randomImages/randomImages";
 
+const urlRegex = /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/
+
+const ContentWithLink = ({ value }) => {
+    const words = value.split(' ');
+    return (
+        <p>
+            {words.map((word, index) => word.match(urlRegex)
+                ?
+                <a key={index} href={word} target="_blank" rel="noreferrer">{`${word} `}</a>
+                :
+                <span key={index}>{`${word} `}</span>
+            )}
+        </p>
+    )
+}
+
 export const SinglePostPage = () => {
     const { postId } = useParams();
     const profileId = JSON.parse(localStorage.getItem('userData'))?._id;
@@ -556,7 +572,7 @@ export const SinglePostPage = () => {
                             </div>
                         </div>
                         <div className="post-content" onDoubleClick={() => doubleClickHandler()} >
-                            <p className="content">{postData?.content}</p>
+                            <section className="content"><ContentWithLink value={postData?.content} /></section>
                             {postData?.pic &&
                                 <div className="heart-modal-container">
                                     <div className="content-img">

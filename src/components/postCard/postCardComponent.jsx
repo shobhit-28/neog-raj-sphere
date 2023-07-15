@@ -19,6 +19,22 @@ import { PostContext } from '../../contexts/PostContext'
 import { formatDate } from "../../backend/utils/authUtils";
 import useDoubleClick from "use-double-click";
 
+const urlRegex = /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-/]))?/
+
+const ContentWithLink = ({ value }) => {
+    const words = value.split(' ');
+    return (
+        <p>
+            {words.map((word, index) => word.match(urlRegex)
+                ?
+                <a key={index} href={word} target="_blank" rel="noreferrer">{`${word} `}</a>
+                :
+                <span key={index}>{`${word} `}</span>
+            )}
+        </p>
+    )
+}
+
 export const PostComponent = ({ postData }) => {
     const { editedData } = useContext(UserDataContext)
     const { editPost,
@@ -298,16 +314,16 @@ export const PostComponent = ({ postData }) => {
                         </div>}
                 </div>
                 <div ref={buttonRef}>
-                    <p className="content">{postData?.content}</p>
+                    <section className="content"><ContentWithLink value={postData?.content} /></section>
                     {postData?.pic &&
-                    <div className="heart-modal-container">
-                        <div className="post-img-container">
-                            <img src={postData?.pic} alt="" />
+                        <div className="heart-modal-container">
+                            <div className="post-img-container">
+                                <img src={postData?.pic} alt="" />
+                            </div>
+                            {isHeartModalOpen && <div className="heart-modal">
+                                <AiFillHeart />
+                            </div>}
                         </div>
-                        {isHeartModalOpen && <div className="heart-modal">
-                            <AiFillHeart />
-                        </div> }
-                    </div>
                     }
                 </div>
                 <div className="btn-container">

@@ -8,7 +8,7 @@ import { formatRandomCommentDate, formatRandomPostDate } from "../utils/authUtil
 export const posts = [
   {
     _id: "1",
-    content: "RajSphere is the best app 🎉",
+    content: "Checkout my new portfolio https://shobhit-raj.netlify.app/",
     pic: "",
     username: "shobhitraj",
     postedBy: {
