@@ -26,6 +26,7 @@ $ npm start
 - Like, Comment, Bookmark and Share posts
 - Edit and Delete posts
 - Like posts with double click
+- URL separation from text in post
 - Add new posts
 - Edit profile (except username)
 - Authentication:
