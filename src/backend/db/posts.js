@@ -41,7 +41,7 @@ export const posts = [
     comments: [
       {
         _id: "1",
-        content: "Yeah... I am using it",
+        content: "It's good",
         postId: "1",
         user: {
           _id: "3",
@@ -60,7 +60,7 @@ export const posts = [
               username: "shobhitraj",
               profile_pic: "https://pbs.twimg.com/profile_images/1266934374060052480/O3nYz9s-_400x400.jpg",
             },
-            content: "Ping me @ayush if you find any bug",
+            content: "Thanks",
           },
         ],
         createdAt: formatRandomCommentDate(),
@@ -68,7 +68,7 @@ export const posts = [
       },
       {
         _id: "2",
-        content: "I am also using it",
+        content: "Yeah! it's good",
         postId: "1",
         user: {
           _id: "2",
@@ -87,7 +87,7 @@ export const posts = [
               username: "shobhitraj",
               profile_pic: "https://pbs.twimg.com/profile_images/1266934374060052480/O3nYz9s-_400x400.jpg",
             },
-            content: "Ping me @mallick if you find any bug",
+            content: "Thanks",
           },
         ],
         createdAt: formatRandomCommentDate(),
