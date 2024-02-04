@@ -72,7 +72,7 @@ export const users = [
         firstName: "Shobhit",
         lastName: "Raj",
         username: "shobhitraj",
-        profile_pic: "https://pbs.twimg.com/profile_images/1266934374060052480/O3nYz9s-_400x400.jpg",
+        profile_pic: "https://pbs.twimg.com/profile_images/1742119092360998912/2G7XXDyq_400x400.jpg",
       },
       {
         _id: "5",
@@ -88,7 +88,7 @@ export const users = [
         firstName: "Shobhit",
         lastName: "Raj",
         username: "shobhitraj",
-        profile_pic: "https://pbs.twimg.com/profile_images/1266934374060052480/O3nYz9s-_400x400.jpg",
+        profile_pic: "https://pbs.twimg.com/profile_images/1742119092360998912/2G7XXDyq_400x400.jpg",
       },
       {
         _id: "5",
@@ -133,7 +133,7 @@ export const users = [
         firstName: "Shobhit",
         lastName: "Raj",
         username: "shobhitraj",
-        profile_pic: "https://pbs.twimg.com/profile_images/1266934374060052480/O3nYz9s-_400x400.jpg",
+        profile_pic: "https://pbs.twimg.com/profile_images/1742119092360998912/2G7XXDyq_400x400.jpg",
       }
     ],
     following: [
@@ -142,7 +142,7 @@ export const users = [
         firstName: "Shobhit",
         lastName: "Raj",
         username: "shobhitraj",
-        profile_pic: "https://pbs.twimg.com/profile_images/1266934374060052480/O3nYz9s-_400x400.jpg",
+        profile_pic: "https://pbs.twimg.com/profile_images/1742119092360998912/2G7XXDyq_400x400.jpg",
       },
       {
         _id: "4",
