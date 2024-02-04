@@ -14,7 +14,7 @@ export const users = [
     password: "shohehe",
     createdAt: formatDate(),
     updatedAt: formatDate(),
-    profile_pic: "https://pbs.twimg.com/profile_images/1266934374060052480/O3nYz9s-_400x400.jpg",
+    profile_pic: "https://pbs.twimg.com/profile_images/1742119092360998912/2G7XXDyq_400x400.jpg",
     cover_pic: "https://pbs.twimg.com/profile_banners/822058153051295745/1678301248/1500x500",
     link: "https://github.com/shobhit-28/",
     bio: "Software Developer",
